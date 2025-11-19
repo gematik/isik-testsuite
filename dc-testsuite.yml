@@ -2,7 +2,7 @@
 name: dc-testsuite-isik-3
 services:
   tiger-testsuite-isik:
-    image:  europe-west3-docker.pkg.dev/gematik-all-infra-prod/isik/isik3-testsuite:1.2.0-SNAPSHOT
+    image: europe-west3-docker.pkg.dev/gematik-all-infra-prod/isik/isik3-testsuite:latest
     container_name: isik3-testsuite
     ports:
       - "9010:9010"    # used for the WorkflowUi

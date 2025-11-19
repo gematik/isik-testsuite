@@ -1,5 +1,6 @@
 @Terminplanung
 @Optional
+@Communication
 @Communication-Create
 Feature: POST einer Communication-Ressource (@Communication-Create)
 

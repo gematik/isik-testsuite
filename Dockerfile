@@ -1,12 +1,12 @@
-# Git Args
-ARG COMMIT_HASH
-ARG VERSION
-
 # Project-specific Dockerfile
 
 #We recommend to use a base image of the same version as the tiger version you are using in your project.
 # This ensures that the tiger dependencies are already loaded into the local maven repository.
-FROM gematik1/tiger-testsuite-baseimage:3.7.7
+FROM gematik1/tiger-testsuite-baseimage:4.1.1
+
+# Git Args
+ARG COMMIT_HASH
+ARG VERSION
 
 LABEL de.gematik.vendor="gematik GmbH" \
       maintainer="software-development@gematik.de" \

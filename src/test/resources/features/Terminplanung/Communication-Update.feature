@@ -1,5 +1,6 @@
 @Terminplanung
 @Optional
+@Communication
 @Communication-Update
 Feature: UPDATE einer Communication-Ressource (@Communication-Update)
 

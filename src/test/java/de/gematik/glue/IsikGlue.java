@@ -7,17 +7,17 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *     http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
- * 
+ *
  * *******
- * 
+ *
  * For additional notes and disclaimer from gematik and in case of changes by gematik find details in the "Readme" file.
  * #L%
  */
@@ -52,12 +52,14 @@ public class IsikGlue {
   private final FhirPathValidationGlue fhirPathValidationGlue = new FhirPathValidationGlue();
   private final HttpGlueCode httpGlueCode = new HttpGlueCode();
 
+  @Given("Test Description: {string}")
   @Given("Testbeschreibung: {string}")
   public void printDescription(String description) {
     String resolvedDescription = TigerGlobalConfiguration.resolvePlaceholders(description);
     log.debug(resolvedDescription);
   }
 
+  @Given("With the Preconditions:")
   @Given("Mit den Vorbedingungen:")
   public void configureInitialState(String initialState) {
     String resolvedInitialState = TigerGlobalConfiguration.resolvePlaceholders(initialState);
@@ -76,7 +78,7 @@ public class IsikGlue {
     rBelValidatorGlue.currentResponseMessageAttributeMatches(
         "$.header.Content-Type", "application/fhir\\+" + contentType + ".*");
     rBelValidatorGlue.currentResponseMessageAttributeMatches(
-            "$.header.Content-Type", "(?i).*charset=UTF-8");
+        "$.header.Content-Type", "(?i).*charset=UTF-8");
   }
 
   @And("CapabilityStatement contains operation {string} for resource {string}")

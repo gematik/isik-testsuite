@@ -2,6 +2,18 @@
 
 # Release Notes ISiK Stufe 3 Test Suite
 
+## Release 1.3.0
+
+### added
+- New Tag for the execution of the optional `Terminplanung` Communication tests: `@Communication`
+
+### changed
+- Test Scenario `Binary-Create` is now optional and executed only when the tag `@Communication` is provided
+- Updated TIGER Framework to version 4.1.1
+
+### fixed
+- Matching Content-Type Charset in HTTP Headers is now case insensitive
+
 ## Release 1.2.0 (2025-05-06)
 
 ### added
@@ -9,8 +21,7 @@
 - docker image for the testsuite
 
 ### changed
-- Syncronized test cases with [TITUS Release 3.6.3](https://wiki.gematik.de/spaces/EPA/pages/459883044/ISiK+Testmodul+in+Titus+-+Release+Notes)
-
+- Synchronized test cases with [TITUS Release 3.6.3](https://wiki.gematik.de/spaces/EPA/pages/459883044/ISiK+Testmodul+in+Titus+-+Release+Notes)
 
 ## Release 1.1.0 (2024-08-30)
 

@@ -2,7 +2,7 @@ servers:
   fhirserver:
     type: externalUrl
     source:
-      - http://localhost:9032
+      - http://localhost:8080/fhir
     #  - http://example.org:9032/some/path/to/endpoint
     # when you use the fhirserver as a docker image
     #  - http://fhirserverImage:9032
@@ -12,9 +12,9 @@ servers:
 tigerProxy: # https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_configuring_the_local_test_suite_tiger_proxy
   adminPort: 9011
 # Activate and adjust the configuration below if the SUT endpoint contains a URL path, e.g. /some/path/to/endpoint
-#  proxyRoutes:
-#    - from: "http://fhirserver"
-#      to: "https://example.org:9032/some/path/to/endpoint"
+  proxyRoutes:
+    - from: "http://fhirserver"
+      to: "http://localhost:8080/fhir"
 # Optional authentication (basic or bearer), cf. https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#authentication
 #      authentication:
 #        username: "pass"

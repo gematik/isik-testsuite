@@ -1,5 +1,6 @@
 @Terminplanung
 @Optional
+@Communication
 @Communication-Search
 Feature: Testen von Suchparametern gegen die Communication Ressource (@Communication-Search)
 

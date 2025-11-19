@@ -1,5 +1,6 @@
 @Terminplanung
-@Mandatory
+@Optional
+@Communication
 @Binary-Create
 Feature: POST Binary-Ressource (@Binary-Create)
 
@@ -8,7 +9,7 @@ Feature: POST Binary-Ressource (@Binary-Create)
     Given Testbeschreibung: "Das zu testende System MUSS die Ressource intern erstellen."
     Given Mit den Vorbedingungen:
     """
-      - Keine Vorbedingungen
+      - Die Testfälle für die Communication-Ressourcen müssen ausgeführt werden.
     """
 
   Scenario: Read und Validierung des CapabilityStatements

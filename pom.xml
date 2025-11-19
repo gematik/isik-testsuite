@@ -6,27 +6,27 @@
 
     <groupId>de.gematik</groupId>
     <artifactId>tiger-integration-isik-stufe-3</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tiger.version>3.7.9</tiger.version>
-        <tiger.fhir.version>1.2.8</tiger.fhir.version>
-        <tiger-cloud-extension.version>3.7.6</tiger-cloud-extension.version>
-        <junit5.version>5.11.4</junit5.version>
-        <spotless-maven-plugin.version>2.44.3</spotless-maven-plugin.version>
-        <spotless.google-java-format.version>1.18.1</spotless.google-java-format.version>
-        <lombok.version>1.18.36</lombok.version>
-        <logback.version>1.5.17</logback.version>
+        <tiger.version>4.1.1</tiger.version>
+        <tiger.fhir.version>1.2.13</tiger.fhir.version>
+        <tiger-cloud-extension.version>10.0.18</tiger-cloud-extension.version>
+        <spotless-maven-plugin.version>3.0.0</spotless-maven-plugin.version>
+        <spotless.google-java-format.version>1.32.0</spotless.google-java-format.version>
+        <lombok.version>1.18.42</lombok.version>
+        <logback.version>1.5.21</logback.version>
         <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
-        <maven-failsafe-plugin.version>3.5.2</maven-failsafe-plugin.version>
-        <license-maven-plugin.version>2.5.0</license-maven-plugin.version>
+        <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
+        <license-maven-plugin.version>2.7.0</license-maven-plugin.version>
         <ospo-resources.version>1.3.0</ospo-resources.version>
         <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
-        <junit-platform-engine.version>1.9.3</junit-platform-engine.version>
-        <exec-maven-plugin.version>3.1.0</exec-maven-plugin.version>
+        <junit-platform-engine.version>6.0.1</junit-platform-engine.version>
+        <exec-maven-plugin.version>3.6.2</exec-maven-plugin.version>
+        <commons-lang3.version>3.20.0</commons-lang3.version>
     </properties>
 
     <profiles>
@@ -210,7 +210,11 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>
