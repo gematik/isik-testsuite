@@ -6,7 +6,7 @@
 
     <groupId>de.gematik</groupId>
     <artifactId>tiger-integration-isik-stufe-3</artifactId>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -15,14 +15,14 @@
         <tiger.version>4.1.1</tiger.version>
         <tiger.fhir.version>1.2.13</tiger.fhir.version>
         <tiger-cloud-extension.version>10.0.18</tiger-cloud-extension.version>
-        <spotless-maven-plugin.version>3.0.0</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>3.1.0</spotless-maven-plugin.version>
         <spotless.google-java-format.version>1.32.0</spotless.google-java-format.version>
         <lombok.version>1.18.42</lombok.version>
         <logback.version>1.5.21</logback.version>
         <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
         <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
         <license-maven-plugin.version>2.7.0</license-maven-plugin.version>
-        <ospo-resources.version>1.3.0</ospo-resources.version>
+        <ospo-resources.version>1.3.2</ospo-resources.version>
         <properties-maven-plugin.version>1.2.1</properties-maven-plugin.version>
         <junit-platform-engine.version>6.0.1</junit-platform-engine.version>
         <exec-maven-plugin.version>3.6.2</exec-maven-plugin.version>
@@ -86,7 +86,7 @@
                             <dependency>
                                 <groupId>de.gematik.test</groupId>
                                 <artifactId>tiger-testsuite-validator</artifactId>
-                                <version>RELEASE</version>
+                                <version>1.1.8</version>
                             </dependency>
                         </dependencies>
                     </plugin>
@@ -109,6 +109,9 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-assembly-plugin</artifactId>
                         <version>${maven-assembly-plugin.version}</version>
+                        <configuration>
+                            <finalName>bundle</finalName>
+                        </configuration>
                         <executions>
                             <execution>
                                 <configuration>
@@ -329,7 +332,8 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <appendAssemblyId>true</appendAssemblyId>
+                            <finalName>debug-report</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
                                 <descriptor>src/test/assembly/zip-debug-report.xml</descriptor>
                             </descriptors>
@@ -342,7 +346,8 @@
                             <goal>single</goal>
                         </goals>
                         <configuration>
-                            <appendAssemblyId>true</appendAssemblyId>
+                            <finalName>test-report</finalName>
+                            <appendAssemblyId>false</appendAssemblyId>
                             <descriptors>
                                 <descriptor>src/test/assembly/zip-test-report.xml</descriptor>
                             </descriptors>

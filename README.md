@@ -116,13 +116,13 @@ docker compose -f dc-testsuite.yml up
 
 Right after starting a test suite a browser window will open, which provides an overview of the testing progress. If using Tiger in Docker, please navigate to http://localhost:9010 manually. See [Tiger Workflow UI](https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_tiger_user_interfaces) for further information about the user interface. To run the test suite without the GUI, e.g. within a CI/CD pipeline, set the configuration element `lib.activateWorkflowUi` to `false` in the `tiger.yaml` configuration file.
 
-After the test suite finishes the archived test results can be found in `tiger-integration-isik-stufe-3-VERSION-debug-report.zip` file (take notice of the `debug-report` suffix) or `target/site/serenity/index.html` in case of a Maven run.
+After the test suite finishes the archived test results can be found in `debug-report.zip` file (take notice of the `debug-report` suffix) or `target/site/serenity/index.html` in case of a Maven run.
 
 > **Warning**
 > Each test run deletes the reports of the previous run. Backup the created reports if you need them in the future.
 
 ## Submitting test results as part of the ISiK certification process
-The artifact  `target/tiger-integration-isik-stufe-3-VERSION-test-report.zip` is required to apply for the [ISiK conformance certificate](https://fachportal.gematik.de/informationen-fuer/isik/bestaetigungsverfahren-isik) (take notice of the `test-report` suffix). Please [get an account](https://fachportal.gematik.de/gematik-onlineshop/titus?ai%5Baction%5D=detail&ai%5Bcontroller%5D=Catalog&ai%5Bd_name%5D=111&ai%5Bd_pos%5D=2) to the TITUS platform and upload the report into the corresponding submission form.
+The artifact  `target/test-report.zip` is required to apply for the [ISiK conformance certificate](https://fachportal.gematik.de/informationen-fuer/isik/bestaetigungsverfahren-isik) (take notice of the `test-report` suffix). Please [get an account](https://fachportal.gematik.de/gematik-onlineshop/titus?ai%5Baction%5D=detail&ai%5Bcontroller%5D=Catalog&ai%5Bd_name%5D=111&ai%5Bd_pos%5D=2) to the TITUS platform and upload the report into the corresponding submission form.
 
 > **Warning**
 > Each test run deletes the reports of the previous run. Backup the created reports if you need them in the future.

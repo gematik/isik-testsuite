@@ -2,6 +2,12 @@
 
 # Release Notes ISiK Stufe 3 Test Suite
 
+## Release 1.3.1
+
+### changed
+- Renamed Test Report archive to `test-report.zip`
+- Updated Licenses
+
 ## Release 1.3.0
 
 ### added
