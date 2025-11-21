@@ -5,10 +5,10 @@ Feature: POST einer DocumentReference (Dokumentenbereitstellung) (@DocumentRefer
 
   @vorbedingung
   Scenario: Vorbedingung
-    Given Testbeschreibung: "Das zu testende System MUSS die in der DocumentReference hinterlegten Patienten und Encounter mittels Identifier auflösen können. Das  eingebettete Dokument MUSS herausgelöst, separat persistiert und über den Binary-Endpunkt der API abrufbar gemacht werden."
+    Given Testbeschreibung: "Das zu testende System MUSS die in der DocumentReference hinterlegten Patienten und Encounter mittels Identifier auflösen können. Das eingebettete Dokument MUSS herausgelöst, separat persistiert und über den Binary-Endpunkt der API abrufbar gemacht werden."
     Given Mit den Vorbedingungen:
       """
-       - Der Testfall DocumentReference-Read muss zuvor erfolgreich ausgeführt worden sein.
+       - Die ID von masterIdentifier des zu verwendenden Patienten muss in der Konfigurationsvariable 'documentreference-post-master-identifier-value' hinterlegt sein.
       """
 
   Scenario: Read und Validierung des CapabilityStatements
@@ -22,7 +22,7 @@ Feature: POST einer DocumentReference (Dokumentenbereitstellung) (@DocumentRefer
     Then TGR current response with attribute "$.responseCode" matches "20\d"
 #  Caution! The following checks assume, that a representation of the new resource has been returned directly in the response. This is guaranteed by the createOperation which sends the header 'Prefer: return=representation' internally
     And FHIR current response body is a valid isik3-dokumentenaustausch resource and conforms to profile "https://gematik.de/fhir/isik/v3/Dokumentenaustausch/StructureDefinition/ISiKDokumentenMetadaten"
-    And FHIR current response body evaluates the FHIRPath "masterIdentifier.where(system = 'urn:ietf:rfc:3986' and value = 'urn:oid:1.2.840.113556.1.8000.2554.58783.21864.3474.19410.44358.58254.41281.11111').exists()" with error message 'Die versionsspezifische OID des Dokumentes entspricht nicht dem Erwartungswert'
+    And FHIR current response body evaluates the FHIRPath "masterIdentifier.where(system = 'urn:ietf:rfc:3986' and value = '${data.documentreference-post-master-identifier-value}').exists()" with error message 'Die versionsspezifische OID des Dokumentes entspricht nicht dem Erwartungswert'
     And FHIR current response body evaluates the FHIRPath "identifier.where(system = 'urn:uuid:96fdda7c-d067-4183-912e-bf5ee74998a8' and value = '129.6.58.42.11111').exists()" with error message 'Der Identifier entspricht nicht dem Erwartungswert'
     And TGR current response with attribute "$.body.status.content" matches "current"
     And TGR current response with attribute "$.body.docStatus.content" matches "final"
@@ -47,6 +47,6 @@ Feature: POST einer DocumentReference (Dokumentenbereitstellung) (@DocumentRefer
 
     Examples:
       |  inputFile                                                 | responseCode |
-      |  DocumentReference-Post-UnknownPatient.json     |    422       |
-      |  DocumentReference-Post-UnknownEncounter.json   |    422       |
-      |  DocumentReference-Post-MissingAttachmentData.json        |    4\d\d     |
+      |  DocumentReference-Post-UnknownPatient.json                |    422       |
+      |  DocumentReference-Post-UnknownEncounter.json              |    422       |
+      |  DocumentReference-Post-MissingAttachmentData.json         |    4\d\d     |

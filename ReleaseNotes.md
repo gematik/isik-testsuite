@@ -2,6 +2,14 @@
 
 # Release Notes ISiK Stufe 3 Test Suite
 
+## Release 1.3.2
+
+### changed
+- The `DocumentReference-Post` testcase now allows the configuration of a custom `masterIdentifier` via the `testdata/dokumentenaustausch.yaml` file.
+
+### fixed
+- Removed the precondition from the `DocumentReference-Post` testcase to require the execution of the `DocumentReference-Read` one.
+
 ## Release 1.3.1
 
 ### changed
