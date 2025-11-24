@@ -2,6 +2,11 @@
 
 # Release Notes ISiK Stufe 3 Test Suite
 
+## Release 1.4.0
+
+### changed
+- HTTP Headers are now verified case insensitive
+
 ## Release 1.3.2
 
 ### changed

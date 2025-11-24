@@ -26,7 +26,7 @@ Feature: Lesen der Ressource ValueSet (ValueSet-Read)
     Then Get FHIR resource at "http://fhirserver/ValueSet/${data.valueset-read-id}" with content type "xml"
     Then TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
-    And TGR current response with attribute "$.header.Content-Type" matches "application/fhir\+xml;charset=(?i)UTF-8"
+    And TGR current response with attribute "$.header[~'content-type']" matches "application/fhir\+xml;charset=(?i)UTF-8"
     And resource has ID "${data.valueset-read-id}"
     And FHIR current response body is a valid isik3-basismodul resource and conforms to profile "https://gematik.de/fhir/isik/v3/Basismodul/StructureDefinition/ISiKValueSet"
     And TGR current response with attribute "$..status.value" matches "active"

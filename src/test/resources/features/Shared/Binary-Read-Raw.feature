@@ -17,5 +17,5 @@ Feature: Lesen der Ressource Binary im nativen Format (@Binary-Read-Raw)
         | Accept | text/plain |
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
-    And TGR current response with attribute "$.header.Content-Type" matches "text/plain"
+    And TGR current response with attribute "$.header[~'content-type']" matches "text/plain"
     And TGR current response with attribute "$.body" matches "Test"

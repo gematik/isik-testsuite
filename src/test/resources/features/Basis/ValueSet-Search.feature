@@ -27,7 +27,7 @@ Feature: Testen von Suchparametern gegen die ValueSet Ressource (@ValueSet-Searc
     Then Get FHIR resource at "http://fhirserver/ValueSet/?_id=${data.valueset-read-id}" with content type "xml"
     Then TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
-    And TGR current response with attribute "$.header.Content-Type" matches "application/fhir\+xml;charset=(?i)UTF-8"
+    And TGR current response with attribute "$.header[~'content-type']" matches "application/fhir\+xml;charset=(?i)UTF-8"
     And response bundle contains resource with ID "${data.valueset-read-id}" with error message "Das gesuchte ValueSet ${data.valueset-read-id} ist nicht im Responsebundle enthalten"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
     And Check if current response of resource "ValueSet" is valid isik3-basismodul resource and conforms to profile "https://gematik.de/fhir/isik/v3/Basismodul/StructureDefinition/ISiKValueSet"

@@ -77,9 +77,9 @@ public class IsikGlue {
     rBelValidatorGlue.findLastRequest();
     rBelValidatorGlue.currentResponseMessageAttributeMatches("$.responseCode", "200");
     rBelValidatorGlue.currentResponseMessageAttributeMatches(
-        "$.header.Content-Type", "application/fhir\\+" + contentType + ".*");
+        "$.header[~'content-type']", "application/fhir\\+" + contentType + ".*");
     rBelValidatorGlue.currentResponseMessageAttributeMatches(
-        "$.header.Content-Type", "(?i).*charset=UTF-8");
+        "$.header[~'content-type']", "(?i).*charset=UTF-8");
   }
 
   @And("CapabilityStatement contains operation {string} for resource {string}")
