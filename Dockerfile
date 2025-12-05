@@ -2,7 +2,7 @@
 
 #We recommend to use a base image of the same version as the tiger version you are using in your project.
 # This ensures that the tiger dependencies are already loaded into the local maven repository.
-FROM gematik1/tiger-testsuite-baseimage:4.1.1
+FROM gematik1/tiger-testsuite-baseimage:4.1.7
 
 # Git Args
 ARG COMMIT_HASH

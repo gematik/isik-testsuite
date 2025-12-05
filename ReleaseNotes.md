@@ -2,6 +2,14 @@
 
 # Release Notes ISiK Stufe 3 Test Suite
 
+## Release 1.5.0
+
+### changed
+- Updated TIGER Framework to version 4.1.9
+- Updated ISIK3 Plugins to latest versions of Specifications (3.1.1)
+- The Test-Case Appointment-Book has now an `@Optional` testcase for testing the booking with a specialty slice using a IHE `AerztlicheFachrichtungen` code.
+  - If your server does not support this, run the test cases by providing the parameter `not @Optional`
+
 ## Release 1.4.0
 
 ### changed

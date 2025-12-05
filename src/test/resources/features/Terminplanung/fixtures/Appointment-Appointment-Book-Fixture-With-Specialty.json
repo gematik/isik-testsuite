@@ -1,0 +1,69 @@
+{
+  "resourceType": "Appointment",
+  "id": "Appointment-Book-Fixture-With-Specialty",
+  "meta": {
+    "tag": [
+      {
+        "code": "external",
+        "system": "http://fhir.de/CodeSystem/common-meta-tag-de"
+      }
+    ],
+    "profile": [
+      "https://gematik.de/fhir/isik/v3/Terminplanung/StructureDefinition/ISiKTermin"
+    ]
+  },
+  "status": "proposed",
+  "start": "2026-01-01T11:00:00Z",
+  "end": "2026-01-01T12:00:00Z",
+  "comment": "Dies ist ein Test Kommentar!",
+  "serviceType": [
+    {
+      "coding": [
+        {
+          "system": "${data.appointment-book-servicetype-system}",
+          "code": "${data.appointment-book-servicetype-code}"
+        }
+      ]
+    }
+  ],
+  "slot": [
+    {
+      "reference": "Slot/${data.appointment-book-slot-id}"
+    }
+  ],
+  "specialty": [
+    {
+      "coding": [
+        {
+          "code": "NEUR",
+          "system": "http://ihe-d.de/CodeSystems/AerztlicheFachrichtungen"
+        }
+      ]
+    }
+  ],
+  "participant": [
+    {
+      "actor": {
+        "reference": "Patient/${data.terminplanung-patient-id}",
+        "display": "Test Patient"
+      },
+      "status": "accepted"
+    }
+  ],
+  "patientInstruction": "Bitte nüchtern erscheinen",
+  "_priority": {
+    "extension": [
+      {
+        "url": "https://gematik.de/fhir/isik/v3/Terminplanung/StructureDefinition/ISiKTerminPriorityExtension",
+        "valueCodeableConcept": {
+          "coding": [
+            {
+              "code": "394848005",
+              "system": "http://snomed.info/sct"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

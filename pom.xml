@@ -6,15 +6,15 @@
 
     <groupId>de.gematik</groupId>
     <artifactId>tiger-integration-isik-stufe-3</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <tiger.version>4.1.1</tiger.version>
+        <tiger.version>4.1.10</tiger.version>
         <tiger.fhir.version>1.2.13</tiger.fhir.version>
-        <tiger-cloud-extension.version>10.0.18</tiger-cloud-extension.version>
+        <tiger-cloud-extension.version>4.0.9</tiger-cloud-extension.version>
         <spotless-maven-plugin.version>3.1.0</spotless-maven-plugin.version>
         <spotless.google-java-format.version>1.32.0</spotless.google-java-format.version>
         <lombok.version>1.18.42</lombok.version>
