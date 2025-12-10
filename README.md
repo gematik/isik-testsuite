@@ -25,6 +25,9 @@
   </ol>
 </details>
 
+## Notice
+This repository will be soon not maintained anymore, we are migrating to the new GitHub Repository [isik-testsuite](https://github.com/gematik/isik-testsuite).
+
 ## About The Project
 This is a test suite for conformance tests of the ISiK Stufe 3 specification modules:
 

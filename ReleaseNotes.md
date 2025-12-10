@@ -2,6 +2,11 @@
 
 # Release Notes ISiK Stufe 3 Test Suite
 
+## Release 1.5.2
+
+### fixed
+- Resolving evaluation of Content-Type as case-insensitive
+
 ## Release 1.5.1
 
 ### changed
@@ -18,7 +23,7 @@
 ## Release 1.4.0
 
 ### changed
-- HTTP Headers are now verified case insensitive
+- HTTP Headers are now verified case-insensitive
 
 ## Release 1.3.2
 
