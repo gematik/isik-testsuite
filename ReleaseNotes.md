@@ -2,6 +2,16 @@
 
 # Release Notes
 
+## Release 2.1.0
+
+### added
+- Test Cases for ISiK Level 5 Basis Module
+
+### changed
+- Renamed Tiger YAML Configuration files into `tiger-isik-stufe3.yaml` and `tiger-isik-stufe5.yaml`
+- Renamed Maven Profiles into `stufe3` and `stufe5`
+- Updated libraries
+
 ## Release 2.0.0
 
 ### changed
@@ -12,7 +22,7 @@
 - Updated libraries
 
 ### added
-- Initial setup for ISiK Level 5 Test Cases (not yet implemented)
+- Initial setup for ISiK Level 5 Test Cases (Basis Module)
 
 ## Release 1.5.2
 

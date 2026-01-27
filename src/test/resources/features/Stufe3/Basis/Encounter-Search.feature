@@ -173,7 +173,7 @@ Feature: Testen von Suchparametern gegen encounter-read-in-progress (@Encounter-
     # encounter-read-finished-id hat in Testdaten das Enddatum 2021-02-13, darf daher im Suchergebnis nicht auftauchen
     And bundle does not contain resource "Encounter" with ID "${data.encounter-read-finished-id}" with error message "Der gesuchte Encounter ${data.encounter-read-finished-id} darf hier nicht zurückgegeben werden"
 
-  Scenario: Suche des Encounters anhand des Aufnahmedatums mit bden beiden Suchparametern date-start und end-date
+  Scenario: Suche des Encounters anhand des Aufnahmedatums mit den beiden Suchparametern date-start und end-date
     Then Get FHIR resource at "http://fhirserver/Encounter/?date-start=ge2021-02-11&end-date=le2021-02-14" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'Es wurden keine Suchergebnisse gefunden'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(period.start > @2021-02-11T00:00:00+01:00 and period.end < @2021-02-14T23:59:59+01:00).allTrue()" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'

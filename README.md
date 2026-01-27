@@ -26,17 +26,17 @@
 </details>
 
 ## About The Project
-This is a test suite for conformance tests of the ISiK specification modules, for both Level 3 and 5:
+This is a test suite for conformance tests of the ISiK specification modules, for both Stufe 3 and 5:
 
-- Level 3
+- Stufe 3
   - [Basis](https://simplifier.net/guide/isik-basis-v3?version=current)
   - [Medikation](https://simplifier.net/guide/isik-medikation-v3?version=current)
   - [Terminplanung](https://simplifier.net/guide/isik-terminplanung-v3?version=current)
   - [Dokumentenaustausch](https://simplifier.net/guide/isik-dokumentenaustausch-v3?version=current)
   - [Vitalparameter und Körpermaße](https://simplifier.net/guide/isik-vitalparamater-v3?version=current)
-- [Level 5](https://simplifier.net/isik-stufe-5/~guides)
+- [Stufe 5](https://simplifier.net/isik-stufe-5/~guides)
   
-As default, Tests will be executed for the Level 5 of the specification. To run tests for Level 3 instead, you need to explicitly select the tag `@Stufe3`.
+As default, Tests will be executed for the Stufe 5 of the specification. To run tests for Stufe 3 instead, you need to explicitly select the tag `@Stufe3`.
 
 ### Release Notes
 See [ReleaseNotes.md](./ReleaseNotes.md) for all information regarding the (newest) releases.
@@ -48,14 +48,14 @@ See [ReleaseNotes.md](./ReleaseNotes.md) for all information regarding the (newe
 To run the test suite you need the following components:
 
 1. This test suite, which you can get either by cloning this repository or downloading the latest release.
-2. An ISiK resource server (System under Test, SUT) that is compliant with one of the ISiK Level 3 or Level 5 specification modules.
+2. An ISiK resource server (System under Test, SUT) that is compliant with one of the ISiK Stufe 3 or Stufe 5 specification modules.
 
 Operating system requirements: cf. [Tiger Framework OS requirements](https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_requirements)
 
 ### Installation
 
 #### Test environment
-Configure the endpoint of the SUT using the configuration element `servers.fhirserver.source` in the `tiger.yaml` configuration file. Example:
+Configure the endpoint of the SUT using the configuration element `servers.fhirserver.source` in the `tiger-isik-stufe3.yaml` or `tiger-isik-stufe5.yaml`  configuration file. Example:
 
 ```yaml
 servers:
@@ -66,7 +66,7 @@ servers:
       - http://localhost:9032
 ```
 
-See examples for different configuration options in the [tiger.yaml](./tiger.yaml) or check the official [Tiger documentation](https://gematik.github.io/app-Tiger/Tiger-User-Manual.html) 
+See examples for different configuration options in the [tiger.yaml for ISIK Stufe 3](tiger-isik-stufe3.yaml), [tiger.yaml for ISIK Stufe 5](tiger-isik-stufe5.yaml) or check the official [Tiger documentation](https://gematik.github.io/app-Tiger/Tiger-User-Manual.html) 
 
 #### Test resources
 
@@ -86,7 +86,7 @@ patient-read-id: Patient-Read-Example
 
 ### Using Maven
 
-Edit the file `.env` to select the test cases you want to run (see [.env](./env) for examples). The default value is all tests from the ISIK basis module. 
+Edit the file `.env` to select the test cases you want to run (see [.env](./env) for examples). The default value is all tests from the ISIK basis module, for the specification level 3 (Stufe 3). 
 
 Afterward call Maven to execute the tests:
 
@@ -98,14 +98,14 @@ mvn clean verify
 
 If using the tiger testsuite behind a proxy provide the proxy configuration at the following places:
 1. Maven configuration ([official documentation](https://maven.apache.org/guides/mini/guide-proxies.html).
-2. `tiger.yaml` (`forwardToProxy` configuration block)
+2. `tiger-isik-stufe3.yaml` or `tiger-isik-stufe5.yaml` (`forwardToProxy` configuration block)
 
 ### Using Docker
 
 The testsuite is also distributed as a [docker image](https://hub.docker.com/r/gematik1/isik-testsuite). Make sure, the docker environment has a connection to the SUT (configure [docker proxy settings](https://docs.docker.com/engine/cli/proxy/) if needed). 
 
 To use the image, download and adjust the following files according to your test environment:
-* `tiger.yaml` (configuration of the test environment and test framework)
+* `tiger-isik-stufe3.yaml` or `tiger-isik-stufe5.yaml`  (configuration of the test environment and test framework)
 * `dc-testsuite.yml` (configuration of the docker container)
 * `.env` (configuration of the test suite)
 * `testdata/*.yaml` (configuration of test data per module)
@@ -118,7 +118,7 @@ docker compose -f dc-testsuite.yml up
 
 ## Inspecting test results
 
-Right after starting a test suite a browser window will open, which provides an overview of the testing progress. If using Tiger in Docker, please navigate to http://localhost:9010 manually. See [Tiger Workflow UI](https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_tiger_user_interfaces) for further information about the user interface. To run the test suite without the GUI, e.g. within a CI/CD pipeline, set the configuration element `lib.activateWorkflowUi` to `false` in the `tiger.yaml` configuration file.
+Right after starting a test suite a browser window will open, which provides an overview of the testing progress. If using Tiger in Docker, please navigate to http://localhost:9010 manually. See [Tiger Workflow UI](https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_tiger_user_interfaces) for further information about the user interface. To run the test suite without the GUI, e.g. within a CI/CD pipeline, set the configuration element `lib.activateWorkflowUi` to `false` in the `tiger-isik-stufe3.yaml` or `tiger-isik-stufe5.yaml`  configuration file.
 
 After the test suite finishes the archived test results can be found in `debug-report.zip` file (take notice of the `debug-report` suffix) or `target/site/serenity/index.html` in case of a Maven run.
 

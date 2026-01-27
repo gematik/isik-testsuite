@@ -32,7 +32,6 @@ Feature: Lesen der Ressource Coverage (@Coverage-Read-Statutory)
     And resource has ID "${data.coverage-read-statutory-id}"
     And FHIR current response body evaluates the FHIRPath "type.coding.where(system='http://fhir.de/CodeSystem/versicherungsart-de-basis' and code = 'GKV').exists()" with error message 'Der Typ entspricht nicht dem Erwartungswert'
     And element "beneficiary" references resource with ID "${data.patient-read-id}" with error message "Referenzierter Patient entspricht nicht dem Erwartungswert"
-
     And TGR current response with attribute "$..status.value" matches "active"
     And FHIR current response body evaluates the FHIRPath "payor.identifier.type.coding.where(system = 'http://terminology.hl7.org/CodeSystem/v2-0203' and code = 'XX').exists()" with error message 'Der Typ des Identifiers des Versicherers entspricht nicht dem Erwartungswert'
     And FHIR current response body evaluates the FHIRPath "payor.identifier.where(system = 'http://fhir.de/sid/arge-ik/iknr' and value = '108018007').exists()" with error message 'Der Identifier des Versicherers entspricht nicht dem Erwartungswert'

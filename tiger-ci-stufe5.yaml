@@ -1,0 +1,31 @@
+servers:
+  fhirserver:
+    type: externalUrl
+    source:
+      - http://${TIGER_DOCKER_HOST}:${MOCK_SERVER_CONTAINER_PORT}/fhir
+
+tigerProxy: # https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_configuring_the_local_test_suite_tiger_proxy
+  adminPort: 9011
+  # Activate and adjust the configuration below if the SUT endpoint contains a URL path, e.g. /some/path/to/endpoint
+  proxyRoutes:
+    - from: "http://fhirserver"
+      to: http://${TIGER_DOCKER_HOST}:${MOCK_SERVER_CONTAINER_PORT}/fhir
+
+lib:
+  activateWorkflowUi: false
+
+logging:
+  level:
+    de.gematik.rbellogger.converter: WARN
+
+additionalConfigurationFiles:
+  - filename: testdata/Stufe5/basis.yaml
+    baseKey: data
+  - filename: testdata/Stufe5/dokumentenaustausch.yaml
+    baseKey: data
+  - filename: testdata/Stufe5/medikation.yaml
+    baseKey: data
+  - filename: testdata/Stufe5/terminplanung.yaml
+    baseKey: data
+  - filename: testdata/Stufe5/vitalparameter.yaml
+    baseKey: data

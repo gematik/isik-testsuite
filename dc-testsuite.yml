@@ -7,7 +7,7 @@ services:
       - "9010:9010"    # used for the WorkflowUi
       - "9011:9011"    # used for the tiger proxy log
     volumes:
-      - ./tiger.yaml:/app/tiger.yaml:ro
+      - ./tiger-isik-stufe3.yaml:/app/tiger.yaml:ro
       - ./target:/app/report:rw
       - ./testdata:/app/testdata:ro
       - ./.env:/app/.env:ro

@@ -2,7 +2,7 @@
  * #%L
  * tiger-integration-isik
  * %%
- * Copyright (C) 2025 gematik GmbH
+ * Copyright (C) 2025 - 2026 gematik GmbH
  * %%
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,12 +26,14 @@ package de.gematik.glue;
 
 import ca.uhn.fhir.context.FhirContext;
 import de.gematik.refv.commons.validation.ValidationModule;
+import de.gematik.test.tiger.common.config.TigerConfigurationKeys;
 import de.gematik.test.tiger.common.config.TigerGlobalConfiguration;
 import de.gematik.test.tiger.glue.HttpGlueCode;
 import de.gematik.test.tiger.glue.RBelValidatorGlue;
 import de.gematik.test.tiger.glue.fhir.FhirPathValidationGlue;
 import de.gematik.test.tiger.glue.fhir.StaticFhirValidationGlue;
 import io.cucumber.java.After;
+import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -53,14 +55,23 @@ public class IsikGlue {
   private final FhirPathValidationGlue fhirPathValidationGlue = new FhirPathValidationGlue();
   private final HttpGlueCode httpGlueCode = new HttpGlueCode();
 
-  @Given("Test Description: {string}")
+  /**
+   * Resets the custom failure message before the execution of each scenario to avoid interference
+   * between tests.
+   */
+  @Before
+  public void beforeScenario() {
+    TigerConfigurationKeys.CUSTOM_FAILURE_MESSAGE.clearValue();
+  }
+
+  @Given("the Test Description: {string}")
   @Given("Testbeschreibung: {string}")
   public void printDescription(String description) {
     String resolvedDescription = TigerGlobalConfiguration.resolvePlaceholders(description);
     log.debug(resolvedDescription);
   }
 
-  @Given("With the Preconditions:")
+  @Given("the Preconditions:")
   @Given("Mit den Vorbedingungen:")
   public void configureInitialState(String initialState) {
     String resolvedInitialState = TigerGlobalConfiguration.resolvePlaceholders(initialState);
@@ -83,7 +94,7 @@ public class IsikGlue {
   }
 
   @And("CapabilityStatement contains operation {string} for resource {string}")
-  public void checkCapacilityStatementContainsOperationForResourceType(
+  public void checkCapabilityStatementContainsOperationForResourceType(
       String operation, String resourceType) {
     fhirPathValidationGlue.tgrCurrentResponseBodyEvaluatesTheFhirPath(
         String.format(
@@ -157,11 +168,17 @@ public class IsikGlue {
             interaction, resourceType));
   }
 
-  @And("resource has ID {tigerResolvedString}")
-  public void resourceHasID(String id) {
+  @And("resource has ID {tigerResolvedString} with error message {tigerResolvedString}")
+  public void resourceHasID(String id, String errorMessage) {
     fhirPathValidationGlue.tgrCurrentResponseBodyEvaluatesTheFhirPath(
         String.format("id.replaceMatches('/_history/.+','').matches('\\\\b%s$')", id),
-        String.format("ID der Ressource entspricht nicht dem Erwartungswert (%s)", id));
+        errorMessage);
+  }
+
+  @And("resource has ID {tigerResolvedString}")
+  public void resourceHasID(String id) {
+    resourceHasID(
+        id, String.format("ID der Ressource entspricht nicht dem Erwartungswert (%s)", id));
   }
 
   @And(
@@ -177,11 +194,22 @@ public class IsikGlue {
       "element {tigerResolvedString} in all bundle resources references resource with ID"
           + " {tigerResolvedString}")
   public void elementInAllBundleResourcesReferencesResourceWithID(String reference, String id) {
+    elementInAllBundleResourcesReferencesResourceWithID(
+        reference,
+        id,
+        "Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.");
+  }
+
+  @And(
+      "element {tigerResolvedString} in all bundle resources references resource with ID"
+          + " {tigerResolvedString} with error message {tigerResolvedString}")
+  public void elementInAllBundleResourcesReferencesResourceWithID(
+      String reference, String id, String errorMessage) {
     fhirPathValidationGlue.tgrCurrentResponseBodyEvaluatesTheFhirPath(
         String.format(
             "entry.resource.all(%s.reference.replaceMatches('/_history/.+','').matches('\\\\b%s$'))",
             reference, id),
-        "Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.");
+        errorMessage);
   }
 
   @And(

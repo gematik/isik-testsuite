@@ -1,0 +1,43 @@
+servers:
+  fhirserver:
+    type: externalUrl
+    source:
+      - http://localhost:8080/fhir
+    #  - http://example.org:9032/some/path/to/endpoint
+    # when you use the fhirserver as a docker image
+    #  - http://fhirserverImage:9032
+    # when you start the testsuite via a docker and the fhirserver runs on the host machine, use host.docker.internal
+    #  - http://host.docker.internal:9032
+
+tigerProxy: # https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_configuring_the_local_test_suite_tiger_proxy
+  adminPort: 9011
+# Activate and adjust the configuration below if the SUT endpoint contains a URL path, e.g. /some/path/to/endpoint
+  proxyRoutes:
+    - from: "http://fhirserver"
+      to: "http://localhost:8080/fhir"
+# Optional authentication (basic or bearer), cf. https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#authentication
+#      authentication:
+#        username: "pass"
+#        password: "word"
+
+# Activate and adjust the configuration below if behind a proxy
+#  forwardToProxy:
+#    hostname: 192.168.110.10
+#    port: 3128
+#    type: HTTP
+#    noProxyHosts:
+#      - "localhost"
+
+lib:
+  activateWorkflowUi: true
+  workflowUiPort: 9010
+  trafficVisualization: true
+  runTestsOnStart: true
+
+logging:
+  level:
+    de.gematik.rbellogger.converter: WARN
+
+additionalConfigurationFiles:
+  - filename: testdata/Stufe5/basis.yaml
+    baseKey: data

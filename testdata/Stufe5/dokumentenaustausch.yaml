@@ -1,0 +1,5 @@
+documentreference-read-id: DocumentReference-Read-Example
+documentreference-read-patient-id: Patient-Read-Example
+documentreference-read-encounter-id: Encounter-Read-Finished-Example
+documentreference-read-patient-identifier-value: IdentifierValuepatient-read
+documentreference-post-master-identifier-value: urn:oid:1.2.840.113556.1.8000.2554.58783.21864.3474.19410.44358.58254.41281.11111
