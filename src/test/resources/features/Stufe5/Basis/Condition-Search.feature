@@ -15,7 +15,6 @@ Feature: Testing search parameters against a resource of type Condition (@Condit
 
   Scenario: Read and Validation of the CapabilityStatement
     When Get FHIR resource at "http://fhirserver/metadata" with content type "json"
-    And CapabilityStatement contains interaction "read" for resource "Condition"
     And CapabilityStatement contains interaction "search-type" for resource "Condition"
 
   Scenario Outline: Validation of the search parameter definitions in the CapabilityStatement

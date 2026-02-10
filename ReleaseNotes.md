@@ -2,6 +2,14 @@
 
 # Release Notes
 
+## Release 2.2.0
+
+### added
+- Test Cases for ISiK Level 5, Module **Terminplanung**
+
+### changed
+- Updated dependencies
+
 ## Release 2.1.1
 
 ### changed
@@ -11,7 +19,7 @@
 ## Release 2.1.0
 
 ### added
-- Test Cases for ISiK Level 5 Basis Module
+- Test Cases for ISiK Level 5, Module **Basis**
 
 ### changed
 - Renamed Tiger YAML Configuration files into `tiger-isik-stufe3.yaml` and `tiger-isik-stufe5.yaml`
@@ -28,7 +36,7 @@
 - Updated libraries
 
 ### added
-- Initial setup for ISiK Level 5 Test Cases (Basis Module)
+- Initial setup for ISiK Level 5 Test Cases (Module Basis)
 
 ## Release 1.5.2
 

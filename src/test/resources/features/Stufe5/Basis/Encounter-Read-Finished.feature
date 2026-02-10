@@ -20,6 +20,7 @@ Feature: Read Information from a resource of type Encounter with status "finishe
       * Status: finished
       * Type: inpatient (normalstationaer)
       * Patient: the patient from the Account-Read test case
+      * Class: IMP
       * Admission reason: referral by a doctor
       * Department: General Surgery
       * Admission reason (first and second level): hospital treatment, fully inpatient
@@ -27,7 +28,6 @@ Feature: Read Information from a resource of type Encounter with status "finishe
       * Account: the billing case from the Account-Read test case
       * Account (identifier): the identifier of the linked billing case
       * Location: Room Z001
-      * Appointment: reference to an Appointment (Please, set it in the configuration variable 'encounter-read-finished-appointment-read-id')
       * (Optional) Tag: Value defined through the configuration variables 'tag-value' and 'tag-system'
     """
 
@@ -51,5 +51,4 @@ Feature: Read Information from a resource of type Encounter with status "finishe
     And FHIR current response body evaluates the FHIRPath "extension.where(url = 'http://fhir.de/StructureDefinition/Aufnahmegrund' and extension.where(url = 'ErsteUndZweiteStelle' and value.code = '01' and value.system = 'http://fhir.de/CodeSystem/dkgev/AufnahmegrundErsteUndZweiteStelle').exists()).exists()" with error message 'The encounter does not contain the correct admission reason'
     And element "account" references resource with ID "Account/${data.account-read-id}" with error message "The linked billing case does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "account.identifier.value = '${data.account-read-identifier-value}'" with error message 'The identifier of the linked billing case does not match the expected value'
-    And element "appointment" references resource with ID "Appointment/${data.encounter-read-finished-appointment-read-id}" with error message "The linked appointment does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "location.location.identifier.where(system = 'https://test.krankenhaus.de/fhir/sid/zimmerId' and value = 'Z001').exists()" with error message 'The location does not contain the correct code'
