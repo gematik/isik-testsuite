@@ -2,6 +2,11 @@
 
 # Release Notes
 
+## Release 2.2.1
+
+### changed
+- Updated documentation for the execution of the test suite, using the Docker Image from DockerHub.
+
 ## Release 2.2.0
 
 ### added

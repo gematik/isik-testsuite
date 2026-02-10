@@ -1,13 +1,13 @@
 name: dc-testsuite-isik
 services:
   tiger-testsuite-isik:
-    image: europe-west3-docker.pkg.dev/gematik-all-infra-prod/isik/isik-testsuite:latest
+    image: gematik1/isik-testsuite
     container_name: isik-testsuite
     ports:
       - "9010:9010"    # used for the WorkflowUi
       - "9011:9011"    # used for the tiger proxy log
     volumes:
-      - ./tiger-isik-stufe3.yaml:/app/tiger.yaml:ro
+      - ./tiger-isik-stufe3.yaml:/app/tiger.yaml:ro # Defaults to Stufe3
       - ./target:/app/report:rw
       - ./testdata:/app/testdata:ro
       - ./.env:/app/.env:ro

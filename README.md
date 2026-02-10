@@ -102,7 +102,8 @@ If using the tiger testsuite behind a proxy provide the proxy configuration at t
 
 ### Using Docker
 
-The testsuite is also distributed as a [docker image](https://hub.docker.com/r/gematik1/isik-testsuite). Make sure, the docker environment has a connection to the SUT (configure [docker proxy settings](https://docs.docker.com/engine/cli/proxy/) if needed). 
+The testsuite is also distributed as a [docker image](https://hub.docker.com/r/gematik1/isik-testsuite). 
+Make sure, that the docker environment has a connection to the System-Under-Test (configure [docker proxy settings](https://docs.docker.com/engine/cli/proxy/) if needed). 
 
 To use the image, download and adjust the following files according to your test environment:
 * `tiger-isik-stufe3.yaml` or `tiger-isik-stufe5.yaml`  (configuration of the test environment and test framework)
