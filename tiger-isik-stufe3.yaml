@@ -2,6 +2,7 @@ servers:
   fhirserver:
     type: externalUrl
     source:
+      # Adjust the URL to your SUT endpoint
       - http://localhost:8080/fhir
     #  - http://example.org:9032/some/path/to/endpoint
     # when you use the fhirserver as a docker image
@@ -14,6 +15,7 @@ tigerProxy: # https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_config
 # Activate and adjust the configuration below if the SUT endpoint contains a URL path, e.g. /some/path/to/endpoint
   proxyRoutes:
     - from: "http://fhirserver"
+      # Adjust the URL to your SUT endpoint
       to: "http://localhost:8080/fhir"
 # Optional authentication (basic or bearer), cf. https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#authentication
 #      authentication:

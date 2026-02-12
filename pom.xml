@@ -6,7 +6,7 @@
 
     <groupId>de.gematik</groupId>
     <artifactId>tiger-integration-isik</artifactId>
-    <version>2.2.1</version>
+    <version>2.3.0</version>
 
     <properties>
         <java.version>17</java.version>
@@ -18,14 +18,14 @@
         <features.folder>Stufe3</features.folder>
 
         <!-- Libraries and Plugins Versions -->
-        <tiger.version>4.1.16</tiger.version>
-        <tiger.fhir.version>1.2.14</tiger.fhir.version>
+        <tiger.version>4.1.17</tiger.version>
+        <tiger.fhir.version>1.2.15</tiger.fhir.version>
         <tiger-testsuite-validator.version>1.1.9</tiger-testsuite-validator.version>
-        <tiger-cloud-extension.version>4.1.15</tiger-cloud-extension.version>
-        <spotless-maven-plugin.version>3.2.0</spotless-maven-plugin.version>
+        <tiger-cloud-extension.version>4.1.17</tiger-cloud-extension.version>
+        <spotless-maven-plugin.version>3.2.1</spotless-maven-plugin.version>
         <spotless.google-java-format.version>1.32.0</spotless.google-java-format.version>
         <lombok.version>1.18.42</lombok.version>
-        <logback.version>1.5.27</logback.version>
+        <logback.version>1.5.29</logback.version>
         <maven-assembly-plugin.version>3.8.0</maven-assembly-plugin.version>
         <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
         <license-maven-plugin.version>2.7.1</license-maven-plugin.version>
@@ -490,25 +490,6 @@
                             <goal>download-licenses</goal>
                         </goals>
                         <phase>none</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <version>${properties-maven-plugin.version}</version>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>read-project-properties</goal>
-                        </goals>
-                        <configuration>
-                            <useDefaultValues>true</useDefaultValues>
-                            <files>
-                                <file>${project.basedir}/.env</file>
-                            </files>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
