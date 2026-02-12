@@ -6,16 +6,33 @@ services:
     ports:
       - "9010:9010"    # used for the WorkflowUi
       - "9011:9011"    # used for the tiger proxy log
+    environment:
+      MAVEN_PROFILE: stufe3 # Defaults to Stufe3, set to 'stufe5' for Stufe5
+      # Uncomment the following line to define which tests to run,
+      # otherwise all tests of the defined Specification Level will be executed, as defined in the pom.xml file
+      #TESTS_TO_RUN: "@Stufe3 and (not @Basis)"
     volumes:
-      - ./tiger-isik-stufe3.yaml:/app/tiger.yaml:ro # Defaults to Stufe3
-      - ./target:/app/report:rw
+      - ./tiger-isik-stufe3.yaml:/app/tiger-isik-stufe3.yaml:ro
+      # Uncomment the following line to use the Stufe5 configuration file, if you set the MAVEN_PROFILE environment variable to 'stufe5'
+      #- ./tiger-isik-stufe5.yaml:/app/tiger-isik-stufe5.yaml:ro
       - ./testdata:/app/testdata:ro
-      - ./.env:/app/.env:ro
+      - tiger-testsuite-report:/app/report
+#    Required only if you want to run the tests against a container running on the same host system, defined in this Docker Compose file.
 #    depends_on:
 #      - fhirserverImage
+#
+#
+#
+#  Define your own FHIR Server image here, if you want to run the tests against a container running on the same host system.
+#  Make sure to adjust the ports and container name accordingly, in the `tiger-isik-stufe3.yaml` or `tiger-isik-stufe5.yaml` file.
 #
 #  fhirserverImage:
 #    image: ...
 #    container_name: ...
 #    ports:
 #      - "9032:9032"
+
+# Store the test report in a named volume, so it can be accessed on the host system after the container has stopped
+volumes:
+  tiger-testsuite-report:
+    name: tiger-testsuite-report

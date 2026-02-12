@@ -3,7 +3,7 @@
 @Terminplanung
 @Mandatory
 @Encounter-Appointment-Read
-Feature: Read the Appointment Information from a resource of type Encounter (@Encounter-Appointment-Read)
+Feature: Read a resource of type Encounter that has a valid Appointment reference (@Encounter-Appointment-Read)
 
   @Precondition
   Scenario: Precondition
@@ -45,6 +45,7 @@ Feature: Read the Appointment Information from a resource of type Encounter (@En
     And FHIR current response body evaluates the FHIRPath "type.coding.where(code = 'normalstationaer' and system = 'http://fhir.de/CodeSystem/kontaktart-de').exists()" with error message 'The Encounter does not contain the correct type'
     And FHIR current response body evaluates the FHIRPath "serviceType.coding.where(code = '1500' and system = 'http://fhir.de/CodeSystem/dkgev/Fachabteilungsschluessel').exists()" with error message 'The Encounter does not contain the correct department code'
     And element "subject" references resource with ID "${data.appointment-patient-id}" with error message "The referenced Patient does not match the expected value"
+    And element "appointment" references resource with ID "${data.appointment-read-id}" with error message "The referenced Appointment does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "hospitalization.admitSource.coding.where(code = 'E' and system = 'http://fhir.de/CodeSystem/dgkev/Aufnahmeanlass').exists()" with error message 'The encounter does not contain the correct admission reason'
     And FHIR current response body evaluates the FHIRPath "serviceProvider.display = 'Hospital'" with error message 'The service provider display value does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "serviceProvider.identifier.value = '${data.encounter-read-appointment-serviceprovider-identifier-value}'" with error message 'The service provider identifier value does not match the expected value'
