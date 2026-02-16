@@ -31,7 +31,7 @@ Feature: Read Information from a resource of type ValueSet (@ValueSet-Read)
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKValueSet"
     And resource has ID "${data.valueset-read-id}" with error message "The ID does not match the expected value"
     Then TGR current response with attribute "$.responseCode" matches "200"
-    And TGR current response with attribute "$.header.[~'content-type']" matches "application/fhir\+xml;charset=(?i)UTF-8"
+    And TGR current response with attribute "$.header.[~'content-type']" matches "application/fhir\+xml;\s*charset=(?i)UTF-8"
     And TGR current response with attribute "$..status.value" matches "active"
     And TGR current response with attribute "$..url.value" matches "http://example.org/fhir/ValueSet/TestValueSet"
     And TGR current response with attribute "$..name.value" matches "TestValueSet"
