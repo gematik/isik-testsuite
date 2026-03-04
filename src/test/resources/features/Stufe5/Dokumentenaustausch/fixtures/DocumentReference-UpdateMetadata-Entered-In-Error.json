@@ -1,0 +1,10 @@
+{
+  "resourceType": "Parameters",
+  "id": "CorrectDocumentReferenceUpdateMetadata",
+  "parameter": [
+    {
+      "name": "docStatus",
+      "valueCode": "entered-in-error"
+    }
+  ]
+}

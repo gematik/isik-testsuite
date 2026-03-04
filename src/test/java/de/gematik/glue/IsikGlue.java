@@ -34,6 +34,7 @@ import de.gematik.test.tiger.glue.fhir.FhirPathValidationGlue;
 import de.gematik.test.tiger.glue.fhir.StaticFhirValidationGlue;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
+import io.cucumber.java.PendingException;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
@@ -120,8 +121,8 @@ public class IsikGlue {
   public void referencedPatientResourceWithIdConformsToISIKPatientProfile(String patientId) {
     getAndValidateResource(String.format("http://fhirserver/Patient/%s", patientId), "json");
     staticFhirValidationGlue.tgrCurrentResponseBodyAtIsValidFHIRResourceOfType(
-        staticFhirValidationGlue.supportedValidationModule("isik3-basismodul"),
-        "https://gematik.de/fhir/isik/v3/Basismodul/StructureDefinition/ISiKPatient");
+            staticFhirValidationGlue.supportedValidationModule("isik3-basismodul"),
+            "https://gematik.de/fhir/isik/v3/Basismodul/StructureDefinition/ISiKPatient");
   }
 
   @And(
@@ -155,6 +156,14 @@ public class IsikGlue {
         "https://gematik.de/fhir/isik/v3/Basismodul/StructureDefinition/ISiKDiagnose");
   }
 
+  @And("referenced {string} resource with id {string} conforms to a valid v5 {string} profile")
+  public void referencedPatientResourceWithIdConformsToValidISIKProfile(String resourceType, String resourceId, String isikProfile) {
+    getAndValidateResource(String.format("http://fhirserver/%s/%s", resourceType, resourceId), "json");
+    staticFhirValidationGlue.tgrCurrentResponseBodyAtIsValidFHIRResourceOfType(
+            staticFhirValidationGlue.supportedValidationModule("isik5"),
+            String.format("https://gematik.de/fhir/isik/StructureDefinition/%s", isikProfile));
+  }
+
   @And("CapabilityStatement contains interaction {string} for resource {string}")
   public void capabilitystatementContainsInteractionForResource(
       String interaction, String resourceType) {
@@ -182,8 +191,8 @@ public class IsikGlue {
   }
 
   @And(
-      "element {tigerResolvedString} references resource with ID {tigerResolvedString} with error"
-          + " message {tigerResolvedString}")
+      "element {tigerResolvedString} references resource with ID {tigerResolvedString}"
+          + " with error message {tigerResolvedString}")
   public void elementReferencesResourceWithIDWithErrorMessage(
       String reference, String id, String errorMessage) {
     fhirPathValidationGlue.tgrCurrentResponseBodyEvaluatesTheFhirPath(

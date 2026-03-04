@@ -14,7 +14,7 @@ Feature: Lesen der Ressource ValueSet (ValueSet-Read)
 
       Legen Sie ein ValueSet in Ihrem System an, welches Codes 'sat' und 'sun' aus dem FHIR CodeSystem http://hl7.org/fhir/days-of-week enthält
       Version: 1.0.0
-      Name: TestValueSet
+      Name: any (please set the name in the configuration variable 'valueset-read-id')
       Status: aktiv
       Kontext: Encounter
     """
