@@ -38,7 +38,7 @@ Feature: Testing search parameters against a resource of type ValueSet (@ValueSe
   Scenario: Search for ValueSet by ID
     When Get FHIR resource at "http://fhirserver/ValueSet/?_id=${data.valueset-read-id}" with content type "xml"
     Then TGR find the last request
-    And TGR current response with attribute "$.header.[~'content-type']" matches "application/fhir\+xml;charset=(?i)UTF-8"
+    And TGR current response with attribute "$.header.[~'content-type']" matches "application/fhir\+xml;\s*charset=(?i)UTF-8"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
     And response bundle contains resource with ID "${data.valueset-read-id}" with error message "The requested ValueSet ${data.valueset-read-id} is not contained in the response bundle"
 
