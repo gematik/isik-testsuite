@@ -2,12 +2,27 @@
 
 # Release Notes
 
+## Release 2.4.0
+
+### added
+
+- Test Cases for ISiK Level 5, Module **Dokumentenaustausch**.
+
+### changed
+
+- Updated ISiK Level 5 Plugin to version 1.0.1
+- Updated Tiger Framework to version 4.2.1
+
+### fixed
+
+- Description of the test case `ValueSet-Read` (ANFISK-465)
+- Corrected regex to allow whitespace between Content-Type parameters (Pull Request [#6](https://github.com/gematik/isik-testsuite/pull/6/))
 ## Release 2.3.0
 
 ### changed
 
-- Added check for the Appointment Reference in the Test Case `Encounter-Appointment-Read` for ISiK Level 5, Module *
-  *Terminplanung**.
+- Added check for the Appointment Reference in the Test Case `Encounter-Appointment-Read` for ISiK Level 5, Module
+  **Terminplanung**.
 - Removed the usage of the `.env` file for the configuration of the Test cases. Instead, tests can be selected by
   passing the corresponding property `-DTESTS_TO_RUN`. See the [README](./README.md) for more details about it.
 - Updated Tiger Framework to 4.1.17

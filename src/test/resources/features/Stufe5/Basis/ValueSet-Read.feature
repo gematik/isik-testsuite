@@ -16,7 +16,7 @@ Feature: Read Information from a resource of type ValueSet (@ValueSet-Read)
       Create a ValueSet in your system that contains codes 'sat' and 'sun' from the FHIR CodeSystem http://hl7.org/fhir/days-of-week:
 
       * Version: 1.0.0
-      * Name: TestValueSet
+      * Name: any (please set the name in the configuration variable 'valueset-read-id')
       * Status: active
       * Context: Encounter
       * (Optional) Tag: Value defined through the configuration variables 'tag-value' and 'tag-system'

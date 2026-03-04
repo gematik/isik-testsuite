@@ -43,5 +43,7 @@ logging:
 additionalConfigurationFiles:
   - filename: testdata/Stufe5/basis.yaml
     baseKey: data
+  - filename: testdata/Stufe5/dokumentenaustausch.yaml
+    baseKey: data
   - filename: testdata/Stufe5/terminplanung.yaml
     baseKey: data
