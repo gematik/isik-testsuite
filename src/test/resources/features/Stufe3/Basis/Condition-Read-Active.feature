@@ -17,7 +17,7 @@ Feature: Lesen der Ressource Condition (@Condition-Read-Active)
       Klinischer Status: active (falls vom System unterstützt)
       Katalog: http://fhir.de/CodeSystem/bfarm/icd-10-gm
       Katalogversion: Aktuell
-      Code: F71.0
+      Code: J06.9
       Dokumentationsdatum: 2021-02-12
       Referenzierter Patient: Der Patient aus Testfall Patient-Read
       Kontakt: Der Kontakt aus Testfall Encounter-Read-In-Progress
@@ -32,7 +32,7 @@ Feature: Lesen der Ressource Condition (@Condition-Read-Active)
     Then Get FHIR resource at "http://fhirserver/Condition/${data.condition-read-active-id}" with content type "xml"
     And FHIR current response body is a valid isik3-basismodul resource and conforms to profile "https://gematik.de/fhir/isik/v3/Basismodul/StructureDefinition/ISiKDiagnose"
     And FHIR current response body evaluates the FHIRPath 'id.replaceMatches("/_history/.+","").matches("\\b${data.condition-read-active-id}$")' with error message 'Der erwartete Code ist nicht vorhanden oder ein verpflichtender Wert fehlt'
-    And FHIR current response body evaluates the FHIRPath 'code.coding.where(system = "http://fhir.de/CodeSystem/bfarm/icd-10-gm" and code = "F71.0" and version.exists()).exists()' with error message 'Referenzierter Patient entspricht nicht dem Erwartungswert'
+    And FHIR current response body evaluates the FHIRPath 'code.coding.where(system = "http://fhir.de/CodeSystem/bfarm/icd-10-gm" and code = "J06.9" and version.exists()).exists()' with error message 'Referenzierter Patient entspricht nicht dem Erwartungswert'
     And element "subject" references resource with ID "${data.patient-read-id}" with error message "Referenzierter Fall entspricht nicht dem Erwartungswert"
     And FHIR current response body evaluates the FHIRPath "clinicalStatus.empty() or (clinicalStatus.coding.code contains 'active')" with error message 'clinical Status nicht active'
     And FHIR current response body evaluates the FHIRPath 'recordedDate.toString().contains("2021-02-12")' with error message 'Die Diagnose enthält nicht den erwarteten Beginn des Krankheitsbildes'
