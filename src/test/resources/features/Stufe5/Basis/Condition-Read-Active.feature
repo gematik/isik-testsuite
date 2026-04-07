@@ -21,7 +21,7 @@ Feature: Read Information from a resource of type Condition with status "active"
       * Clinical status: active
       * Code system: http://fhir.de/CodeSystem/bfarm/icd-10-gm
       * Code system version: the version configured with the variable 'icd-10-gm-version'
-      * Code: F71.0
+      * Code: J06.9
       * Documentation date: 2021-02-12
       * Related condition: The reference to the resource from the Condition-Read-Resolved test case
       * Referenced patient: The patient from the Patient-Read test case
@@ -39,7 +39,7 @@ Feature: Read Information from a resource of type Condition with status "active"
     When Get FHIR resource at "http://fhirserver/Condition/${data.condition-read-active-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKDiagnose"
     And resource has ID "${data.condition-read-active-id}" with error message "The ID does not match the expected value"
-    And FHIR current response body evaluates the FHIRPath "code.coding.where(system = 'http://fhir.de/CodeSystem/bfarm/icd-10-gm' and code = 'F71.0' and version = '${data.icd-10-gm-version}').exists()" with error message "The Condition code is missing or a required value is absent"
+    And FHIR current response body evaluates the FHIRPath "code.coding.where(system = 'http://fhir.de/CodeSystem/bfarm/icd-10-gm' and code = 'J06.9' and version = '${data.icd-10-gm-version}').exists()" with error message "The Condition code is missing or a required value is absent"
     And element "subject" references resource with ID "${data.patient-read-id}" with error message "The referenced case does not match the expected value."
     And FHIR current response body evaluates the FHIRPath "clinicalStatus.coding.where(system = 'http://terminology.hl7.org/CodeSystem/condition-clinical' and code = 'active').exists()" with error message "The Clinical status does not have the value 'active'"
     And FHIR current response body evaluates the FHIRPath 'recordedDate.toString().contains("2021-02-12")' with error message 'The documentation date does not contain the expected value'
