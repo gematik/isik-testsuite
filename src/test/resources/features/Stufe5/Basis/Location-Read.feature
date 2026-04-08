@@ -25,7 +25,7 @@ Feature: Read Information from a resource of type Location (@Location-Read)
       * Name: Station A
       * Mode: instance
       * Physical type: Ward
-      * Address: Krankenhausstraße 123, 12345 Musterstadt, Germany
+      * Address: Krankenhausstraße 123, 10827 Musterstadt, Germany
       * Position: Latitude 52.52, Longitude 13.405
       * Hours of Operation: Monday to Friday all day, Saturday 8am to 1pm, closed on Sunday
       * Managing organization: Reference to the Organization resource from the test case Organization-Read
@@ -46,7 +46,7 @@ Feature: Read Information from a resource of type Location (@Location-Read)
     And FHIR current response body evaluates the FHIRPath "mode = 'instance'" with error message 'The Location mode does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "physicalType.coding.where(system = 'http://terminology.hl7.org/CodeSystem/location-physical-type' and code = 'wa').exists()" with error message 'The Location physical type code does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "address.line.where($this = 'Krankenhausstraße 123').exists()" with error message 'The Location address line does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "address.where(city = 'Musterstadt' and postalCode = '12345' and country = 'DE').exists()" with error message 'The Location address does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "address.where(city = 'Musterstadt' and postalCode = '10827' and country = 'DE').exists()" with error message 'The Location address does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "position.where(latitude = 52.52 and longitude = 13.405).exists()" with error message 'The Location position does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "hoursOfOperation.where(daysOfWeek.where($this = 'mon') and allDay = true).exists()" with error message 'The hours of operation for Monday do not match the expected value'
     And FHIR current response body evaluates the FHIRPath "hoursOfOperation.where(daysOfWeek.where($this = 'sat') and openingTime = @T08:00:00 and closingTime = @T13:00:00).exists()" with error message 'The Location hours of operation for Saturday do not match the expected value'

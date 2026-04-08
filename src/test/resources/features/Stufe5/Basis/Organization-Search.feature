@@ -76,9 +76,9 @@ Feature: Testing search parameters against a resource of type Organization (@Org
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.contains('Uniklinik Entenhausen'))" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the Organization by Address
-    When Get FHIR resource at "http://fhirserver/Organization/?address=Entenhausen&_id=${data.organization-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Organization/?address=Berlin&_id=${data.organization-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city.contains('Entenhausen') or line.exists($this.contains('Entenhausen'))).exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city.contains('Berlin') or line.exists($this.contains('Berlin'))).exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.organization-read-id}" with error message "The requested Organization ${data.organization-read-id} is not contained in the response bundle."
 
   Scenario: Search for the Organization that is part of another Organization

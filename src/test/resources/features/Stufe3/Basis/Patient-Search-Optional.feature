@@ -40,21 +40,21 @@ Feature: Testen von KANN-Suchparametern gegen patient-read (@Patient-Search-Opti
 
   @Optional
   Scenario: Suche nach Patient*innen anhand der Adresse (Stadt)
-    Then Get FHIR resource at "http://fhirserver/Patient/?address-city=Musterdorf" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/Patient/?address-city=Berlin" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'Es wurden keine Suchergebnisse gefunden'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city = 'Musterdorf').exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city = 'Berlin').exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
 
   @Optional
   Scenario: Suche nach Patient*innen anhand der Adresse (Land)
-    Then Get FHIR resource at "http://fhirserver/Patient/?address-country=CH" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/Patient/?address-country=DE" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'Es wurden keine Suchergebnisse gefunden'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(country = 'CH').exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(country = 'DE').exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
 
   @Optional
   Scenario: Suche nach Patient*innen anhand der Adresse (Postleitzahl)
-    Then Get FHIR resource at "http://fhirserver/Patient/?address-postalcode=9876" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/Patient/?address-postalcode=10117" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'Es wurden keine Suchergebnisse gefunden'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(postalCode.contains('9876')).exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(postalCode.contains('10117')).exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
 
   @Optional
   Scenario: Suche nach Patient*innen anhand des Status
@@ -64,6 +64,6 @@ Feature: Testen von KANN-Suchparametern gegen patient-read (@Patient-Search-Opti
 
   @Optional
   Scenario: Suche nach Patient*innen anhand der Telefonnummer
-    Then Get FHIR resource at "http://fhirserver/Patient/?telecom=201-867-5309" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/Patient/?telecom=030+1234567" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'Es wurden keine Suchergebnisse gefunden'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all((telecom = '201-867-5309').exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all((telecom = '030 1234567').exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'

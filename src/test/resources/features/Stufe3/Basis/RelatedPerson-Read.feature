@@ -16,7 +16,7 @@ Feature: Lesen der Ressource RelatedPerson (@RelatedPerson-Read)
         Legen Sie folgende Angehörige in Ihrem System an:
         Vorname: Maxine
         Nachname: Mustermann
-        Addresse: Musterstraße 3, 9876 Musterdorf, Schweiz
+        Addresse: Unter den Linden 3, 10117 Berlin, Deutschland
         Patientenbezug: Der Patient aus Testfall Patient-Read
     """
 
@@ -30,5 +30,5 @@ Feature: Lesen der Ressource RelatedPerson (@RelatedPerson-Read)
     And FHIR current response body is a valid isik3-basismodul resource and conforms to profile "https://gematik.de/fhir/isik/v3/Basismodul/StructureDefinition/ISiKAngehoeriger"
     And TGR current response with attribute "$..name.given.value" matches "Maxine"
     And TGR current response with attribute "$..name.family.value" matches "Mustermann"
-    And FHIR current response body evaluates the FHIRPath "address.where(type = 'both' and city = 'Musterdorf' and postalCode = '9876' and country = 'CH' and line = 'Musterstraße 3' and line.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName' and value = 'Musterstraße').exists() and line.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber' and value = '3').exists()).exists()" with error message 'Die Adresse entspricht nicht dem Erwartungswert'
+    And FHIR current response body evaluates the FHIRPath "address.where(type = 'both' and city = 'Berlin' and postalCode = '10117' and country = 'DE' and line = 'Unter den Linden 3' and line.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName' and value = 'Unter den Linden').exists() and line.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber' and value = '3').exists()).exists()" with error message 'Die Adresse entspricht nicht dem Erwartungswert'
     And element "patient" references resource with ID "${data.patient-read-id}" with error message "${data.patient-read-id} ist nicht als Patient eingetragen"
