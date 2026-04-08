@@ -130,9 +130,9 @@ Feature: Testing search parameters against a resource of type Patient (@Patient-
     And Check if current response of resource "Patient" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKPatient"
 
   Scenario: Search for Patients by Address (city) and ID
-    When Get FHIR resource at "http://fhirserver/Patient/?address-city=Musterdorf&_id=${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Patient/?address-city=Berlin&_id=${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city = 'Musterdorf').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city = 'Berlin').exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
   Scenario: Search for Patients by Address (country) and ID
@@ -142,9 +142,9 @@ Feature: Testing search parameters against a resource of type Patient (@Patient-
     And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
   Scenario: Search for Patients by Address (postal code) and ID
-    When Get FHIR resource at "http://fhirserver/Patient/?address-postalcode=98765&_id=${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Patient/?address-postalcode=10117&_id=${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(postalCode.contains('98765')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(postalCode.contains('10117')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
   Scenario: Search for Patients by Status and ID
@@ -154,7 +154,7 @@ Feature: Testing search parameters against a resource of type Patient (@Patient-
     And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
   Scenario: Search for Patients by Phone Number and ID
-    When Get FHIR resource at "http://fhirserver/Patient/?telecom=201-867-5309&_id=${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Patient/?telecom=030+1234567&_id=${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all((telecom = '201-867-5309').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all((telecom = '030 1234567').exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"

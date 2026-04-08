@@ -20,8 +20,8 @@ Feature: Read Information from a resource of type Organization (@Organization-Re
       * Active status: true
       * Type: Educational Institute
       * Phone: +49 123 4567890
-      * Postal Address: Hauptstraße 12, 12345 Entenhausen, Germany
-      * Street Address: Klinikweg 1, 12345 Entenhausen, Germany
+      * Postal Address: Hauptstraße 12, 10827 Berlin, Germany
+      * Street Address: Hauptstraße 14, 10827 Berlin, Germany
       * Telematik-ID: 1234567890
       * Institution Identifier (IKNR): 260120196
       * Facility Number (BSNR): 345678975
@@ -48,8 +48,8 @@ Feature: Read Information from a resource of type Organization (@Organization-Re
     And FHIR current response body evaluates the FHIRPath "identifier.where(system = 'http://fhir.de/sid/arge-ik/iknr' and value = '260120196').exists()" with error message 'The Organization IKNR does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "identifier.where(system = 'https://fhir.kbv.de/NamingSystem/KBV_NS_Base_BSNR' and value = '345678975').exists()" with error message 'The Organization BSNR does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "identifier.where(system = 'https://fhir.krankenhaus.example/sid/OrgaID' and value = '123456' and type.coding.where(system = 'http://snomed.info/sct' and version = 'http://snomed.info/sct/11000274103/version/${data.snomed-ct-version}' and code = '225746001')).exists()" with error message 'The Organization Unit ID does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "address.where(type = 'postal' and line.where($this = 'Hauptstraße 12').exists() and city = 'Entenhausen' and postalCode = '12345' and country = 'DE').exists()" with error message 'The Organization postal address does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "address.where(type = 'physical' and line.where($this = 'Klinikweg 1').exists() and city = 'Entenhausen' and postalCode = '12345' and country = 'DE').exists()" with error message 'The Organization street address does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "address.where(type = 'postal' and line.where($this = 'Hauptstraße 12').exists() and city = 'Berlin' and postalCode = '10827' and country = 'DE').exists()" with error message 'The Organization postal address does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "address.where(type = 'physical' and line.where($this = 'Hauptstraße 14').exists() and city = 'Berlin' and postalCode = '10827' and country = 'DE').exists()" with error message 'The Organization street address does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "contact.where(purpose.coding.where(system = 'http://terminology.hl7.org/CodeSystem/contactentity-type' and code = 'BILL').exists()).exists()" with error message 'The Organization contact purpose does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "contact.where(name.family = 'Mustermann' and name.given.where($this = 'Max')).exists()" with error message 'The Organization contact name does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "contact.telecom.where(system = 'phone' and value = '+49 987 6543210').exists()" with error message 'The Organization contact phone does not match the expected value'

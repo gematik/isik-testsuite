@@ -2,6 +2,12 @@
 
 # Release Notes
 
+## Release 2.5.1
+
+### changed
+
+- Using real Addresses (including cities, postal codes) for resources (ANFISK-415)
+
 ## Release 2.5.0
 
 ### added

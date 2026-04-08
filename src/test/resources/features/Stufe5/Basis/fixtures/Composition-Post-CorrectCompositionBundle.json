@@ -144,7 +144,7 @@
         "telecom": [
           {
             "system": "phone",
-            "value": "201-867-5309"
+            "value": "030 1234567"
           }
         ],
         "gender": "male",
@@ -153,14 +153,14 @@
           {
             "type": "both",
             "line": [
-              "Musterstraße 3 // 1. Etage Hinterhaus"
+              "Unter den Linden 3 // 1. Etage Hinterhaus"
             ],
             "_line": [
               {
                 "extension": [
                   {
                     "url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName",
-                    "valueString": "Musterstraße"
+                    "valueString": "Unter den Linden"
                   },
                   {
                     "url": "http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber",
@@ -173,8 +173,8 @@
                 ]
               }
             ],
-            "city": "Musterdorf",
-            "postalCode": "98765",
+            "city": "Berlin",
+            "postalCode": "10117",
             "country": "DE"
           },
           {
@@ -192,8 +192,8 @@
                 ]
               }
             ],
-            "city": "Musterdorf",
-            "postalCode": "98765",
+            "city": "Berlin",
+            "postalCode": "10117",
             "country": "DE"
           }
         ]

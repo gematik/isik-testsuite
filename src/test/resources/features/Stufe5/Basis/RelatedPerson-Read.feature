@@ -17,7 +17,7 @@ Feature: Read Information from a resource of type RelatedPerson (@RelatedPerson-
 
         * First name: Maxine
         * Last name: Mustermann
-        * Address: Musterstraße 3, 13187 Berlin, Germany
+        * Address: Unter den Linden 3, 13187 Berlin, Germany
         * Patient reference: The patient from the Patient-Read test case
         * Patient-RelatedPerson relationship: DAUC (daughter of user of care)
         * Phone number: 030 1234567
@@ -34,7 +34,7 @@ Feature: Read Information from a resource of type RelatedPerson (@RelatedPerson-
     And resource has ID "${data.relatedperson-read-id}" with error message "The ID does not match the expected value"
     And TGR current response with attribute "$..name.given.value" matches "Maxine"
     And TGR current response with attribute "$..name.family.value" matches "Mustermann"
-    And FHIR current response body evaluates the FHIRPath "address.where(type = 'both' and city = 'Berlin' and postalCode = '13187' and country = 'DE' and line = 'Musterstraße 3' and line.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName' and value = 'Musterstraße').exists() and line.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber' and value = '3').exists()).exists()" with error message 'The address does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "address.where(type = 'both' and city = 'Berlin' and postalCode = '13187' and country = 'DE' and line = 'Unter den Linden 3' and line.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName' and value = 'Unter den Linden').exists() and line.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber' and value = '3').exists()).exists()" with error message 'The address does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "relationship.coding.where(system = 'http://terminology.hl7.org/CodeSystem/v3-RoleCode' and code = 'DAUC').exists()" with error message 'The patient-related person relationship does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "telecom.where(system = 'phone' and value = '030 1234567').exists()" with error message 'The phone number does not match the expected value'
     And element "patient" references resource with ID "${data.patient-read-id}" with error message "${data.patient-read-id} is not registered as patient"

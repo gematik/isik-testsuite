@@ -36,18 +36,18 @@ Feature: Testen von KANN-Suchparametern gegen relatedperson-read (@RelatedPerson
 
   @Optional
   Scenario: Suche nach Angehoerigen anhand der Adresse (Stadt)
-    Then Get FHIR resource at "http://fhirserver/RelatedPerson/?address-city=Musterdorf" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/RelatedPerson/?address-city=Berlin" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'Es wurden keine Suchergebnisse gefunden'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city = 'Musterdorf').exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city = 'Berlin').exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
 
   @Optional
   Scenario: Suche nach Angehoerigen anhand der Adresse (Land)
-    Then Get FHIR resource at "http://fhirserver/RelatedPerson/?address-country=CH" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/RelatedPerson/?address-country=DE" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'Es wurden keine Suchergebnisse gefunden'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(country = 'CH').exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(country = 'DE').exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
 
   @Optional
   Scenario: Suche nach Angehoerigen anhand der Adresse (Postleitzahl)
-    Then Get FHIR resource at "http://fhirserver/RelatedPerson/?address-postalcode=9876" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/RelatedPerson/?address-postalcode=10117" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'Es wurden keine Suchergebnisse gefunden'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(postalCode.contains('9876')).exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(postalCode.contains('10117')).exists())" with error message 'Es gibt Suchergebnisse, diese passen allerdings nicht vollständig zu den Suchkriterien.'
