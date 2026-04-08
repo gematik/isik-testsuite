@@ -1,0 +1,129 @@
+{
+  "resourceType": "Bundle",
+  "id": "MedicationTransaction-Post-Fixture",
+  "meta": {
+    "profile": [
+      "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationTransaction"
+    ]
+  },
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "http://source.fhirserver.local/Medication/${data.medication-transaction-medication-id}",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "${data.medication-transaction-medication-id}",
+        "meta": {
+          "profile": [
+            "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikament"
+          ]
+        },
+        "text": {
+          "status": "additional",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Medikament codiert (Wirkstoff)</div>"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://fhir.de/CodeSystem/bfarm/atc",
+              "version": "${data.atc-code-version}",
+              "code": "V03AB23",
+              "display": "Acetylcystein"
+            }
+          ]
+        },
+        "status": "active"
+      },
+      "request": {
+        "method": "POST",
+        "url": "Medication"
+      }
+    },
+    {
+      "fullUrl": "http://source.fhirserver.local/MedicationStatement/${data.medication-transaction-medicationstatement-id}",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "${data.medication-transaction-medicationstatement-id}",
+        "meta": {
+          "profile": [
+            "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsInformation"
+          ]
+        },
+        "extension": [
+          {
+            "url": "https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKAcceptedRisk",
+            "valueString": "Erhöhtes Blutungsrisiko ist in diesem Fall vertretbar."
+          },
+          {
+            "url": "https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKMedikationsart",
+            "valueCoding": {
+              "system": "https://gematik.de/fhir/isik/CodeSystem/ISiKMedikationsartCS",
+              "code": "akut"
+            }
+          },
+          {
+            "url": "https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKSelbstmedikation",
+            "valueBoolean": true
+          },
+          {
+            "url": "https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKBehandlungsziel",
+            "valueString": "Schmerztherapie postoperativ"
+          }
+        ],
+        "dosage": [
+          {
+            "patientInstruction": "Medication transaction fixture patient instruction",
+            "doseAndRate": [
+              {
+                "doseQuantity": {
+                  "system": "http://unitsofmeasure.org",
+                  "value": 1,
+                  "unit": "Brausetablette",
+                  "code": "1"
+                }
+              }
+            ],
+            "timing": {
+              "repeat": {
+                "when": [
+                  "MORN",
+                  "NOON",
+                  "EVE"
+                ]
+              }
+            }
+          }
+        ],
+        "status": "active",
+        "medicationReference": {
+          "reference": "Medication/${data.medication-transaction-medication-id}"
+        },
+        "subject": {
+          "reference": "Patient/${data.medication-patient-id}"
+        },
+        "context": {
+          "reference": "Encounter/${data.medication-encounter-id}"
+        },
+        "effectivePeriod": {
+          "start": "2026-03-02"
+        },
+        "dateAsserted": "2026-02-03",
+        "reasonReference": [
+          {
+            "reference": "Condition/${data.medication-condition-id}"
+          }
+        ],
+        "note": [
+          {
+            "text": "Medication transaction fixture note"
+          }
+        ]
+      },
+      "request": {
+        "method": "POST",
+        "url": "MedicationStatement"
+      }
+    }
+  ]
+}
+

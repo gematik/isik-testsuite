@@ -15,4 +15,4 @@ documentreference-search-patient-identifier-value: X485231029
 documentreference-search-type-code: VL160105
 documentreference-updatemetadata-id: UpdateMetadata-DocumentReference-Example
 tag-system: http://fhir.de/CodeSystem/common-meta-tag-de
-tag-value: externals
+tag-value: external

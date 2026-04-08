@@ -1,0 +1,90 @@
+{
+  "resourceType": "MedicationRequest",
+  "id": "MedicationRequest-Create-Fixture",
+  "meta": {
+    "profile": [
+      "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsVerordnung"
+    ]
+  },
+  "dosageInstruction": [
+    {
+      "doseAndRate": [
+        {
+          "doseQuantity": {
+            "system": "http://unitsofmeasure.org",
+            "value": 1,
+            "unit": "Effervescent tablet",
+            "code": "1"
+          }
+        }
+      ],
+      "site": {
+        "coding": [
+          {
+            "code": "738956005",
+            "system": "http://snomed.info/sct",
+            "version": "http://snomed.info/sct/11000274103/version/20251115",
+            "display": "Oral"
+          }
+        ]
+      },
+      "timing": {
+        "repeat": {
+          "when": [
+            "MORN",
+            "NOON",
+            "EVE"
+          ]
+        }
+      }
+    }
+  ],
+  "dispenseRequest": {
+    "quantity": {
+      "system": "http://unitsofmeasure.org",
+      "value": 20,
+      "unit": "Effervescent tablet",
+      "code": "1"
+    }
+  },
+  "status": "completed",
+  "intent": "order",
+  "extension": [
+    {
+      "url": "https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKAcceptedRisk",
+      "valueString": "Increased feel of dizziness"
+    },
+    {
+      "url": "https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKMedikationsart",
+      "valueCoding": {
+        "code": "akut",
+        "system": "https://gematik.de/fhir/isik/CodeSystem/ISiKMedikationsartCS"
+      }
+    },
+    {
+      "url": "https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKBehandlungsziel",
+      "valueString": "Post therapy handling"
+    }
+  ],
+  "medicationReference": {
+    "reference": "Medication/${data.medicationrequest-medication-id}"
+  },
+  "subject": {
+    "reference": "Patient/${data.medication-patient-id}"
+  },
+  "encounter": {
+    "reference": "Encounter/${data.medication-encounter-id}"
+  },
+  "authoredOn": "2026-02-03",
+  "requester": {
+    "reference": "Practitioner/${data.medication-practitioner-id}"
+  },
+  "note": [
+    {
+      "text": "Test note"
+    }
+  ],
+  "substitution": {
+    "allowedBoolean": true
+  }
+}

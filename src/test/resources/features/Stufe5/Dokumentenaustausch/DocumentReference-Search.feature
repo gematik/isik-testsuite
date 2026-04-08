@@ -51,7 +51,7 @@ Feature: Testing search parameters against a resource of type DocumentReference 
     And element "subject" in all bundle resources references resource with ID "${data.documentreference-read-patient-id}"
 
   @Optional
-  Scenario: Search for the DocumentReference that belong to a Patient, by Document Tag
+  Scenario: Search for the DocumentReference that belong to a Patient, by Tag
     When Get FHIR resource at "http://fhirserver/DocumentReference/?_tag=${data.tag-system}%7C${data.tag-value}&patient=Patient/${data.documentreference-read-patient-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'

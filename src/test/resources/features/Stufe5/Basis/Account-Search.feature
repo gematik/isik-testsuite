@@ -40,8 +40,8 @@ Feature: Testing search parameters against a resource of type Account (@Account-
     And response bundle contains resource with ID "${data.account-read-id}" with error message "The requested Account ${data.account-read-id} is not contained in the response bundle."
 
   @Optional
-  Scenario: Search for the Account by Tag
-    When Get FHIR resource at "http://fhirserver/Account/?_tag=${data.tag-system}%7C${data.tag-value}" with content type "xml"
+  Scenario: Search for the Account by Tag and ID
+    When Get FHIR resource at "http://fhirserver/Account/?_id=${data.account-read-id}&_tag=${data.tag-system}%7C${data.tag-value}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
@@ -50,22 +50,20 @@ Feature: Testing search parameters against a resource of type Account (@Account-
     And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(value = '${data.account-read-identifier-value}' and system = '${data.account-read-identifier-system}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
-  Scenario: Search for the Account by Identifier
-    When Get FHIR resource at "http://fhirserver/Account/?identifier=${data.account-read-identifier-system}%7C${data.account-read-identifier-value}" with content type "xml"
+  Scenario: Search for the Account by Patient and Identifier
+    When Get FHIR resource at "http://fhirserver/Account/?patient=Patient/${data.account-read-patient-id}&identifier=${data.account-read-identifier-system}%7C${data.account-read-identifier-value}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(value = '${data.account-read-identifier-value}' and system = '${data.account-read-identifier-system}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And element "subject" in all bundle resources references resource with ID "${data.account-read-patient-id}" with error message 'There are search results, but they do not fully match the search criteria'
 
-  Scenario: Search for the Account by Status
-    When Get FHIR resource at "http://fhirserver/Account/?status=active" with content type "json"
+  Scenario: Search for the Account by Status, Patient and ID
+    When Get FHIR resource at "http://fhirserver/Account/?_id=${data.account-read-id}&patient=Patient/${data.account-read-patient-id}&status=active" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.where(status = 'active').exists()" with error message 'There are search results, but they do not fully match the search criteria'
+    And element "subject" in all bundle resources references resource with ID "${data.account-read-patient-id}" with error message 'There are search results, but they do not fully match the search criteria'
 
-  Scenario: Search for the Account by Type
-    When Get FHIR resource at "http://fhirserver/Account/?type=IMP" with content type "json"
+  Scenario: Search for the Account by Type, Patient and ID
+    When Get FHIR resource at "http://fhirserver/Account/?_id=${data.account-read-id}&patient=Patient/${data.account-read-patient-id}&type=IMP" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(type.coding.where(code='IMP').exists())" with error message 'There are search results, but they do not fully match the search criteria'
-
-  Scenario: Search for the Account by Patient
-    When Get FHIR resource at "http://fhirserver/Account/?patient=Patient/${data.account-read-patient-id}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And element "subject" in all bundle resources references resource with ID "${data.account-read-patient-id}" with error message 'There are search results, but they do not fully match the search criteria'

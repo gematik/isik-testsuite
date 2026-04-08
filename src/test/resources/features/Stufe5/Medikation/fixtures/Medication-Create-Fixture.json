@@ -1,0 +1,49 @@
+{
+  "resourceType": "Medication",
+  "id": "Medication-Create-Fixture",
+  "meta": {
+    "profile": [
+      "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikament"
+    ]
+  },
+  "amount": {
+    "numerator": {
+      "system": "http://unitsofmeasure.org",
+      "value": 20,
+      "unit": "Tablets",
+      "code": "1"
+    },
+    "denominator": {
+      "system": "http://unitsofmeasure.org",
+      "value": 1,
+      "unit": "Tablets",
+      "code": "1"
+    }
+  },
+  "code": {
+    "coding": [
+      {
+        "system": "http://fhir.de/CodeSystem/bfarm/atc",
+        "code": "V03AB23",
+        "display": "Acetylcystein",
+        "version": "${data.atc-code-version}"
+      }
+    ]
+  },
+  "status": "active",
+  "batch": {
+    "lotNumber": "123"
+  },
+  "manufacturer": {
+    "display": "ExampleManufacturer GmbH"
+  },
+  "form": {
+    "coding": [
+      {
+        "system": "http://standardterms.edqm.eu",
+        "code": "10222000",
+        "display": "Effervescent tablet"
+      }
+    ]
+  }
+}

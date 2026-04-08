@@ -74,7 +74,7 @@
     {
       "name": "schedule",
       "valueReference": {
-        "reference": "Schedule/${data.schedule-read-id}"
+        "reference": "Schedule/${data.appointment-book-by-schedule-schedule-id}"
       }
     }
   ]

@@ -1,8 +1,12 @@
 appointment-book-by-schedule-id: Appointment-Book-By-Schedule-Parameters-Fixture
-appointment-book-by-schedule-datetime-start: "2027-01-31T11:05:00Z"
-appointment-book-by-schedule-datetime-end: "2027-01-31T11:55:00Z"
+appointment-book-by-schedule-date: "2027-03-31"
+appointment-book-by-schedule-datetime-start: "2027-03-31T10:05:00Z"
+appointment-book-by-schedule-datetime-end: "2027-03-31T10:55:00Z"
+appointment-book-by-schedule-schedule-id: Schedule-Read-Example-Book
 appointment-book-datetime-start: "2027-01-01T11:05:00Z"
 appointment-book-datetime-end: "2027-01-01T11:55:00Z"
+appointment-book-busy-id: Appointment-Book-Busy-Slot-Fixture
+appointment-book-busy-slot-id: Slot-Read-Example
 appointment-book-id: Appointment-Book-Fixture
 appointment-book-servicetype-code: 177
 appointment-book-servicetype-system: http://terminology.hl7.org/CodeSystem/service-type
