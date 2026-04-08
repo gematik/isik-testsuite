@@ -1,0 +1,52 @@
+{
+  "resourceType": "MedicationStatement",
+  "id": "MedicationStatement-Update-Original-Example",
+  "meta": {
+    "profile": [
+      "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsInformation"
+    ]
+  },
+  "dosage": [
+    {
+      "doseAndRate": [
+        {
+          "doseQuantity": {
+            "system": "http://unitsofmeasure.org",
+            "value": 5,
+            "unit": "Effervescent tablet",
+            "code": "1"
+          }
+        }
+      ],
+      "patientInstruction": "Updated Patient Instructions",
+      "timing": {
+        "repeat": {
+          "when": [
+            "MORN",
+            "NOON",
+            "EVE"
+          ]
+        }
+      }
+    }
+  ],
+  "status": "active",
+  "medicationReference": {
+    "reference": "Medication/${data.medication-read-id}"
+  },
+  "subject": {
+    "reference": "Patient/${data.medication-patient-id}"
+  },
+  "context": {
+    "reference": "Encounter/${data.medication-encounter-id}"
+  },
+  "effectivePeriod": {
+    "start": "2026-03-09"
+  },
+  "dateAsserted": "2026-02-03",
+  "note": [
+    {
+      "text": "Updated test note"
+    }
+  ]
+}

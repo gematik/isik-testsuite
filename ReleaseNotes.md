@@ -2,6 +2,23 @@
 
 # Release Notes
 
+## Release 2.5.0
+
+### added
+
+- Test Cases for ISiK Level 5, Module **Medikation**.
+
+### changed
+
+- Updated Tiger Framework to version 4.2.5
+- Changed Condition-Read-Active ICD Code from F71.0 to J06.9 (Pull Request [#11](https://github.com/gematik/isik-testsuite/pull/11))
+
+### fixed
+
+- Restricted Search Parameters for ISiK 5 Search Test Cases (ANFISK-468, ANFISK-469, ANFISK-470)
+- Bugfix ISIK 5 Appointment-Book test cases
+- Bugfix ISIK 3 DocumentReference-Search-Client Capability
+
 ## Release 2.4.0
 
 ### added
@@ -17,6 +34,7 @@
 
 - Description of the test case `ValueSet-Read` (ANFISK-465)
 - Corrected regex to allow whitespace between Content-Type parameters (Pull Request [#6](https://github.com/gematik/isik-testsuite/pull/6/))
+
 ## Release 2.3.0
 
 ### changed

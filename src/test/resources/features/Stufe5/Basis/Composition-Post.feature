@@ -7,7 +7,7 @@ Feature: Upload of a Document Bundle with POST Operation (@Composition-Post)
 
   @Precondition
   Scenario: Precondition
-    Given the Test Description: "The system under test MUST be able to resolve the patients and Encounters referenced in the Composition by their identifiers."
+    Given the Test Description: "The system under test MUST be able to resolve the Patient and Encounter referenced in the Composition by their identifiers."
     Given the Preconditions:
       """
        - The Encounter-Read-In-Progress test case must have been executed successfully beforehand.

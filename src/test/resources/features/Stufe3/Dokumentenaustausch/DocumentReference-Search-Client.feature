@@ -32,7 +32,7 @@ Feature: Testen von Suchparametern gegen die DocumentReference Ressource (@Docum
       | patient          | reference       |
       | type             | token           |
       | category         | token           |
-      | date             | date            |
+      | creation         | date            |
       | encounter        | reference       |
 
   Scenario: Suche nach Dokumentenmetadaten anhand der ID

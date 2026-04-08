@@ -32,7 +32,7 @@ tigerProxy: # https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_config
 
 lib:
   activateWorkflowUi: true
-  workflowUiPort: 9010
+  workflowUiPort: 9012
   trafficVisualization: true
   runTestsOnStart: true
 

@@ -1,0 +1,66 @@
+{
+  "resourceType": "Bundle",
+  "id": "MedicationTransaction-Post-MissingRequest-Fixture",
+  "meta": {
+    "profile": [
+      "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationTransaction"
+    ]
+  },
+  "type": "transaction",
+  "entry": [
+    {
+      "fullUrl": "http://source.fhirserver.local/Medication/${data.medication-transaction-medication-id}",
+      "resource": {
+        "resourceType": "Medication",
+        "id": "${data.medication-transaction-medication-id}",
+        "meta": {
+          "profile": [
+            "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikament"
+          ]
+        },
+        "text": {
+          "status": "additional",
+          "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\">Medikament codiert (Wirkstoff)</div>"
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://fhir.de/CodeSystem/bfarm/atc",
+              "version": "${data.atc-code-version}",
+              "code": "V03AB23",
+              "display": "Acetylcystein"
+            }
+          ]
+        },
+        "status": "active"
+      }
+    },
+    {
+      "fullUrl": "http://source.fhirserver.local/MedicationStatement/${data.medication-transaction-medicationstatement-id}",
+      "resource": {
+        "resourceType": "MedicationStatement",
+        "id": "${data.medication-transaction-medicationstatement-id}",
+        "meta": {
+          "profile": [
+            "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsInformation"
+          ]
+        },
+        "status": "active",
+        "medicationReference": {
+          "reference": "Medication/${data.medication-transaction-medication-id}"
+        },
+        "subject": {
+          "reference": "Patient/${data.medication-patient-id}"
+        },
+        "context": {
+          "reference": "Encounter/${data.medication-encounter-id}"
+        },
+        "effectivePeriod": {
+          "start": "2026-03-02"
+        },
+        "dateAsserted": "2026-02-03"
+      }
+    }
+  ]
+}
+

@@ -48,8 +48,8 @@ Feature: Testing search parameters against a resource of type Patient (@Patient-
     And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
   @Optional
-  Scenario: Search for Patient by Tag
-    When Get FHIR resource at "http://fhirserver/Patient/?_tag=${data.tag-system}%7C${data.tag-value}" with content type "xml"
+  Scenario: Search for Patient by Tag and ID
+    When Get FHIR resource at "http://fhirserver/Patient/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
@@ -62,31 +62,16 @@ Feature: Testing search parameters against a resource of type Patient (@Patient-
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where($this.system = 'http://fhir.de/sid/gkv/kvid-10' and $this.value = 'X485231029').exists())" with error message 'The requested Patient ${data.patient-read-id} is not contained in the response bundle'
 
-  Scenario: Search for Patient by first name
-    When Get FHIR resource at "http://fhirserver/Patient/?given=Max" with content type "json"
+  Scenario: Search for Patient by First Name and ID
+    When Get FHIR resource at "http://fhirserver/Patient/?given=Max&_id=${data.patient-read-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.given.where($this.startsWith('Max')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
-
-  Scenario: Search for Patient with parameter family
-    When Get FHIR resource at "http://fhirserver/Patient/?family=Graf%20von%20und%20zu%20Mustermann" with content type "json"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.family.where($this.startsWith('Graf von und zu Mustermann')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
-
-  Scenario: Search for Patient by date of birth
-    When Get FHIR resource at "http://fhirserver/Patient/?birthdate=1968-05-12" with content type "json"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(birthDate = @1968-05-12)" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Patient by ID and date of birth
     When Get FHIR resource at "http://fhirserver/Patient/?_id=${data.patient-read-id}&birthdate=1968-05-12" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(birthDate = @1968-05-12)" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
-
-  Scenario: Search for Patient by gender
-    When Get FHIR resource at "http://fhirserver/Patient/?gender=male" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(gender = 'male')" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Patient by ID and gender
     When Get FHIR resource at "http://fhirserver/Patient/?_id=${data.patient-read-id}&gender=male" with content type "xml"
@@ -95,7 +80,7 @@ Feature: Testing search parameters against a resource of type Patient (@Patient-
     And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
   Scenario: Search for Patient using family:contains
-    When Get FHIR resource at "http://fhirserver/Patient/?_id=${data.patient-read-id}&family:contains=Mustermann" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Patient/?family:contains=Mustermann" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.family.where($this.contains('Mustermann')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
@@ -110,13 +95,14 @@ Feature: Testing search parameters against a resource of type Patient (@Patient-
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.where(given.contains('An&na,Vic$tor|a')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
-  Scenario: Search for Patient using birthdate=gt
-    When Get FHIR resource at "http://fhirserver/Patient/?birthdate=gt1955-07-01" with content type "xml"
+  Scenario: Search for Patient using ID and birthdate=gt
+    When Get FHIR resource at "http://fhirserver/Patient/?_id=${data.patient-read-id}&birthdate=gt1955-07-01" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(birthDate > @1955-07-01)" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
-  Scenario: Search for Patients by Encounter
-    When Get FHIR resource at "http://fhirserver/Patient/?_has:Encounter:patient:_id=${data.encounter-read-in-progress-id}" with content type "xml"
+  Scenario: Search for Patients by ID and Encounter
+    When Get FHIR resource at "http://fhirserver/Patient/?_id=${data.patient-read-id}&_has:Encounter:patient:_id=${data.encounter-read-in-progress-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
@@ -143,27 +129,32 @@ Feature: Testing search parameters against a resource of type Patient (@Patient-
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
     And Check if current response of resource "Patient" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKPatient"
 
-  Scenario: Search for Patients by Address (city)
-    When Get FHIR resource at "http://fhirserver/Patient/?address-city=Musterdorf" with content type "xml"
+  Scenario: Search for Patients by Address (city) and ID
+    When Get FHIR resource at "http://fhirserver/Patient/?address-city=Musterdorf&_id=${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city = 'Musterdorf').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
-  Scenario: Search for Patients by Address (country)
-    When Get FHIR resource at "http://fhirserver/Patient/?address-country=DE" with content type "xml"
+  Scenario: Search for Patients by Address (country) and ID
+    When Get FHIR resource at "http://fhirserver/Patient/?address-country=DE&_id=${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(country = 'DE').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
-  Scenario: Search for Patients by Address (postal code)
-    When Get FHIR resource at "http://fhirserver/Patient/?address-postalcode=98765" with content type "xml"
+  Scenario: Search for Patients by Address (postal code) and ID
+    When Get FHIR resource at "http://fhirserver/Patient/?address-postalcode=98765&_id=${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(postalCode.contains('98765')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
-  Scenario: Search for Patients by Status
-    When Get FHIR resource at "http://fhirserver/Patient/?active=true" with content type "xml"
+  Scenario: Search for Patients by Status and ID
+    When Get FHIR resource at "http://fhirserver/Patient/?active=true&_id=${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(active=true)" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"
 
-  Scenario: Search for Patients by Phone Number
-    When Get FHIR resource at "http://fhirserver/Patient/?telecom=201-867-5309" with content type "xml"
+  Scenario: Search for Patients by Phone Number and ID
+    When Get FHIR resource at "http://fhirserver/Patient/?telecom=201-867-5309&_id=${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all((telecom = '201-867-5309').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${data.patient-read-id}" with error message "The requested Patient ${data.patient-read-id} is not contained in the response bundle"

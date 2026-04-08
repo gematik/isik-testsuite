@@ -43,8 +43,8 @@ Feature: Testing search parameters against a resource of type ValueSet (@ValueSe
     And response bundle contains resource with ID "${data.valueset-read-id}" with error message "The requested ValueSet ${data.valueset-read-id} is not contained in the response bundle"
 
   @Optional
-  Scenario: Search for ValueSet resource by Tag
-    When Get FHIR resource at "http://fhirserver/ValueSet/?_tag=${data.tag-system}%7C${data.tag-value}" with content type "xml"
+  Scenario: Search for ValueSet resource by Tag and ID
+    When Get FHIR resource at "http://fhirserver/ValueSet/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.valueset-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
@@ -52,8 +52,8 @@ Feature: Testing search parameters against a resource of type ValueSet (@ValueSe
     When Get FHIR resource at "http://fhirserver/ValueSet/?_count" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
 
-  Scenario Outline: Search for ValueSet by additional search parameters
-    When Get FHIR resource at "http://fhirserver/ValueSet/?<searchParameter>=<searchValue>" with content type "<contentType>"
+  Scenario Outline: Search for ValueSet by additional search parameters and ID
+    When Get FHIR resource at "http://fhirserver/ValueSet/?<searchParameter>=<searchValue>&_id=${data.valueset-read-id}" with content type "<contentType>"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(<searchParameter> = '<searchValue>')" with error message 'There are search results, but they do not fully match the search criteria'
 
