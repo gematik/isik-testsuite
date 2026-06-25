@@ -32,6 +32,7 @@ import de.gematik.test.tiger.glue.HttpGlueCode;
 import de.gematik.test.tiger.glue.RBelValidatorGlue;
 import de.gematik.test.tiger.glue.fhir.FhirPathValidationGlue;
 import de.gematik.test.tiger.glue.fhir.StaticFhirValidationGlue;
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.en.And;
@@ -40,16 +41,16 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.restassured.http.Method;
 import java.net.URI;
-import lombok.SneakyThrows;
-import lombok.extern.slf4j.Slf4j;
 import org.hl7.fhir.r4.model.DomainResource;
 import org.hl7.fhir.r4.model.Reference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-@Slf4j
 public class IsikGlue {
 
   public static final String REGEX_REFERENCE_MATCHES_ID =
       "%s.reference.replaceMatches('/_history/.+','').matches('\\\\b%s$')";
+  private static final Logger log = LoggerFactory.getLogger(IsikGlue.class);
   private final StaticFhirValidationGlue staticFhirValidationGlue = new StaticFhirValidationGlue();
   private final RBelValidatorGlue rBelValidatorGlue = new RBelValidatorGlue();
   private final FhirPathValidationGlue fhirPathValidationGlue = new FhirPathValidationGlue();
@@ -79,13 +80,37 @@ public class IsikGlue {
   }
 
   @When("Get FHIR resource at {string} with content type {string}")
-  @SneakyThrows
   public void getAndValidateResource(String address, String contentType) {
     rBelValidatorGlue.tgrClearRecordedMessages();
     String resolvedAddress = TigerGlobalConfiguration.resolvePlaceholders(address);
     new HttpGlueCode().setDefaultHeader("Accept", "application/fhir+" + contentType);
-    new HttpGlueCode().sendEmptyRequest(Method.GET, new URI(resolvedAddress));
+    new HttpGlueCode().sendEmptyRequest(Method.GET, URI.create(resolvedAddress));
     rBelValidatorGlue.findLastRequest();
+    rBelValidatorGlue.currentResponseMessageAttributeMatches("$.responseCode", "200");
+    rBelValidatorGlue.currentResponseMessageAttributeMatches(
+        "$.header.[~'content-type']", "application/fhir\\+" + contentType + ".*");
+    rBelValidatorGlue.currentResponseMessageAttributeMatches(
+        "$.header.[~'content-type']", "(?i).*charset=UTF-8");
+  }
+
+  @When("Post FHIR search request to {string} with content type {string} and parameters:")
+  public void postSearchAndValidateResource(
+      String address, String contentType, DataTable parameters) {
+    rBelValidatorGlue.tgrClearRecordedMessages();
+    String resolvedAddress = TigerGlobalConfiguration.resolvePlaceholders(address);
+    URI searchUri = URI.create(resolvedAddress);
+    var glueCode = new HttpGlueCode();
+    glueCode.setDefaultHeader("Accept", "application/fhir+" + contentType);
+    // POST search parameters must be sent as form data so servers do not parse the body as FHIR
+    // XML/JSON.
+    glueCode.setDefaultHeader("Content-Type", "application/x-www-form-urlencoded");
+    glueCode.sendRequestWithParams(Method.POST, searchUri, parameters);
+    rBelValidatorGlue.findLastRequest();
+    rBelValidatorGlue.currentRequestMessageAttributeMatches("$.method", "POST");
+    rBelValidatorGlue.currentRequestMessageAttributeMatches(
+        "$.header.Content-Type", "application/x-www-form-urlencoded.*");
+    rBelValidatorGlue.currentRequestMessageAttributeDoesNotMatch(
+        "$.header.Content-Type", "application/fhir\\+(xml|json).*");
     rBelValidatorGlue.currentResponseMessageAttributeMatches("$.responseCode", "200");
     rBelValidatorGlue.currentResponseMessageAttributeMatches(
         "$.header.[~'content-type']", "application/fhir\\+" + contentType + ".*");

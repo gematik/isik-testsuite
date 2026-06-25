@@ -43,15 +43,15 @@ Feature: Testing search parameters against a resource of type Procedure (@Proced
     And response bundle contains resource with ID "${data.procedure-read-id}" with error message "The requested Procedure ${data.procedure-read-id} is not contained in the response bundle"
 
   @Optional
-  Scenario: Search for Procedure resource by Tag and ID
+  Scenario: Optional Search for Procedure resource by Tag and ID
     When Get FHIR resource at "http://fhirserver/Procedure/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.procedure-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.procedure-read-id}" with error message "The requested Procedure ${data.procedure-read-id} is not contained in the response bundle"
 
   Scenario: Search for Procedure resource by Count
-    When Get FHIR resource at "http://fhirserver/Procedure/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Procedure/?_count=1" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for Procedures by Status and Patient
     When Get FHIR resource at "http://fhirserver/Procedure/?status=completed&patient=Patient/${data.patient-read-id}" with content type "xml"
@@ -86,7 +86,7 @@ Feature: Testing search parameters against a resource of type Procedure (@Proced
     And bundle does not contain resource "Procedure" with ID "${data.procedure-read-id}" with error message "There are search results, but they do not fully match the search criteria"
 
   @Optional
-  Scenario: Search for Procedures by Subject reference
+  Scenario: Optional Search for Procedures by Subject reference
     When Get FHIR resource at "http://fhirserver/Procedure/?subject=Patient/${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And element "subject" in all bundle resources references resource with ID "${data.patient-read-id}"

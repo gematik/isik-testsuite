@@ -41,15 +41,15 @@ Feature: Testing search parameters against the HealthcareService resource (@Heal
     And Check if current response of resource "HealthcareService" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedizinischeBehandlungseinheit"
 
   @Optional
-  Scenario: Search for the HealthcareService by Tag and ID
+  Scenario: Optional Search for the HealthcareService by Tag and ID
     When Get FHIR resource at "http://fhirserver/HealthcareService/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.healthcareservice-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.healthcareservice-read-id}" with error message "The requested HealthcareService ${data.healthcareservice-read-id} is not contained in the response bundle"
 
   Scenario: Search for the HealthcareService by Count
-    When Get FHIR resource at "http://fhirserver/HealthcareService/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/HealthcareService/?_count=1" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for the HealthcareService by Active State and ID
     Then Get FHIR resource at "http://fhirserver/HealthcareService/?active=true&_id=${data.healthcareservice-read-id}" with content type "json"

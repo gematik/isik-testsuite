@@ -39,15 +39,15 @@ Feature: Testing search parameters against the Schedule resource (@Schedule-Sear
     And Check if current response of resource "Schedule" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKKalender"
 
   @Optional
-  Scenario: Search for the Schedule by Tag and ID
+  Scenario: Optional Search for the Schedule by Tag and ID
     When Get FHIR resource at "http://fhirserver/Schedule/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.schedule-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.schedule-read-id}" with error message "The requested Schedule ${data.schedule-read-id} is not contained in the response bundle"
 
   Scenario: Search for the Schedule by Count
-    When Get FHIR resource at "http://fhirserver/Schedule/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Schedule/?_count=1" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for the Schedule that belong to a Practitioner, by Active state
     Then Get FHIR resource at "http://fhirserver/Schedule/?active=true&actor=Practitioner/${data.appointment-practitioner-id}" with content type "json"

@@ -43,8 +43,8 @@ Feature: Testing search parameters against a resource of type Medication List (@
     And Check if current response of resource "List" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsListe"
 
   Scenario: Search for the List by Count
-    When Get FHIR resource at "http://fhirserver/List/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/List/?_count=1" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for the List that belong to a Patient, by Patient Reference
     Then Get FHIR resource at "http://fhirserver/List/?patient=Patient/${data.medication-patient-id}" with content type "json"
@@ -57,7 +57,7 @@ Feature: Testing search parameters against a resource of type Medication List (@
     And FHIR current response body evaluates the FHIRPath "entry.resource.where(subject.reference.replaceMatches('/_history/.+','').matches('Patient/${data.medication-patient-id}$')).exists()" with error message 'There are search results, but they do not fully match the search criteria'
 
   @Optional
-  Scenario: Search for the List that belong to a Patient, by Tag
+  Scenario: Optional Search for the List that belong to a Patient, by Tag
     When Get FHIR resource at "http://fhirserver/List/?_tag=${data.tag-system}%7C${data.tag-value}&patient=Patient/${data.medication-patient-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
@@ -78,7 +78,7 @@ Feature: Testing search parameters against a resource of type Medication List (@
     And element "encounter" in all bundle resources references resource with ID "Encounter/${data.medication-encounter-id}"
 
   Scenario: Search for the List that belong to a Patient, by Encounter Identifier
-    Then Get FHIR resource at "http://fhirserver/List/?encounter.identifier=${data.medication-encounter-identifier}&patient=Patient/${data.medication-patient-id}" with content type "json"
+    Then Get FHIR resource at "http://fhirserver/List/?encounter.identifier=${data.medication-encounter-identifier-value}&patient=Patient/${data.medication-patient-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.where(encounter.reference.replaceMatches('/_history/.+','').matches('Encounter/${data.medication-encounter-id}$')).exists()" with error message 'There are search results, but they do not fully match the search criteria'
 

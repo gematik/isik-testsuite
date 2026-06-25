@@ -113,16 +113,16 @@ expressions.
 
 Currently supported tags are:
 
-| Tag                    | Description                                                                                                  |
-|------------------------|--------------------------------------------------------------------------------------------------------------|
+| Tag                    | Description                                                                                                |
+|------------------------|------------------------------------------------------------------------------------------------------------|
 | `@Stufe3`              | Runs all tests for Stufe 3 of the specification. This is the default when running the testsuite with Docker. |
-| `@Stufe5`              | Runs all tests for Stufe 5 of the specification.                                                             |
-| `@Optional`            | Runs all tests that are marked as optional in the specification. By default, these tests are not executed.   |
-| `@Basis`               | Runs all the tests from the **Basis** Module                                                                 |
-| `@Terminplanung`       | Runs all the tests from the **Terminplanung** Module                                                         |
-| `@Medikation`          | Runs all the tests from the **Medikation** Module (only for @Stufe3)                                         |
-| `@Vitalparameter`      | Runs all the tests from the **Vitalparameter** Module (only for @Stufe3)                                     |
-| `@Dokumentenaustausch` | Runs all the tests from the **Dokumentenaustausch** Module (only for @Stufe3)                                |
+| `@Stufe5`              | Runs all tests for Stufe 5 of the specification.                                                           |
+| `@Optional`            | Runs all tests that are marked as optional in the specification. By default, these tests are not executed. |
+| `@Basis`               | Runs all the tests from the **Basis** Module                                                               |
+| `@Terminplanung`       | Runs all the tests from the **Terminplanung** Module                                                       |
+| `@Medikation`          | Runs all the tests from the **Medikation** Module                                       |
+| `@Vitalparameter`      | Runs all the tests from the **Vitalparameter** Module                                                       |
+| `@Dokumentenaustausch` | Runs all the tests from the **Dokumentenaustausch** Module                             |
 
 ## Usage
 

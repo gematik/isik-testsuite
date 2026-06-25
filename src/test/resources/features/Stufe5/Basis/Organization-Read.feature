@@ -3,7 +3,7 @@
 @Basis
 @Optional
 @Organization-Read
-Feature: Read Information from a resource of type Organization (@Organization-Read)
+Feature: Read Information from a resource of type Organization (@Organization-Read) (Optional)
 
   @Precondition:
   Scenario: Precondition

@@ -2,8 +2,9 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementStammdatenRolle
 @Encounter-Search
-Feature: Testing search parameters against a resource of type encounter-read-in-progress (@Encounter-Search)
+Feature: Testing search parameters against a resource of type encounter-read-in-progress, according to the definition of ISiKCapabilityStatementStammdatenRolle (@Encounter-Search)
 
   @Precondition
   Scenario: Precondition
@@ -30,8 +31,6 @@ Feature: Testing search parameters against a resource of type encounter-read-in-
       | type             | token           |
       | patient          | reference       |
       | account          | reference       |
-      | location         | reference       |
-      | service-provider | reference       |
       | date             | date            |
       | date-start       | date            |
       | end-date         | date            |
@@ -39,6 +38,7 @@ Feature: Testing search parameters against a resource of type encounter-read-in-
     @Optional
     Examples:
       | searchParamValue | searchParamType |
+      | _has             | string          |
       | _tag             | token           |
 
   Scenario: Search for the encounter by ID
@@ -46,18 +46,11 @@ Feature: Testing search parameters against a resource of type encounter-read-in-
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
     And response bundle contains resource with ID "${data.encounter-read-in-progress-id}" with error message "The requested Encounter ${data.encounter-read-in-progress-id} is not contained in the response bundle."
 
-  @Optional
-  Scenario: Search for the Encounter by Tag and ID
-    When Get FHIR resource at "http://fhirserver/Encounter/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.encounter-read-in-progress-id}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.encounter-read-in-progress-id}" with error message "The requested Encounter ${data.encounter-read-in-progress-id} is not contained in the response bundle."
-
   Scenario: Search for the Encounter by Count
-    When Get FHIR resource at "http://fhirserver/Encounter/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Encounter/?_count=2" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 2' with error message 'The _count parameter was not applied as expected'
 
-  Scenario: Search for the Encounter by Status and Patient
+  Scenario: Search for the Encounter by Status and ID
     When Get FHIR resource at "http://fhirserver/Encounter/?status=in-progress&_id=${data.encounter-read-in-progress-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(status = 'in-progress')" with error message 'There are search results, but they do not fully match the search criteria'
@@ -175,16 +168,16 @@ Feature: Testing search parameters against a resource of type encounter-read-in-
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(period.end <= @2050-01-01T23:59:59+01:00)" with error message 'There are search results, but they do not fully match the search criteria'
     # encounter-read-in-progress-id has start date 2026-01-06 but no end date, so it must not appear in the search results
-    And bundle does not contain resource "Encounter" with ID "${data.encounter-read-in-progress-id}" with error message "The requested encounter {data.encounter-read-in-progress-id} must not be returned here."
+    And bundle does not contain resource "Encounter" with ID "${data.encounter-read-in-progress-id}" with error message "The requested encounter ${data.encounter-read-in-progress-id} must not be returned here."
     # encounter-read-finished-id has start date 2026-01-06 and end date 2026-01-08 in test data, therefore it must appear in the bundle
-    And response bundle contains resource with ID "${data.encounter-read-finished-id}" with error message "The requested encounter {data.encounter-read-finished-id} is not contained in the response bundle."
+    And response bundle contains resource with ID "${data.encounter-read-finished-id}" with error message "The requested encounter ${data.encounter-read-finished-id} is not contained in the response bundle."
 
   Scenario: Search for the Encounter by Admission Date with the Search parameter 'date-start' and Patient
     When Get FHIR resource at "http://fhirserver/Encounter/?date-start=ge1999-01-01&patient=Patient/${data.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(period.start >= @1999-01-01T00:00:00+01:00)" with error message 'There are search results, but they do not fully match the search criteria'
     # encounter-read-in-progress-id has start date 2026-01-06 and must therefore appear in the bundle
-    And response bundle contains resource with ID "${data.encounter-read-in-progress-id}" with error message "The requested encounter {data.encounter-read-in-progress-id} is not contained in the response bundle."
+    And response bundle contains resource with ID "${data.encounter-read-in-progress-id}" with error message "The requested encounter ${data.encounter-read-in-progress-id} is not contained in the response bundle."
 
   Scenario: Negative Search for the Encounter by Admission Date with the Search parameter 'date-start' and 'ge' Modifier and Patient
     When Get FHIR resource at "http://fhirserver/Encounter/?date-start=ge2026-01-14&patient=Patient/${data.account-read-patient-id}" with content type "xml"
@@ -203,7 +196,7 @@ Feature: Testing search parameters against a resource of type encounter-read-in-
     # encounter-read-in-progress-id has the start date 2026-01-06 in the test data; therefore it must not appear in the search results
     And bundle does not contain resource "Encounter" with ID "${data.encounter-read-in-progress-id}" with error message "The requested encounter ${data.encounter-read-in-progress-id} must not be returned here."
     # encounter-read-finished-id has start date 2026-01-06 and end date 2026-01-08 in the test data, therefore it must appear in the bundle
-    And response bundle contains resource with ID "${data.encounter-read-finished-id}" with error message "The requested encounter {data.encounter-read-finished-id} is not contained in the response bundle."
+    And response bundle contains resource with ID "${data.encounter-read-finished-id}" with error message "The requested encounter ${data.encounter-read-finished-id} is not contained in the response bundle."
 
   Scenario: Search for the Encounter by Admission Identifier
     When Get FHIR resource at "http://fhirserver/Encounter/?identifier=${data.encounter-read-in-progress-identifier-system}%7C${data.encounter-read-in-progress-identifier-value}" with content type "xml"
@@ -226,4 +219,17 @@ Feature: Testing search parameters against a resource of type encounter-read-in-
     When Get FHIR resource at "http://fhirserver/Encounter/?service-provider=${data.encounter-read-in-progress-service-provider}&patient=Patient/${data.patient-read-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath 'entry.resource.all(serviceProvider.reference.replaceMatches("/_history/.+","").matches("\\b${data.encounter-read-in-progress-service-provider}$"))' with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${data.encounter-read-in-progress-id}" with error message "The requested Encounter ${data.encounter-read-in-progress-id} is not contained in the response bundle."
+
+  @Optional
+  Scenario: Optional Search for the Encounter by Tag and ID
+    When Get FHIR resource at "http://fhirserver/Encounter/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.encounter-read-in-progress-id}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${data.encounter-read-in-progress-id}" with error message "The requested Encounter ${data.encounter-read-in-progress-id} is not contained in the response bundle."
+
+  @Optional
+  Scenario: Optional Search for the Encounter by Has and ID
+    When Get FHIR resource at "http://fhirserver/Encounter/?_id=${data.encounter-read-in-progress-id}&_has:Condition:encounter:code=${data.condition-read-active-code}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And response bundle contains resource with ID "${data.encounter-read-in-progress-id}" with error message "The requested Encounter ${data.encounter-read-in-progress-id} is not contained in the response bundle."

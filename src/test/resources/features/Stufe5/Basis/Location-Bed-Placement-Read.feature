@@ -3,7 +3,7 @@
 @Basis
 @Optional
 @Location-Bed-Placement-Read
-Feature: Read Information from a resource of type Location that identifies the placement of beds (@Location-Bed-Placement-Read)
+Feature: Read Information from a resource of type Location that identifies the placement of beds (@Location-Bed-Placement-Read) (Optional)
 
   @Precondition:
   Scenario: Precondition

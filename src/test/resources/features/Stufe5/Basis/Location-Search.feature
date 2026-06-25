@@ -3,7 +3,7 @@
 @Basis
 @Optional
 @Location-Search
-Feature: Testing search parameters against a resource of type Location (@Location-Search)
+Feature: Testing search parameters against a resource of type Location (@Location-Search) (Optional)
 
   @Precondition
   Scenario: Precondition
@@ -43,15 +43,15 @@ Feature: Testing search parameters against a resource of type Location (@Locatio
     And response bundle contains resource with ID "${data.location-read-id}" with error message "The requested Location ${data.Location-read-active-id} is not contained in the response bundle"
 
   @Optional
-  Scenario: Search for the Location by Tag and ID
+  Scenario: Optional Search for the Location by Tag and ID
     When Get FHIR resource at "http://fhirserver/Location/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.location-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.location-read-id}" with error message "The requested Location ${data.location-read-id} is not contained in the response bundle."
     
   Scenario: Search for the Location by Count
-    When Get FHIR resource at "http://fhirserver/Location/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Location/?_count=2" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 2' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for the Location by Identifier
     When Get FHIR resource at "http://fhirserver/Location/?identifier=${data.location-read-identifier-system}%7C${data.location-read-identifier-value}" with content type "xml"

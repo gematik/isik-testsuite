@@ -16,6 +16,7 @@ Feature: Read Information from a resource of type Patient (@Patient-Read)
       Create a Patient resource with these fields:
 
       * Status: active
+      * Prefix: Prof.
       * First name: Max
       * Last name: Graf von und zu Mustermann
       * Gender: male
@@ -39,6 +40,7 @@ Feature: Read Information from a resource of type Patient (@Patient-Read)
     And TGR current response with attribute "$..gender.value" matches "male"
     And TGR current response with attribute "$..active.value" matches "true"
     And TGR current response with attribute "$..birthDate.value" matches "1968-05-12"
+    And FHIR current response body evaluates the FHIRPath "name.where(use='official').prefix.matches('Prof.')"
     And FHIR current response body evaluates the FHIRPath "name.where(use='official').given.matches('Max')"
     And FHIR current response body evaluates the FHIRPath "name.where(use='official').family.matches('Graf von und zu Mustermann')"
     And FHIR current response body evaluates the FHIRPath "telecom.where(system='phone').value.matches('030 1234567')"

@@ -28,8 +28,13 @@ healthcareservice-search-name: General%20consultation%20office%20of%20the%20Neur
 schedule-read-id: Schedule-Read-Example
 schedule-read-servicetype-code: 177
 schedule-read-servicetype-system: http://terminology.hl7.org/CodeSystem/service-type
+search-count: 20
 slot-read-id: Slot-Read-Example
 slot-read-start: "2027-01-01"
 snomed-ct-version: 20251115
 tag-system: http://fhir.de/CodeSystem/common-meta-tag-de
 tag-value: external
+terminplanung-encounter-id: Encounter-Basic-Role-Example
+terminplanung-encounter-identifier-value: 0123456789
+terminplanung-encounter-identifier-system: https://test.krankenhaus.de/fhir/sid/fallnr
+valueset-read-id: ValueSet-Read-Example

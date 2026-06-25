@@ -43,14 +43,14 @@ Feature: Testing search parameters against a resource of type Condition (@Condit
     And response bundle contains resource with ID "${data.condition-read-active-id}" with error message "The requested Condition ${data.condition-read-active-id} is not contained in the response bundle"
 
   @Optional
-  Scenario: Search for the Condition by Tag and ID
+  Scenario: Optional Search for the Condition by Tag and ID
     When Get FHIR resource at "http://fhirserver/Condition/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.condition-read-active-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the Condition by Count
-    When Get FHIR resource at "http://fhirserver/Condition/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Condition/?_count=1" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for the Condition by Patient (Search Parameter 'subject')
     When Get FHIR resource at "http://fhirserver/Condition/?subject=Patient/${data.patient-read-id}" with content type "xml"
@@ -80,26 +80,26 @@ Feature: Testing search parameters against a resource of type Condition (@Condit
     And element "subject" in all bundle resources references resource with ID "${data.patient-read-id}"
 
   @Optional
-  Scenario: Search for the Condition by Clinical Status and Patient ('subject')
+  Scenario: Optional Search for the Condition by Clinical Status and Patient ('subject')
     When Get FHIR resource at "http://fhirserver/Condition/?subject=Patient/${data.patient-read-id}&clinical-status=http://terminology.hl7.org/CodeSystem/condition-clinical%7Cactive" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(clinicalStatus.coding.code.where($this = 'active').exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And element "subject" in all bundle resources references resource with ID "${data.patient-read-id}"
 
   @Optional
-  Scenario: Search for the Condition by ID and Clinical Status and Patient ('subject')
+  Scenario: Optional Search for the Condition by ID and Clinical Status and Patient ('subject')
     When Get FHIR resource at "http://fhirserver/Condition/?_id=${data.condition-read-active-id}&subject=Patient/${data.patient-read-id}&clinical-status=http://terminology.hl7.org/CodeSystem/condition-clinical%7Cinactive" with content type "json"
     And bundle does not contain resource "Condition" with ID "${data.condition-read-active-id}" with error message "The requested CodeSystem ${data.condition-read-active-id}} should not be part of the search result"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.all(clinicalStatus.coding.code.where($this = "active").exists().not())' with error message 'There are search results, but they do not fully match the search criteria'
 
   @Optional
-  Scenario: Search for the Condition by Clinical Status with ':not' Modifier and Patient ('subject')
+  Scenario: Optional Search for the Condition by Clinical Status with ':not' Modifier and Patient ('subject')
     When Get FHIR resource at "http://fhirserver/Condition/?subject=Patient/${data.patient-read-id}&clinical-status:not=http://terminology.hl7.org/CodeSystem/condition-clinical%7Cinactive" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath 'entry.resource.all(clinicalStatus.coding.code.where($this = "inactive").exists().not())' with error message 'There are search results, but they do not fully match the search criteria'
 
   @Optional
-  Scenario: Search for the Condition by Category and Patient ('subject')
+  Scenario: Optional Search for the Condition by Category and Patient ('subject')
     When Get FHIR resource at "http://fhirserver/Condition/?subject=Patient/${data.patient-read-id}&category=encounter-diagnosis" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath 'entry.resource.all(category.coding.where(code = "encounter-diagnosis").exists())' with error message 'There are search results, but they do not fully match the search criteria'

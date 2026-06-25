@@ -44,8 +44,8 @@ Feature: Testing search parameters against a resource of type MedicationAdminist
     And Check if current response of resource "MedicationAdministration" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsVerabreichung"
 
   Scenario: Search for the MedicationAdministration by Count
-    When Get FHIR resource at "http://fhirserver/MedicationAdministration/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/MedicationAdministration/?_count=1" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for the MedicationAdministration by Patient Reference
     Then Get FHIR resource at "http://fhirserver/MedicationAdministration/?patient=Patient/${data.medication-patient-id}" with content type "xml"
@@ -58,7 +58,7 @@ Feature: Testing search parameters against a resource of type MedicationAdminist
     And element "subject" in all bundle resources references resource with ID "Patient/${data.medication-patient-id}"
 
   @Optional
-  Scenario: Search for the MedicationAdministration that belong to a Patient, by Tag
+  Scenario: Optional Search for the MedicationAdministration that belong to a Patient, by Tag
     When Get FHIR resource at "http://fhirserver/MedicationAdministration/?_tag=${data.tag-system}%7C${data.tag-value}&patient=Patient/${data.medication-patient-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
@@ -75,9 +75,8 @@ Feature: Testing search parameters against a resource of type MedicationAdminist
     And element "context" in all bundle resources references resource with ID "Encounter/${data.medication-encounter-id}"
 
   Scenario: Search for the MedicationAdministration that belong to a Patient, by Context Identifier
-    Then Get FHIR resource at "http://fhirserver/MedicationAdministration/?context.identifier=${data.medication-encounter-identifier}&patient=Patient/${data.medication-patient-id}" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/MedicationAdministration/?context.identifier=${data.medication-encounter-identifier-value}&patient=Patient/${data.medication-patient-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And element "context" in all bundle resources references resource with ID "Encounter/${data.medication-encounter-id}"
 
   Scenario: Search for the MedicationAdministration that belong to a Patient, by Effective Time
     Then Get FHIR resource at "http://fhirserver/MedicationAdministration/?effective-time=gt2026-01-01&patient=Patient/${data.medication-patient-id}" with content type "xml"

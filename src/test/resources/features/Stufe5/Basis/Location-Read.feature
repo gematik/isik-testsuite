@@ -3,7 +3,7 @@
 @Basis
 @Optional
 @Location-Read
-Feature: Read Information from a resource of type Location (@Location-Read)
+Feature: Read Information from a resource of type Location (@Location-Read) (Optional)
 
   @Precondition:
   Scenario: Precondition

@@ -3,7 +3,7 @@
 @Disabled # This Testcase is still under development and will be enabled in a later stage of the project.
 @Optional
 @DocumentReference-UpdateMetadata
-Feature: Update Metadata of an existing DocumentReference with POST Operation (Metadatenupdate) (@DocumentReference-UpdateMetadata)
+Feature: Update Metadata of an existing DocumentReference with POST Operation (Metadatenupdate) (@DocumentReference-UpdateMetadata) (Optional)
 
   @Precondition
   Scenario: Precondition

@@ -3,7 +3,7 @@
 @Basis
 @Optional
 @Patient-Delete-Cancellation
-Feature: Delete Patient (@Patient-Delete-Cancellation)
+Feature: Delete Patient (@Patient-Delete-Cancellation) (Optional)
 
   @Precondition
   Scenario: Precondition
