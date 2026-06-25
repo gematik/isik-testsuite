@@ -38,15 +38,15 @@ Feature: Testing search parameters against the Appointment resource (@Appointmen
     And Check if current response of resource "Appointment" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKTermin"
 
   @Optional
-  Scenario: Search for the Appointment by Tag and ID
+  Scenario: Optional Search for the Appointment by Tag and ID
     When Get FHIR resource at "http://fhirserver/Appointment/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.appointment-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And response bundle contains resource with ID "${data.appointment-read-id}" with error message "The requested appointment ${data.appointment-read-id} is not contained in the response bundle"
 
   Scenario: Search for the Appointment by Count
-    When Get FHIR resource at "http://fhirserver/Appointment/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Appointment/?_count=1" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for the Appointment that belong to a Patient, by Status
     Then Get FHIR resource at "http://fhirserver/Appointment/?status=cancelled&actor=Patient/${data.appointment-patient-id}" with content type "json"

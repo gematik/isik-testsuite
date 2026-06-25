@@ -41,7 +41,7 @@ Feature: Testing search parameters against a resource of type "statutory" Covera
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
 
   @Optional
-  Scenario: Search for the Coverage by Tag and ID
+  Scenario: Optional Search for the Coverage by Tag and ID
     When Get FHIR resource at "http://fhirserver/Coverage/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.coverage-read-statutory-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'

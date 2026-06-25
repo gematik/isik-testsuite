@@ -40,14 +40,14 @@ Feature: Testing search parameters against a resource of type Account (@Account-
     And response bundle contains resource with ID "${data.account-read-id}" with error message "The requested Account ${data.account-read-id} is not contained in the response bundle."
 
   @Optional
-  Scenario: Search for the Account by Tag and ID
+  Scenario: Optional Search for the Account by Tag and ID
     When Get FHIR resource at "http://fhirserver/Account/?_id=${data.account-read-id}&_tag=${data.tag-system}%7C${data.tag-value}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the Account by Count
-    When Get FHIR resource at "http://fhirserver/Account/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Account/?_count=1" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(value = '${data.account-read-identifier-value}' and system = '${data.account-read-identifier-system}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the Account by Patient and Identifier

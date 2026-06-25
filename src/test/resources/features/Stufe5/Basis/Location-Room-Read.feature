@@ -3,7 +3,7 @@
 @Basis
 @Optional
 @Location-Room-Read
-Feature: Read Information from a resource of type Location that identifies a room (@Location-Room-Read)
+Feature: Read Information from a resource of type Location that identifies a room (@Location-Room-Read) (Optional)
 
   @Precondition:
   Scenario: Precondition

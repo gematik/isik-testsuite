@@ -49,3 +49,5 @@ additionalConfigurationFiles:
     baseKey: data
   - filename: testdata/Stufe5/medikation.yaml
     baseKey: data
+  - filename: testdata/Stufe5/vitalparameter.yaml
+    baseKey: data

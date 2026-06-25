@@ -3,7 +3,7 @@
 @Basis
 @Optional
 @Patient-Update-Cancellation
-Feature: Update Patient (@Patient-Update-Cancellation)
+Feature: Update Patient (@Patient-Update-Cancellation) (Optional)
 
   @Precondition
   Scenario: Precondition

@@ -2,6 +2,27 @@
 
 # Release Notes
 
+## Release 2.6.0
+
+### added
+
+- Test Cases for ISiK Level 5, Module **Vitalparameter**.
+- Missing Test Cases for ISiK Level 5, Module **Basis** (`ISiKLebensZustand`)
+- Test Cases for ISiK Level 5 Role-based Capabilities
+
+### changed
+
+- Added limitation of Search for all resources, when applying the search parameter `_count`
+- Running tests per default for ISiK Level 5
+- Updated ISIK 5 Validation Plugin to 1.0.2 (Spec Version 5.1.2)
+- Updated Tiger Framework to version 4.3.1
+
+### fixes
+
+- Check for `Link-Type` in `Patient-Search-Extended` test case in Basis Module has been removed (ANFISK-539)
+- Capability Statement `_tag` for Patient defined as Optional (ANFISK-541)
+- Test `Patient-Update-Cancellation-Inactive-Fixture` uses a correct Id (ANFISK-543)
+
 ## Release 2.5.1
 
 ### changed

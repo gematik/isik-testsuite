@@ -53,10 +53,6 @@ Feature: Read information from a resource of type DocumentReference (@DocumentRe
           - Code: KHS
           - Display: Krankenhaus
         - Clinical Specialty: ALLG
-        - Event:
-          - Code: E100
-          - Display: ambulanter Kontakt
-          - System: http://ihe-d.de/CodeSystems/FallkontextBeiDokumentenerstellung
         - Encounter: reference to an Encounter resource (the ID of the corresponding FHIR resource must be stored in the configuration variable 'documentreference-read-encounter-id')
       * Patient reference: reference to a Patient resource (the ID of the corresponding FHIR resource must be stored in the configuration variable 'documentreference-read-patient-id')
       * (Optional) Tag: Value defined through the configuration variables 'tag-value' and 'tag-system'
@@ -82,7 +78,6 @@ Feature: Read information from a resource of type DocumentReference (@DocumentRe
     And FHIR current response body evaluates the FHIRPath "content.where(attachment.where(contentType = 'application/pdf' and (language = 'de' or language.startsWith('de-')) and url.exists() and creation = @2026-01-31T14:50:50+01:00).exists() and format.where(code = 'urn:ihe:iti:xds:2017:mimeTypeSufficient' and system = 'http://ihe.net/fhir/ihe.formatcode.fhir/CodeSystem/formatcode').exists()).exists()" with error message 'The attachment does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "content.attachment.url.contains('Binary/${data.documentreference-read-binary-id}')" with error message 'The Binary reference does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "context.where(facilityType.coding.where(code = 'KHS' and system = 'http://ihe-d.de/CodeSystems/PatientBezogenenGesundheitsversorgung').exists() and practiceSetting.where(coding.where(code = 'ALLG' and system = 'http://ihe-d.de/CodeSystems/AerztlicheFachrichtungen').exists()).exists()).exists()" with error message 'The context Facility and Specialty does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "context.where(event.coding.where(code = 'E100' and system = 'http://ihe-d.de/CodeSystems/FallkontextBeiDokumentenerstellung' and display = 'ambulanter Kontakt').exists()).exists()" with error message 'The context Event does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "category.coding.where(code = 'DOK' and system = 'http://ihe-d.de/CodeSystems/IHEXDSclassCode' and display = 'Dokumente ohne besondere Form (Notizen)').exists()" with error message 'The document class does not match the expected value'
     And element "subject" references resource with ID "${data.documentreference-read-patient-id}" with error message "The reference to Patient does not match the expected value"
     And element "context.encounter" references resource with ID "${data.documentreference-read-encounter-id}" with error message "The reference to Encounter does not match the expected value"

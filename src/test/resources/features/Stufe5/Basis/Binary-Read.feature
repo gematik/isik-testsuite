@@ -32,7 +32,7 @@ Feature: Read Information from a resource of type Binary (@Binary-Read)
     And TGR current response with attribute "$..data.value" matches "VGVzdA=="
 
   @Optional
-  Scenario: Read and Validate Binary data in native format by its ID
+  Scenario: Optional Read and Validate Binary data in native format by its ID
     When TGR send empty GET request to "http://fhirserver/Binary/${data.binary-read-id}" with headers:
       | Accept | text/plain |
     And TGR find the last request

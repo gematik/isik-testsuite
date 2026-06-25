@@ -9,8 +9,8 @@ FROM gematik1/tiger-testsuite-baseimage:4.1.7
 ARG COMMIT_HASH
 ARG VERSION
 
-ENV MAVEN_PROFILE=stufe3 \
-    TESTS_TO_RUN="@Stufe3 and (not @Optional)"
+ENV MAVEN_PROFILE=stufe5 \
+    TESTS_TO_RUN="@Stufe5 and (not @Optional)"
 
 LABEL de.gematik.vendor="gematik GmbH" \
       maintainer="software-development@gematik.de" \

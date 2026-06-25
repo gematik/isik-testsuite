@@ -32,6 +32,7 @@ Feature: Testing search parameters against a resource of type ValueSet (@ValueSe
     @Optional
     Examples:
       | searchParamValue   | searchParamType |
+      | _has               | string          |
       | _tag               | token           |
       | context-type-value | composite       |
 
@@ -42,15 +43,9 @@ Feature: Testing search parameters against a resource of type ValueSet (@ValueSe
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
     And response bundle contains resource with ID "${data.valueset-read-id}" with error message "The requested ValueSet ${data.valueset-read-id} is not contained in the response bundle"
 
-  @Optional
-  Scenario: Search for ValueSet resource by Tag and ID
-    When Get FHIR resource at "http://fhirserver/ValueSet/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.valueset-read-id}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
-
   Scenario: Search for ValueSet resource by Count
-    When Get FHIR resource at "http://fhirserver/ValueSet/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/ValueSet/?_count=1" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario Outline: Search for ValueSet by additional search parameters and ID
     When Get FHIR resource at "http://fhirserver/ValueSet/?<searchParameter>=<searchValue>&_id=${data.valueset-read-id}" with content type "<contentType>"
@@ -65,8 +60,16 @@ Feature: Testing search parameters against a resource of type ValueSet (@ValueSe
       | json        | version         | 1.0.0                                         |
 
   @Optional
-  Scenario: Search for ValueSet by context type
-    When Get FHIR resource at "http://fhirserver/ValueSet/?context-type-value=focus%24http%3A%2F%2Fhl7.org%2Ffhir%2Fresource-types%7CEncounter" with content type "xml"
+  Scenario: Optional Search for ValueSet that have the given Tag, group by _count
+    When Post FHIR search request to "http://fhirserver/ValueSet/_search" with content type "xml" and parameters:
+      | _tag                                  | _count               |
+      | ${data.tag-system}\|${data.tag-value} | ${data.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+
+  @Optional
+  Scenario: Optional Search for ValueSet by context type, group by _count
+    When Get FHIR resource at "http://fhirserver/ValueSet/?_count=${data.search-count}&context-type-value=focus%24http%3A%2F%2Fhl7.org%2Ffhir%2Fresource-types%7CEncounter" with content type "xml"
     Then TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'

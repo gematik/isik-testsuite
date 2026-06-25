@@ -52,7 +52,7 @@ Feature: Read Information from a resource of type Condition with status "resolve
     And TGR clear the custom failure message
 
   @Optional
-  Scenario: Check Verification Status
+  Scenario: Optional Check Verification Status
     When Get FHIR resource at "http://fhirserver/Condition/${data.condition-read-resolved-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath "verificationStatus.coding.where(system = 'http://terminology.hl7.org/CodeSystem/condition-ver-status' and code = 'confirmed').exists()" with error message "The Verification status does not have the value 'confirmed'"
 

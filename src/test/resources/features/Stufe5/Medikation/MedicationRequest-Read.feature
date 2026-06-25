@@ -55,7 +55,7 @@ Feature: Read Information from a resource of type MedicationRequest (@Medication
     And element "medication" references resource with ID "Medication/${data.medicationrequest-medication-id}" with error message "The referenced medication does not match the expected value"
     And element "subject" references resource with ID "Patient/${data.medication-patient-id}" with error message "The referenced patient does not match the expected value"
     And element "encounter" references resource with ID "Encounter/${data.medication-encounter-id}" with error message "The referenced encounter does not match the expected value"
-    And FHIR current response body evaluates the FHIRPath "encounter.identifier.value = '${data.medication-encounter-identifier}'" with error message 'The associated encounter identifier does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "encounter.identifier.value = '${data.medication-encounter-identifier-value}'" with error message 'The associated encounter identifier does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "authoredOn.toString().contains('2026-02-03')" with error message 'The authored date does not match the expected value'
     And element "requester" references resource with ID "Practitioner/${data.medication-practitioner-id}" with error message "The requester does not match the expected value"
     # The following assertions enable both single and multiple dosage-elements to be used in order to encode repeated application
