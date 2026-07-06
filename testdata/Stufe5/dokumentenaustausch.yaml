@@ -8,7 +8,7 @@ documentreference-read-id: DocumentReference-Read-Example
 documentreference-read-masteridentifier-system: urn:ietf:rfc:3986
 documentreference-read-masteridentifier-value: urn:oid:1.2.840.113556.1.8000.2554.58783.21864.3474.19410.44358.58254.41281.46340
 documentreference-read-patient-id: Patient-Read-Example
-documentreference-search-class-code: DOK
+documentreference-search-class-code: DUR
 documentreference-search-identifier-value: 129.6.58.42.33726
 documentreference-search-patient-identifier-system: http://fhir.de/sid/gkv/kvid-10
 documentreference-search-patient-identifier-value: X485231029

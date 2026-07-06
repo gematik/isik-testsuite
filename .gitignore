@@ -8,3 +8,4 @@ tiger-ci-stufe3.yaml
 tiger-ci-stufe5.yaml
 README-internal.md
 docker-compose.yaml
+docker-compose.local.yaml

@@ -10,6 +10,8 @@ medication-allergyintolerance-read-note-author-id: Practitioner-Read-Example
 medication-allergyintolerance-read-patient-id: Patient-Read-Example
 medication-condition-code: J06.9
 medication-condition-id: Condition-Read-Active-Example
+medication-condition-active-id: Condition-Read-Active-Example
+medication-condition-resolved-id: Condition-Read-Resolved-Example
 medication-encounter-basic-role-id: Encounter-Basic-Role-Example
 medication-encounter-basic-role-identifier-system: https://test.krankenhaus.de/fhir/sid/fallnr
 medication-encounter-basic-role-identifier-value: 0123456789
@@ -27,6 +29,7 @@ medication-patient-identifier: X485231029
 medication-patient-id: Patient-Read-Example
 medication-practitioner-identifier: 123456789
 medication-practitioner-id: Practitioner-Read-Example
+medication-procedure-id: Procedure-Read-Example
 medication-read-extended-id: Medication-Read-Extended-Example
 medication-read-id: Medication-Read-Example
 medication-read-referenced-ingredient: Medication-Read-Referenced-Ingredient-Example

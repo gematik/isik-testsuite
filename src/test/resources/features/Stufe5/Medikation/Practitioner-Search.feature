@@ -4,7 +4,7 @@
 @Mandatory
 @ISiKCapabilityStatementLeistungserbringerRolle
 @Practitioner-Search
-Feature: Testing search parameters against a resource of type Practitioner (@Practitioner-Search)
+Feature: Testing search parameters against a resource of type Practitioner, according to the definition of ISiKCapabilityStatementLeistungserbringerRolle (@Practitioner-Search)
 
   @Precondition
   Scenario: Precondition

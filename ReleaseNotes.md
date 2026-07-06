@@ -2,6 +2,16 @@
 
 # Release Notes
 
+## Release 2.7.0
+
+### added
+
+- Capability Statement Test Cases for ISiK Level 5 
+
+### fixes
+
+- ISiK Level 5 `DocumentReference-Read` test case had an invalid IHE code (`DOK` instead of `DUR` (ANFISK-538)
+
 ## Release 2.6.0
 
 ### added
