@@ -5,6 +5,10 @@
   ],
   "packageRules": [
     {
+      "matchPackageNames": ["de.gematik.test:tiger-maven-plugin", "de.gematik.test:tiger-test-lib" ,"de.gematik:tiger-cloud-extension"],
+      "allowedVersions": "/^[0-9]+\\.[0-9]+\\.[0-9]+$/"
+    },
+    {
       "matchManagers": ["maven"],
       "groupName": "maven dependencies"
     },

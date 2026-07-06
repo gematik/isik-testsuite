@@ -4,7 +4,7 @@
 @Mandatory
 @ISiKCapabilityStatementLeistungserbringerRolle
 @Encounter-Search
-Feature: Testing search parameters against a resource of type Encounter, according to the definition of ISiKCapabilityStatementStammdatenRolle (@Encounter-Search @Medikation)
+Feature: Testing search parameters against a resource of type Encounter, according to the definition of ISiKCapabilityStatementLeistungserbringerRolle (@Encounter-Search @Medikation)
 
   @Precondition
   Scenario: Precondition

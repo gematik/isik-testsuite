@@ -289,7 +289,7 @@ public class IsikGlue {
   @And(
       "CapabilityStatement contains definition of search parameter {string} of type {string} for"
           + " resource {string}")
-  public void capabilitystatementContainsDefinitionOfSearchParameterOfTypeForResource(
+  public void capabilityStatementContainsDefinitionOfSearchParameterOfTypeForResource(
       String searchParameter, String searchParameterType, String resourceType) {
     fhirPathValidationGlue.tgrCurrentResponseBodyEvaluatesTheFhirPath(
         String.format(

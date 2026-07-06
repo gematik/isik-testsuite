@@ -28,7 +28,7 @@ Feature: Read information from a resource of type DocumentReference (@DocumentRe
       * Status: current
       * Document Processing status: final
       * Document Category:
-        - Code: DOK
+        - Code: DUR
         - Display: Dokumente ohne besondere Form (Notizen)
       * Document type (KDL):
          - Code: VL160105
@@ -78,7 +78,7 @@ Feature: Read information from a resource of type DocumentReference (@DocumentRe
     And FHIR current response body evaluates the FHIRPath "content.where(attachment.where(contentType = 'application/pdf' and (language = 'de' or language.startsWith('de-')) and url.exists() and creation = @2026-01-31T14:50:50+01:00).exists() and format.where(code = 'urn:ihe:iti:xds:2017:mimeTypeSufficient' and system = 'http://ihe.net/fhir/ihe.formatcode.fhir/CodeSystem/formatcode').exists()).exists()" with error message 'The attachment does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "content.attachment.url.contains('Binary/${data.documentreference-read-binary-id}')" with error message 'The Binary reference does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "context.where(facilityType.coding.where(code = 'KHS' and system = 'http://ihe-d.de/CodeSystems/PatientBezogenenGesundheitsversorgung').exists() and practiceSetting.where(coding.where(code = 'ALLG' and system = 'http://ihe-d.de/CodeSystems/AerztlicheFachrichtungen').exists()).exists()).exists()" with error message 'The context Facility and Specialty does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "category.coding.where(code = 'DOK' and system = 'http://ihe-d.de/CodeSystems/IHEXDSclassCode' and display = 'Dokumente ohne besondere Form (Notizen)').exists()" with error message 'The document class does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "category.coding.where(code = 'DUR' and system = 'http://ihe-d.de/CodeSystems/IHEXDSclassCode' and display = 'Dokumente ohne besondere Form (Notizen)').exists()" with error message 'The document class does not match the expected value'
     And element "subject" references resource with ID "${data.documentreference-read-patient-id}" with error message "The reference to Patient does not match the expected value"
     And element "context.encounter" references resource with ID "${data.documentreference-read-encounter-id}" with error message "The reference to Encounter does not match the expected value"
     And referenced "Encounter" resource with id "${data.documentreference-read-encounter-id}" conforms to a valid v5 "ISiKKontaktGesundheitseinrichtung" profile
