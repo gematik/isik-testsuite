@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementAMTSRolle
 @RiskAssessment-Update
 Feature: Update a resource of type RiskAssessment (@RiskAssessment-Update)
 
@@ -20,10 +21,10 @@ Feature: Update a resource of type RiskAssessment (@RiskAssessment-Update)
 
   Scenario: Update a RiskAssessment resource
     Given TGR set default header "Content-Type" to "application/fhir+json"
-    When TGR send PUT request to "http://fhirserver/RiskAssessment/${data.riskassessment-update-id}" with body "!{file('src/test/resources/features/Stufe5/Medikation/fixtures/RiskAssessment-Update-Fixture.json')}"
+    When TGR send PUT request to "http://fhirserver/RiskAssessment/${medikation.riskassessment-update-id}" with body "!{file('src/test/resources/features/Stufe5/Medikation/fixtures/RiskAssessment-Update-Fixture.json')}"
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "20\d"
-    And TGR send empty GET request to "http://fhirserver/RiskAssessment/${data.riskassessment-update-id}"
+    And TGR send empty GET request to "http://fhirserver/RiskAssessment/${medikation.riskassessment-update-id}"
     And TGR find the last request
     And TGR current response with attribute "$.body.note.0.text.content" matches "Recheck on 28.02.2026"
     And TGR current response with attribute "$.body.code.text.content" matches "Updated text note"

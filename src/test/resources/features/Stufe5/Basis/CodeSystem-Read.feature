@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Optional
+@ISiKCapabilityStatementTerminologieRolle
 @CodeSystem-Read
 Feature: Read Information from a resource of type CodeSystem (@CodeSystem-Read)
 
@@ -29,9 +30,9 @@ Feature: Read Information from a resource of type CodeSystem (@CodeSystem-Read)
     And CapabilityStatement contains interaction "read" for resource "CodeSystem"
 
   Scenario: Read and Validate CodeSystem by its ID
-    When Get FHIR resource at "http://fhirserver/CodeSystem/${data.codesystem-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/CodeSystem/${basis.codesystem-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKCodeSystem"
-    And resource has ID "${data.codesystem-read-id}" with error message "The ID does not match the expected value"
+    And resource has ID "${basis.codesystem-read-id}" with error message "The ID does not match the expected value"
     And TGR current response with attribute "$..status.value" matches "active"
     And TGR current response with attribute "$..content.value" matches "complete"
     And TGR current response with attribute "$..url.value" matches "http://example.org/fhir/CodeSystem/TestKatalog"

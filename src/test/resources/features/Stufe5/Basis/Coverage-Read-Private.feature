@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementVersicherungsverhaeltnisRolle
 @Coverage-Read-Private
 Feature: Read Information from a resource of type "private" Coverage (@Coverage-Read-Private)
 
@@ -30,11 +31,11 @@ Feature: Read Information from a resource of type "private" Coverage (@Coverage-
     And CapabilityStatement contains interaction "read" for resource "Coverage"
 
   Scenario: Read and Validate private Coverage by its ID
-    When Get FHIR resource at "http://fhirserver/Coverage/${data.coverage-read-private-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Coverage/${basis.coverage-read-private-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKVersicherungsverhaeltnisSelbstzahler"
-    And resource has ID "${data.coverage-read-private-id}" with error message "The returned Coverage resource has not the expected ID"
+    And resource has ID "${basis.coverage-read-private-id}" with error message "The returned Coverage resource has not the expected ID"
     And TGR current response with attribute "$..status.value" matches "active"
     And TGR current response with attribute "$..code.value" matches "SEL"
-    And element "beneficiary" references resource with ID "${data.patient-read-id}" with error message "The payor does not match the expected value."
-    And element "payor" references resource with ID "${data.patient-read-id}" with error message "The policy holder does not match the expected value."
-    And FHIR current response body evaluates the FHIRPath "payor.display.contains('${data.patient-read-display-name}')" with error message 'The payor does not match the expected value.'
+    And element "beneficiary" references resource with ID "${basis.patient-read-id}" with error message "The payor does not match the expected value."
+    And element "payor" references resource with ID "${basis.patient-read-id}" with error message "The policy holder does not match the expected value."
+    And FHIR current response body evaluates the FHIRPath "payor.display.contains('${basis.patient-read-display-name}')" with error message 'The payor does not match the expected value.'

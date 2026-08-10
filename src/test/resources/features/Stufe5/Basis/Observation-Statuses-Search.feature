@@ -54,56 +54,56 @@ Feature: Testing search parameters against Observation resources for status-rela
 
     Examples:
       | observationId                                                |
-      | ${data.observation-alcohol-abuse-read-id}                    |
-      | ${data.observation-breastfeeding-read-id}                    |
-      | ${data.observation-pregnancy-status-read-id}                 |
-      | ${data.observation-expected-pregnancy-delivery-date-read-id} |
-      | ${data.observation-smoking-status-read-id}                   |
+      | ${basis.observation-alcohol-abuse-read-id}                    |
+      | ${basis.observation-breastfeeding-read-id}                    |
+      | ${basis.observation-pregnancy-status-read-id}                 |
+      | ${basis.observation-expected-pregnancy-delivery-date-read-id} |
+      | ${basis.observation-smoking-status-read-id}                   |
 
   Scenario: Search for Observation resources that have the given Tag, group by _count
     When Post FHIR search request to "http://fhirserver/Observation/_search" with content type "xml" and parameters:
       | _tag                                  | _count               |
-      | ${data.tag-system}\|${data.tag-value} | ${data.search-count} |
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'Invalid search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+      | ${basis.tag-system}\|${basis.tag-value} | ${basis.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${basis.search-count}' with error message 'Invalid search results were found'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${basis.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Observation resources by Status "final" and Encounter
-    When Get FHIR resource at "http://fhirserver/Observation/?status=http://hl7.org/fhir/observation-status%7Cfinal&encounter=Encounter/${data.encounter-read-in-progress-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Observation/?status=http://hl7.org/fhir/observation-status%7Cfinal&encounter=Encounter/${basis.encounter-read-in-progress-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(status = 'final')" with error message 'There are search results, but they do not fully match the status search criteria'
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.all(encounter.reference.replaceMatches("/_history/.+","").matches("\\b${data.encounter-read-in-progress-id}$"))' with error message 'There are search results, but they do not fully match the encounter search criteria'
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.all(encounter.reference.replaceMatches("/_history/.+","").matches("\\b${basis.encounter-read-in-progress-id}$"))' with error message 'There are search results, but they do not fully match the encounter search criteria'
 
   Scenario Outline: Search for Observation resources by Code and Encounter
-    When Get FHIR resource at "http://fhirserver/Observation/?code=http://loinc.org%7C<loincCode>&encounter=Encounter/${data.encounter-read-in-progress-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Observation/?code=http://loinc.org%7C<loincCode>&encounter=Encounter/${basis.encounter-read-in-progress-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(code.coding.where(code = '<loincCode>' and system = 'http://loinc.org').exists())" with error message 'There are search results, but they do not fully match the code search criteria'
     And response bundle contains resource with ID "<observationId>" with error message "The requested Observation <observationId> is not contained in the response bundle"
 
     Examples:
       | loincCode | observationId                                                |
-      | 74043-1   | ${data.observation-alcohol-abuse-read-id}                    |
-      | 63895-7   | ${data.observation-breastfeeding-read-id}                    |
-      | 82810-3   | ${data.observation-pregnancy-status-read-id}                 |
-      | 11779-6   | ${data.observation-expected-pregnancy-delivery-date-read-id} |
-      | 72166-2   | ${data.observation-smoking-status-read-id}                   |
+      | 74043-1   | ${basis.observation-alcohol-abuse-read-id}                    |
+      | 63895-7   | ${basis.observation-breastfeeding-read-id}                    |
+      | 82810-3   | ${basis.observation-pregnancy-status-read-id}                 |
+      | 11779-6   | ${basis.observation-expected-pregnancy-delivery-date-read-id} |
+      | 72166-2   | ${basis.observation-smoking-status-read-id}                   |
 
   Scenario: Search for Observation resources by Patient (search parameter 'patient')
-    When Get FHIR resource at "http://fhirserver/Observation/?patient=Patient/${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Observation/?patient=Patient/${basis.patient-read-extended-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And element "subject" in all bundle resources references resource with ID "Patient/${data.patient-read-id}"
+    And element "subject" in all bundle resources references resource with ID "Patient/${basis.patient-read-extended-id}"
 
   Scenario: Search for Observation resources by Date and Encounter
-    When Get FHIR resource at "http://fhirserver/Observation/?date=2026-01-06&encounter=Encounter/${data.encounter-read-in-progress-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Observation/?date=2026-01-06&encounter=Encounter/${basis.encounter-read-in-progress-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(effective.toString().contains('2026-01-06'))" with error message 'There are search results, but they do not fully match the date search criteria'
 
   Scenario: Search for Observation resources by Encounter and Patient
-    When Get FHIR resource at "http://fhirserver/Observation/?encounter=Encounter/${data.encounter-read-in-progress-id}&patient=Patient/${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Observation/?encounter=Encounter/${basis.encounter-read-in-progress-id}&patient=Patient/${basis.patient-read-extended-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And element "subject" in all bundle resources references resource with ID "Patient/${data.patient-read-id}"
+    And element "subject" in all bundle resources references resource with ID "Patient/${basis.patient-read-extended-id}"
 
   @Optional
   Scenario: Optional Search for Observation resources by Subject (search parameter 'subject')
-    When Get FHIR resource at "http://fhirserver/Observation/?subject=Patient/${data.patient-read-extended-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Observation/?subject=Patient/${basis.patient-read-extended-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And element "subject" in all bundle resources references resource with ID "Patient/${data.patient-read-extended-id}"
+    And element "subject" in all bundle resources references resource with ID "Patient/${basis.patient-read-extended-id}"

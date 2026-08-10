@@ -2,6 +2,7 @@
 @Stufe5
 @Terminplanung
 @Mandatory
+@ISiKCapabilityStatementTerminRepositoryRolle
 @Schedule-Read
 Feature: Read Information from a resource of type Schedule (@Schedule-Read)
 
@@ -30,11 +31,11 @@ Feature: Read Information from a resource of type Schedule (@Schedule-Read)
     And CapabilityStatement contains interaction "read" for resource "Schedule"
 
   Scenario: Read a Schedule by ID
-    Then Get FHIR resource at "http://fhirserver/Schedule/${data.schedule-read-id}" with content type "xml"
-    And resource has ID "${data.schedule-read-id}"
+    Then Get FHIR resource at "http://fhirserver/Schedule/${terminplanung.schedule-read-id}" with content type "xml"
+    And resource has ID "${terminplanung.schedule-read-id}"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKKalender"
     And TGR current response with attribute "$..active.value" matches "true"
-    And FHIR current response body evaluates the FHIRPath "serviceType.text.empty().not() and serviceType.coding.where(code='${data.schedule-read-servicetype-code}' and system = '${data.schedule-read-servicetype-system}').exists()" with error message 'The schedule type does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "serviceType.text.empty().not() and serviceType.coding.where(code='${terminplanung.schedule-read-servicetype-code}' and system = '${terminplanung.schedule-read-servicetype-system}').exists()" with error message 'The schedule type does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "specialty.coding.where(code = 'NEUR' and system ='http://ihe-d.de/CodeSystems/AerztlicheFachrichtungen').exists()" with error message 'The specialty does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "actor.where(reference.replaceMatches('/_history/.+','').matches('\\b${data.appointment-practitioner-id}$') and display.exists()).exists()" with error message 'The actor is missing or incomplete'
+    And FHIR current response body evaluates the FHIRPath "actor.where(reference.replaceMatches('/_history/.+','').matches('\\b${terminplanung.appointment-practitioner-id}$') and display.exists()).exists()" with error message 'The actor is missing or incomplete'
     And FHIR current response body evaluates the FHIRPath "extension.where(url = 'http://hl7.org/fhir/5.0/StructureDefinition/extension-Schedule.name' and value.empty().not()).exists()" with error message 'The schedule name is not provided'

@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikamentRolle
 @Medication-Create
 Feature: Create a resource of type Medication (@Medication-Create)
 

@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementAMTSRolle
 @RiskAssessment-Create
 Feature: Create a resource of type RiskAssessment (@RiskAssessment-Create)
 

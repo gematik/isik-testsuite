@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Optional
+@ISiKCapabilityStatementStammdatenRolle
 @Patient-Update-Cancellation
 Feature: Update Patient (@Patient-Update-Cancellation) (Optional)
 
@@ -22,10 +23,10 @@ Feature: Update Patient (@Patient-Update-Cancellation) (Optional)
 
   Scenario: Cancellation of a patient via Update
     Given TGR set default header "Content-Type" to "application/fhir+json"
-    When TGR send PUT request to "http://fhirserver/Patient/${data.patient-update-cancellation-id}" with body "!{file('src/test/resources/features/Stufe5/Basis/fixtures/Patient-Update-Cancellation-Inactive-Fixture.json')}"
+    When TGR send PUT request to "http://fhirserver/Patient/${basis.patient-update-cancellation-id}" with body "!{file('src/test/resources/features/Stufe5/Basis/fixtures/Patient-Update-Cancellation-Inactive-Fixture.json')}"
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
-    And TGR send empty GET request to "http://fhirserver/Patient/${data.patient-update-cancellation-id}"
+    And TGR send empty GET request to "http://fhirserver/Patient/${basis.patient-update-cancellation-id}"
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
     And FHIR current response body evaluates the FHIRPath "active = false" with error message 'The active value does not match the expected value'

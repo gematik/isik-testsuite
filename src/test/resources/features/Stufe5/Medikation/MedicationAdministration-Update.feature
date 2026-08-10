@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikationVerabreichungRolle
 @MedicationAdministration-Update
 Feature: Update a resource of type MedicationAdministration (@MedicationAdministration-Update)
 
@@ -20,10 +21,10 @@ Feature: Update a resource of type MedicationAdministration (@MedicationAdminist
 
   Scenario: Update a MedicationAdministration resource
     Given TGR set default header "Content-Type" to "application/fhir+json"
-    When TGR send PUT request to "http://fhirserver/MedicationAdministration/${data.medicationadministration-update-id}" with body "!{file('src/test/resources/features/Stufe5/Medikation/fixtures/MedicationAdministration-Update-Fixture.json')}"
+    When TGR send PUT request to "http://fhirserver/MedicationAdministration/${medikation.medicationadministration-update-id}" with body "!{file('src/test/resources/features/Stufe5/Medikation/fixtures/MedicationAdministration-Update-Fixture.json')}"
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
-    And TGR send empty GET request to "http://fhirserver/MedicationAdministration/${data.medicationadministration-update-id}"
+    And TGR send empty GET request to "http://fhirserver/MedicationAdministration/${medikation.medicationadministration-update-id}"
     And TGR find the last request
     And TGR current response with attribute "$.body.note.0.text.content" matches "Updated note"
     Then TGR current response with attribute "$.body.dosage.dose.value.content" matches "5"

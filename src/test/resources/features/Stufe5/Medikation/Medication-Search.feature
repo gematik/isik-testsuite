@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikamentRolle
 @Medication-Search
 Feature: Testing search parameters against a resource of type Medication (@Medication-Search)
 
@@ -37,8 +38,8 @@ Feature: Testing search parameters against a resource of type Medication (@Medic
       | _tag             | token           |
 
   Scenario: Search for the Medication by ID
-    Then Get FHIR resource at "http://fhirserver/Medication/?_id=${data.medication-read-id}" with content type "xml"
-    And response bundle contains resource with ID "${data.medication-read-id}" with error message "The requested Medication ${data.medication-read-id} is not contained in the response bundle"
+    Then Get FHIR resource at "http://fhirserver/Medication/?_id=${medikation.medication-read-id}" with content type "xml"
+    And response bundle contains resource with ID "${medikation.medication-read-id}" with error message "The requested Medication ${medikation.medication-read-id} is not contained in the response bundle"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
     And Check if current response of resource "Medication" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikament"
 
@@ -48,12 +49,12 @@ Feature: Testing search parameters against a resource of type Medication (@Medic
 
   @Optional
   Scenario: Optional Search for the Medication by Tag and ID
-    When Get FHIR resource at "http://fhirserver/Medication/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.medication-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Medication/?_tag=${medikation.tag-system}%7C${medikation.tag-value}&_id=${medikation.medication-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${medikation.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the Medication by Code and ID
-    Then Get FHIR resource at "http://fhirserver/Medication/?code=http://fhir.de/CodeSystem/bfarm/atc%7CV03AB23&_id=${data.medication-read-id}" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/Medication/?code=http://fhir.de/CodeSystem/bfarm/atc%7CV03AB23&_id=${medikation.medication-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all((code.coding.where(code = 'V03AB23' and system = 'http://fhir.de/CodeSystem/bfarm/atc').exists()))" with error message 'There are search results, but they do not fully match the search criteria'
 
@@ -68,27 +69,27 @@ Feature: Testing search parameters against a resource of type Medication (@Medic
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(form.coding.where(code = '11210000').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the Medication by Referenced Ingredient
-    Then Get FHIR resource at "http://fhirserver/Medication/?ingredient=Medication/${data.medication-read-referenced-ingredient}" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/Medication/?ingredient=Medication/${medikation.medication-read-referenced-ingredient}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And element "ingredient.item" in all bundle resources references resource with ID "${data.medication-read-referenced-ingredient}"
+    And element "ingredient.item" in all bundle resources references resource with ID "${medikation.medication-read-referenced-ingredient}"
 
   Scenario: Search for the Medication by Ingredient Code (Chaining) and ID
     # Code from the referenced medication-read-referenced-ingredient
-    Then Get FHIR resource at "http://fhirserver/Medication/?ingredient.code=V03AB23&_id=${data.medication-read-id}" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/Medication/?ingredient.code=V03AB23&_id=${medikation.medication-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And response bundle contains resource with ID "${data.medication-read-id}" with error message "The requested Medication ${data.medication-read-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${medikation.medication-read-id}" with error message "The requested Medication ${medikation.medication-read-id} is not contained in the response bundle"
 
   Scenario: Search for the Medication by Ingredient Code and ID
-    Then Get FHIR resource at "http://fhirserver/Medication/?ingredient-code=L01DB01&_id=${data.medication-read-extended-id}" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/Medication/?ingredient-code=L01DB01&_id=${medikation.medication-read-extended-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And response bundle contains resource with ID "${data.medication-read-extended-id}" with error message "The requested Medication ${data.medication-read-extended-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${medikation.medication-read-extended-id}" with error message "The requested Medication ${medikation.medication-read-extended-id} is not contained in the response bundle"
 
   Scenario: Search for the Medication by Lot Number and ID
-    Then Get FHIR resource at "http://fhirserver/Medication/?lot-number=123&_id=${data.medication-read-id}" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/Medication/?lot-number=123&_id=${medikation.medication-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And response bundle contains resource with ID "${data.medication-read-id}" with error message "The requested Medication ${data.medication-read-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${medikation.medication-read-id}" with error message "The requested Medication ${medikation.medication-read-id} is not contained in the response bundle"
 
   Scenario: Search for the Medication by Status and ID
-    Then Get FHIR resource at "http://fhirserver/Medication/?status=active&_id=${data.medication-read-id}" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/Medication/?status=active&_id=${medikation.medication-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And response bundle contains resource with ID "${data.medication-read-id}" with error message "The requested Medication ${data.medication-read-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${medikation.medication-read-id}" with error message "The requested Medication ${medikation.medication-read-id} is not contained in the response bundle"

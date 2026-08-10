@@ -1,17 +1,6 @@
-servers:
-  fhirserver:
-    type: externalUrl
-    source:
-      # Adjust the URL to your SUT endpoint
-      - http://localhost:8080/fhir
-    #  - http://example.org:9032/some/path/to/endpoint
-    # when you use the fhirserver as a docker image
-    #  - http://fhirserverImage:9032
-    # when you start the testsuite via a docker and the fhirserver runs on the host machine, use host.docker.internal
-    #  - http://host.docker.internal:9032
-
 tigerProxy: # https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_configuring_the_local_test_suite_tiger_proxy
   adminPort: 9011
+
 # Activate and adjust the configuration below if the SUT endpoint contains a URL path, e.g. /some/path/to/endpoint
   proxyRoutes:
     - from: "http://fhirserver"
@@ -42,12 +31,20 @@ logging:
 
 additionalConfigurationFiles:
   - filename: testdata/Stufe5/basis.yaml
-    baseKey: data
+    baseKey: basis
   - filename: testdata/Stufe5/dokumentenaustausch.yaml
-    baseKey: data
-  - filename: testdata/Stufe5/terminplanung.yaml
-    baseKey: data
+    baseKey: dokument
   - filename: testdata/Stufe5/medikation.yaml
-    baseKey: data
+    baseKey: medikation
+  - filename: testdata/Stufe5/terminplanung.yaml
+    baseKey: terminplanung
   - filename: testdata/Stufe5/vitalparameter.yaml
-    baseKey: data
+    baseKey: vitalparameter
+  - filename: testdata/Stufe5/connect.yaml
+    baseKey: connect
+  - filename: testdata/Stufe5/icu-minimal.yaml
+    baseKey: icuminimal
+  - filename: testdata/Stufe5/icu-extended.yaml
+    baseKey: icuextended
+  - filename: testdata/Stufe5/labor.yaml
+    baseKey: labor

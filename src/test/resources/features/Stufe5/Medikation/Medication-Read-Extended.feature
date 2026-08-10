@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikamentRolle
 @Medication-Read-Extended
 Feature: Read Information from a resource of type Medication with extended data (@Medication-Read-Extended)
 
@@ -44,8 +45,8 @@ Feature: Read Information from a resource of type Medication with extended data 
     """
 
   Scenario: Read and Validate the Medication by its ID
-    Then Get FHIR resource at "http://fhirserver/Medication/${data.medication-read-extended-id}" with content type "xml"
-    And resource has ID "${data.medication-read-extended-id}"
+    Then Get FHIR resource at "http://fhirserver/Medication/${medikation.medication-read-extended-id}" with content type "xml"
+    And resource has ID "${medikation.medication-read-extended-id}"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikament"
     And TGR current response with attribute "$..Medication.status.value" matches "active"
     And FHIR current response body evaluates the FHIRPath "code.text.empty().not()" with error message 'The code does not contain a valid text value'

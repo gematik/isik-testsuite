@@ -36,25 +36,25 @@
   },
   "status": "completed",
   "medicationReference": {
-    "reference": "Medication/${data.medication-read-id}"
+    "reference": "Medication/${medikation.medication-read-id}"
   },
   "subject": {
-    "reference": "Patient/${data.medication-patient-id}"
+    "reference": "Patient/${medikation.medication-patient-id}"
   },
   "context": {
-    "reference": "Encounter/${data.medication-encounter-id}"
+    "reference": "Encounter/${medikation.medication-encounter-id}"
   },
   "effectiveDateTime": "2026-03-05T12:00:00+01:00",
   "performer": [
     {
       "actor": {
-        "reference": "Practitioner/${data.medication-practitioner-id}"
+        "reference": "Practitioner/${medikation.medication-practitioner-id}"
       }
     }
   ],
   "reasonReference": [
     {
-      "reference": "Condition/${data.medication-condition-id}"
+      "reference": "Condition/${medikation.medication-condition-id}"
     }
   ],
   "note": [

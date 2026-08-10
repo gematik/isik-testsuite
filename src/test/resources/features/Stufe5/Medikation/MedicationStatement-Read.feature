@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikationInformationRolle
 @MedicationStatement-Read
 Feature: Read Information from a resource of type MedicationStatement (@MedicationStatement-Read)
 
@@ -40,9 +41,9 @@ Feature: Read Information from a resource of type MedicationStatement (@Medicati
     And CapabilityStatement contains interaction "read" for resource "MedicationStatement"
 
   Scenario: Read and Validate the MedicationStatement by its ID
-    Then Get FHIR resource at "http://fhirserver/MedicationStatement/${data.medicationstatement-read-id}" with content type "xml"
+    Then Get FHIR resource at "http://fhirserver/MedicationStatement/${medikation.medicationstatement-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsInformation"
-    And resource has ID "${data.medicationstatement-read-id}"
+    And resource has ID "${medikation.medicationstatement-read-id}"
     And TGR current response with attribute "$..status.value" matches "active"
     And FHIR current response body evaluates the FHIRPath "note.text.empty().not()" with error message 'The note does not contain any value'
     And FHIR current response body evaluates the FHIRPath "effective.start.toString().contains('2026-02-03')" with error message 'The period does not match the expected value'
@@ -52,11 +53,11 @@ Feature: Read Information from a resource of type MedicationStatement (@Medicati
     And FHIR current response body evaluates the FHIRPath "dosage.all(patientInstruction.empty().not())" with error message 'Patient instructions do not contain any value'
     And FHIR current response body evaluates the FHIRPath "dosage.all(doseAndRate.dose.where(value ~ 1 and unit.empty().not() and system = 'http://unitsofmeasure.org' and code ='1').exists())" with error message 'Dose and rate information does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "(dosage.timing.repeat.when contains 'MORN') and (dosage.timing.repeat.when contains 'NOON') and (dosage.timing.repeat.when contains 'EVE')" with error message 'Timing repeat information does not match the expected value'
-    And element "medication" references resource with ID "Medication/${data.medication-read-id}" with error message "The referenced medication does not match the expected value"
-    And element "subject" references resource with ID "Patient/${data.medication-patient-id}" with error message "The referenced patient does not match the expected value"
-    And element "context" references resource with ID "Encounter/${data.medication-encounter-id}" with error message "The referenced encounter does not match the expected value"
+    And element "medication" references resource with ID "Medication/${medikation.medication-read-id}" with error message "The referenced medication does not match the expected value"
+    And element "subject" references resource with ID "Patient/${medikation.medication-patient-id}" with error message "The referenced patient does not match the expected value"
+    And element "context" references resource with ID "Encounter/${medikation.medication-encounter-id}" with error message "The referenced encounter does not match the expected value"
     # Validate the referenced resources at the end -> Tiger performs new Requests
-    And referenced "Encounter" resource with id "${data.medication-encounter-id}" conforms to a valid v5 "ISiKKontaktGesundheitseinrichtung" profile
-    And referenced "Patient" resource with id "${data.medication-patient-id}" conforms to a valid v5 "ISiKPatient" profile
-    And referenced "Condition" resource with id "${data.medication-condition-id}" conforms to a valid v5 "ISiKDiagnose" profile
-    And referenced "Medication" resource with id "${data.medication-read-id}" conforms to a valid v5 "ISiKMedikament" profile
+    And referenced "Encounter" resource with id "${medikation.medication-encounter-id}" conforms to a valid v5 "ISiKKontaktGesundheitseinrichtung" profile
+    And referenced "Patient" resource with id "${medikation.medication-patient-id}" conforms to a valid v5 "ISiKPatient" profile
+    And referenced "Condition" resource with id "${medikation.medication-condition-id}" conforms to a valid v5 "ISiKDiagnose" profile
+    And referenced "Medication" resource with id "${medikation.medication-read-id}" conforms to a valid v5 "ISiKMedikament" profile

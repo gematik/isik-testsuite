@@ -86,8 +86,8 @@
                 }
               ]
             },
-            "system": "${data.patient-read-identifier-system}",
-            "value": "${data.patient-read-identifier-value}"
+            "system": "${basis.patient-read-identifier-system}",
+            "value": "${basis.patient-read-identifier-value}"
           }
         ],
         "active": true,
@@ -214,8 +214,8 @@
                 }
               ]
             },
-            "system": "${data.encounter-read-in-progress-identifier-system}",
-            "value": "${data.encounter-read-in-progress-identifier-value}"
+            "system": "${basis.encounter-read-in-progress-identifier-system}",
+            "value": "${basis.encounter-read-in-progress-identifier-value}"
           }
         ],
         "status": "in-progress",

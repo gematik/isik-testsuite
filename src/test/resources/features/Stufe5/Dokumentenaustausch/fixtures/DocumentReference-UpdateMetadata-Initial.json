@@ -1,6 +1,6 @@
 {
   "resourceType": "DocumentReference",
-  "id": "${data.documentreference-updatemetadata-id}",
+  "id": "${dokument.documentreference-updatemetadata-id}",
   "meta": {
     "profile": [
       "https://gematik.de/fhir/isik/StructureDefinition/ISiKDokumentenMetadaten"
@@ -8,7 +8,7 @@
   },
   "masterIdentifier": {
     "system": "urn:ietf:rfc:3986",
-    "value": "${data.documentreference-post-master-identifier-value}"
+    "value": "${dokument.documentreference-post-master-identifier-value}"
   },
   "type": {
     "coding": [
@@ -33,7 +33,7 @@
   "status": "current",
   "docStatus": "preliminary",
   "subject": {
-    "reference": "Patient/${data.documentreference-read-patient-id}"
+    "reference": "Patient/${dokument.documentreference-read-patient-id}"
   },
   "securityLabel": [
     {
@@ -69,7 +69,7 @@
   "context": {
     "encounter": [
       {
-        "reference": "Encounter/${data.documentreference-read-encounter-id}"
+        "reference": "Encounter/${dokument.documentreference-read-encounter-id}"
       }
     ],
     "facilityType": {

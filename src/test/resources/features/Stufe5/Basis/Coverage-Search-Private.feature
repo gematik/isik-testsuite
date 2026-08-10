@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementVersicherungsverhaeltnisRolle
 @Coverage-Search-Private
 Feature: Testing search parameters against a resource of type "private" Coverage (@Coverage-Search-Private)
 
@@ -36,40 +37,40 @@ Feature: Testing search parameters against a resource of type "private" Coverage
       | subscriber       | reference       |
 
   Scenario: Search for the Coverage by ID
-    When Get FHIR resource at "http://fhirserver/Coverage/?_id=${data.coverage-read-private-id}" with content type "xml"
-    And response bundle contains resource with ID "${data.coverage-read-private-id}" with error message "The requested Coverage ${data.coverage-read-private-id} is not contained in the response bundle"
+    When Get FHIR resource at "http://fhirserver/Coverage/?_id=${basis.coverage-read-private-id}" with content type "xml"
+    And response bundle contains resource with ID "${basis.coverage-read-private-id}" with error message "The requested Coverage ${basis.coverage-read-private-id} is not contained in the response bundle"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
 
   @Optional
   Scenario: Optional Search for the Condition by Tag and ID
-    When Get FHIR resource at "http://fhirserver/Coverage/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.coverage-read-private-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Coverage/?_tag=${basis.tag-system}%7C${basis.tag-value}&_id=${basis.coverage-read-private-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.coverage-read-private-id}" with error message "The requested Coverage ${data.coverage-read-private-id} is not contained in the response bundle."
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${basis.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${basis.coverage-read-private-id}" with error message "The requested Coverage ${basis.coverage-read-private-id} is not contained in the response bundle."
 
   Scenario Outline: Search for the Coverage by Beneficiary and Payor
     When Get FHIR resource at "http://fhirserver/Coverage/?<searchParameter>=Patient/<searchValue>" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.all(<searchParameter>.reference.replaceMatches("/_history/.+","").matches("\\b${data.patient-read-id}$"))' with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.all(<searchParameter>.reference.replaceMatches("/_history/.+","").matches("\\b${basis.patient-read-id}$"))' with error message 'There are search results, but they do not fully match the search criteria'
 
     Examples:
       | searchParameter | searchValue             |
-      | beneficiary     | ${data.patient-read-id} |
-      | payor           | ${data.patient-read-id} |
+      | beneficiary     | ${basis.patient-read-id} |
+      | payor           | ${basis.patient-read-id} |
 
   Scenario: Search for the Coverage Coverage by Beneficiary (Chaining)
-    When Get FHIR resource at "http://fhirserver/Coverage/?beneficiary.identifier=${data.patient-read-identifier-system}%7C${data.patient-read-identifier-value}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Coverage/?beneficiary.identifier=${basis.patient-read-identifier-system}%7C${basis.patient-read-identifier-value}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And element "beneficiary" in all bundle resources references resource with ID "${data.patient-read-id}"
+    And element "beneficiary" in all bundle resources references resource with ID "${basis.patient-read-id}"
 
   Scenario: Search for the Coverage by Status and Beneficiary
-    When Get FHIR resource at "http://fhirserver/Coverage/?status=active&beneficiary=Patient/${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Coverage/?status=active&beneficiary=Patient/${basis.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(status = 'active')" with error message 'There are search results, but they do not fully match the search criteria'
-    And element "beneficiary" in all bundle resources references resource with ID "${data.patient-read-id}"
+    And element "beneficiary" in all bundle resources references resource with ID "${basis.patient-read-id}"
 
   Scenario: Search for the Coverage by Type of Insurance and Beneficiary
-    When Get FHIR resource at "http://fhirserver/Coverage/?beneficiary=Patient/${data.patient-read-id}&type=http://fhir.de/CodeSystem/versicherungsart-de-basis%7CSEL" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Coverage/?beneficiary=Patient/${basis.patient-read-id}&type=http://fhir.de/CodeSystem/versicherungsart-de-basis%7CSEL" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(type.coding.where(system = 'http://fhir.de/CodeSystem/versicherungsart-de-basis').code = 'SEL')" with error message 'There are search results, but they do not fully match the search criteria'
-    And element "beneficiary" in all bundle resources references resource with ID "${data.patient-read-id}"
+    And element "beneficiary" in all bundle resources references resource with ID "${basis.patient-read-id}"

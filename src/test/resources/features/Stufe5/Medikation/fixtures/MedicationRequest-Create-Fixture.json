@@ -67,17 +67,17 @@
     }
   ],
   "medicationReference": {
-    "reference": "Medication/${data.medicationrequest-medication-id}"
+    "reference": "Medication/${medikation.medicationrequest-medication-id}"
   },
   "subject": {
-    "reference": "Patient/${data.medication-patient-id}"
+    "reference": "Patient/${medikation.medication-patient-id}"
   },
   "encounter": {
-    "reference": "Encounter/${data.medication-encounter-id}"
+    "reference": "Encounter/${medikation.medication-encounter-id}"
   },
   "authoredOn": "2026-02-03",
   "requester": {
-    "reference": "Practitioner/${data.medication-practitioner-id}"
+    "reference": "Practitioner/${medikation.medication-practitioner-id}"
   },
   "note": [
     {

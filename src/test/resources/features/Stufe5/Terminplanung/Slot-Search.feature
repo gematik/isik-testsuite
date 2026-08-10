@@ -2,6 +2,7 @@
 @Stufe5
 @Terminplanung
 @Mandatory
+@ISiKCapabilityStatementTerminRepositoryRolle
 @Slot-Search
 Feature: Testing search parameters against the Slot resource (@Slot-Search)
 
@@ -34,38 +35,38 @@ Feature: Testing search parameters against the Slot resource (@Slot-Search)
       | _tag             | token           |
 
   Scenario: Search for the Slot by ID
-    Then Get FHIR resource at "http://fhirserver/Slot/?_id=${data.slot-read-id}" with content type "xml"
-    And response bundle contains resource with ID "${data.slot-read-id}" with error message "The requested slot ${data.slot-read-id} is not contained in the response bundle"
+    Then Get FHIR resource at "http://fhirserver/Slot/?_id=${terminplanung.slot-read-id}" with content type "xml"
+    And response bundle contains resource with ID "${terminplanung.slot-read-id}" with error message "The requested slot ${terminplanung.slot-read-id} is not contained in the response bundle"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
     And Check if current response of resource "Slot" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKTerminblock"
 
   @Optional
   Scenario: Optional Search for the Slot by Tag and ID
-    When Get FHIR resource at "http://fhirserver/Slot/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.slot-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Slot/?_tag=${terminplanung.tag-system}%7C${terminplanung.tag-value}&_id=${terminplanung.slot-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.slot-read-id}" with error message "The requested slot ${data.slot-read-id} is not contained in the response bundle"
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${terminplanung.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${terminplanung.slot-read-id}" with error message "The requested slot ${terminplanung.slot-read-id} is not contained in the response bundle"
 
   Scenario: Search for the Slot by Count
     When Get FHIR resource at "http://fhirserver/Slot/?_count=1" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for the Slot by Schedule
-    Then Get FHIR resource at "http://fhirserver/Slot/?schedule=${data.schedule-read-id}" with content type "json"
+    Then Get FHIR resource at "http://fhirserver/Slot/?schedule=${terminplanung.schedule-read-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.ofType(Slot).count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Slot).all(schedule.where(reference.replaceMatches('/_history/.+','').matches('\\b${data.schedule-read-id}$')).exists())" with error message 'There are search results, but they do not fully match the search criteria.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Slot).all(schedule.where(reference.replaceMatches('/_history/.+','').matches('\\b${terminplanung.schedule-read-id}$')).exists())" with error message 'There are search results, but they do not fully match the search criteria.'
 
   Scenario: Search for the Slot by Status and Schedule
-    Then Get FHIR resource at "http://fhirserver/Slot/?schedule=${data.schedule-read-id}&status=busy" with content type "json"
+    Then Get FHIR resource at "http://fhirserver/Slot/?schedule=${terminplanung.schedule-read-id}&status=busy" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.ofType(Slot).count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Slot).all(status = 'busy')" with error message 'There are search results, but they do not fully match the search criteria.'
 
   Scenario: Search for the Slot by Start time
-    Then Get FHIR resource at "http://fhirserver/Slot/?schedule=${data.schedule-read-id}&start=${data.slot-read-start}" with content type "json"
+    Then Get FHIR resource at "http://fhirserver/Slot/?schedule=${terminplanung.schedule-read-id}&start=${terminplanung.slot-read-start}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.ofType(Slot).count() > 0' with error message 'No search results were found'
     # The OR expression enables configuration of both full and partial date time values with different precision, e.g. slot-read-start: 2024-01-01, 2024-01-01T13:00:00, 2024-01-01T13:00:00.000, 2024-01-01T13:00:00+01:00
-    And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Slot).all(start.toString().contains('${data.slot-read-start}') or start ~ @${data.slot-read-start})" with error message 'There are search results, but they do not fully match the search criteria.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Slot).all(start.toString().contains('${terminplanung.slot-read-start}') or start ~ @${terminplanung.slot-read-start})" with error message 'There are search results, but they do not fully match the search criteria.'
 
   Scenario: Chaining search for slots by Practitioner
-    Then Get FHIR resource at "http://fhirserver/Slot/?schedule.actor=Practitioner/${data.appointment-practitioner-id}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.where(id.replaceMatches("/_history/.+","").matches("\\b${data.slot-read-id}$")).exists()' with error message 'The requested slot ${data.slot-read-id} is not contained in the response bundle'
+    Then Get FHIR resource at "http://fhirserver/Slot/?schedule.actor=Practitioner/${terminplanung.appointment-practitioner-id}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.where(id.replaceMatches("/_history/.+","").matches("\\b${terminplanung.slot-read-id}$")).exists()' with error message 'The requested slot ${terminplanung.slot-read-id} is not contained in the response bundle'

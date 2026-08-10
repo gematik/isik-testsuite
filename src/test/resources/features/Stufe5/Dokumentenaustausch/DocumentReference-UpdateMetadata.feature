@@ -2,6 +2,7 @@
 @Stufe5
 @Disabled # This Testcase is still under development and will be enabled in a later stage of the project.
 @Optional
+@ISiKCapabilityStatementMetadatenUpdateRolle
 @DocumentReference-UpdateMetadata
 Feature: Update Metadata of an existing DocumentReference with POST Operation (Metadatenupdate) (@DocumentReference-UpdateMetadata) (Optional)
 
@@ -30,8 +31,8 @@ Feature: Update Metadata of an existing DocumentReference with POST Operation (M
     Then TGR current response with attribute "$.responseCode" matches "20\d"
     # Caution! The following checks assume that a representation of the new resource has been returned directly in the response. This is guaranteed by the createOperation which sends the header 'Prefer: return=representation' internally.
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKDokumentenMetadaten"
-    Then FHIR evaluate FHIRPath "id" on current response body and store first element as primitive value in variable "data.documentreference-update-stored-id"
+    Then FHIR evaluate FHIRPath "id" on current response body and store first element as primitive value in variable "dokument.documentreference-update-stored-id"
     Given TGR set default header "Content-Type" to "application/fhir+json"
-    When TGR send POST request to "http://fhirserver/DocumentReference/${data.documentreference-update-stored-id}/$update-metadata" with body "!{file('src/test/resources/features/Stufe5/Dokumentenaustausch/fixtures/DocumentReference-UpdateMetadata-Entered-In-Error.json')}"
+    When TGR send POST request to "http://fhirserver/DocumentReference/${dokument.documentreference-update-stored-id}/$update-metadata" with body "!{file('src/test/resources/features/Stufe5/Dokumentenaustausch/fixtures/DocumentReference-UpdateMetadata-Entered-In-Error.json')}"
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "20\d"

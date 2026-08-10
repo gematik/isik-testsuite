@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikationVerordnungRolle
 @MedicationRequest-Create
 Feature: Create a resource of type MedicationRequest (@MedicationRequest-Create)
 

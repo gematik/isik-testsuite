@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementLeistungserbringerRolle
 @Practitioner-Read
 Feature: Read Information from a resource of type Practitioner (@Practitioner-Read)
 
@@ -32,9 +33,9 @@ Feature: Read Information from a resource of type Practitioner (@Practitioner-Re
     And CapabilityStatement contains interaction "read" for resource "Practitioner"
 
   Scenario: Read and Validate Practitioner resource by its ID
-    When Get FHIR resource at "http://fhirserver/Practitioner/${data.practitioner-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Practitioner/${basis.practitioner-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKPersonImGesundheitsberuf"
-    And resource has ID "${data.practitioner-read-id}" with error message "The ID does not match the expected value"
+    And resource has ID "${basis.practitioner-read-id}" with error message "The ID does not match the expected value"
     And TGR current response with attribute "$..gender.value" matches "male"
     And FHIR current response body evaluates the FHIRPath "name.where(use='official').given.matches('Walter')"
     And FHIR current response body evaluates the FHIRPath "name.where(use='official').family.matches('Musterarzt')"

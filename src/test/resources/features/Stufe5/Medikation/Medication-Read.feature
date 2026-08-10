@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikamentRolle
 @Medication-Read
 Feature: Read Information from a resource of type Medication (@Medication-Read)
 
@@ -31,12 +32,12 @@ Feature: Read Information from a resource of type Medication (@Medication-Read)
     And CapabilityStatement contains interaction "read" for resource "Medication"
 
   Scenario: Read and Validate the Medication by its ID
-    Then Get FHIR resource at "http://fhirserver/Medication/${data.medication-read-id}" with content type "xml"
-    And resource has ID "${data.medication-read-id}"
+    Then Get FHIR resource at "http://fhirserver/Medication/${medikation.medication-read-id}" with content type "xml"
+    And resource has ID "${medikation.medication-read-id}"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikament"
     And TGR current response with attribute "$..Medication.status.value" matches "active"
     And TGR current response with attribute "$..batch.lotNumber.value" matches "123"
     And FHIR current response body evaluates the FHIRPath "code.coding.where(code = 'V03AB23' and system = 'http://fhir.de/CodeSystem/bfarm/atc' and display = 'Acetylcystein' and version.hasValue()).exists()" with error message 'The code does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "amount.where(numerator.value = 20 and numerator.system = 'http://unitsofmeasure.org' and numerator.unit.exists() and numerator.code = '1' and denominator.value = 1 and denominator.system = 'http://unitsofmeasure.org' and denominator.unit.exists() and denominator.code = '1').exists()" with error message 'The amount does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "ingredient.item.exists()" with error message 'No reference to the ingredient exists'
-    And element "ingredient.item" references resource with ID "${data.medication-read-referenced-ingredient}" with error message "The ingredient reference does not match the expected value."
+    And element "ingredient.item" references resource with ID "${medikation.medication-read-referenced-ingredient}" with error message "The ingredient reference does not match the expected value."

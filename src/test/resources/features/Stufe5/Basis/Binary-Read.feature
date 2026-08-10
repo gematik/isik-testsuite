@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementDokumentenverwaltungRolle
 @Binary-Read
 Feature: Read Information from a resource of type Binary (@Binary-Read)
 
@@ -25,15 +26,15 @@ Feature: Read Information from a resource of type Binary (@Binary-Read)
     And CapabilityStatement contains interaction "read" for resource "Binary"
 
   Scenario: Read and Validate Binary data in FHIR format by its ID
-    When Get FHIR resource at "http://fhirserver/Binary/${data.binary-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Binary/${basis.binary-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKBinary"
-    And resource has ID "${data.binary-read-id}" with error message "The ID does not match the expected value"
+    And resource has ID "${basis.binary-read-id}" with error message "The ID does not match the expected value"
     And TGR current response with attribute "$..contentType.value" matches "text/plain"
     And TGR current response with attribute "$..data.value" matches "VGVzdA=="
 
   @Optional
   Scenario: Optional Read and Validate Binary data in native format by its ID
-    When TGR send empty GET request to "http://fhirserver/Binary/${data.binary-read-id}" with headers:
+    When TGR send empty GET request to "http://fhirserver/Binary/${basis.binary-read-id}" with headers:
       | Accept | text/plain |
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"

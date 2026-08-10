@@ -1,12 +1,37 @@
-<img align="right" width="250" height="47" src="imgs/gematik_logo.png"/> <br/>
+<img align="right" alt="gematik logo" width="250" height="47" src="imgs/gematik_logo.png"/> <br/>
 
 # Release Notes
+
+## Release 3.0.0
+
+> [!IMPORTANT]
+> **Breaking Change**: Tests for ISiK Level 3 have been removed
+> **Breaking Change**: Test Resources IDs have been renamed/modified, please update them before running the Test Suite
+
+### added
+
+- ISiK Level 5 Modules:
+    * `Connect`
+    * `ICU Minimal`
+    * `ICU Extended`
+    * `Labor`
+
+### changed
+
+- Moved internal Cucumber Glue Code classes to the `de.gematik.isik.test.glue` package
+- Parameter keys for user-provider data
+- Updated ISiK Validation Plugin to Specification Version 5.1.3
+- Updated dependencies
+
+### removed
+
+- ISiK Level 3 Modules, Validation Plugins and Settings
 
 ## Release 2.7.0
 
 ### added
 
-- Capability Statement Test Cases for ISiK Level 5 
+- Capability Statement Test Cases for ISiK Level 5
 
 ### fixes
 
@@ -48,7 +73,8 @@
 ### changed
 
 - Updated Tiger Framework to version 4.2.5
-- Changed Condition-Read-Active ICD Code from F71.0 to J06.9 (Pull Request [#11](https://github.com/gematik/isik-testsuite/pull/11))
+- Changed Condition-Read-Active ICD Code from F71.0 to J06.9 (Pull
+  Request [#11](https://github.com/gematik/isik-testsuite/pull/11))
 
 ### fixed
 
@@ -70,7 +96,8 @@
 ### fixed
 
 - Description of the test case `ValueSet-Read` (ANFISK-465)
-- Corrected regex to allow whitespace between Content-Type parameters (Pull Request [#6](https://github.com/gematik/isik-testsuite/pull/6/))
+- Corrected regex to allow whitespace between Content-Type parameters (Pull
+  Request [#6](https://github.com/gematik/isik-testsuite/pull/6/))
 
 ## Release 2.3.0
 

@@ -1,6 +1,6 @@
 {
   "resourceType": "RiskAssessment",
-  "id": "${data.riskassessment-create-id}",
+  "id": "${medikation.riskassessment-create-id}",
   "meta": {
     "tag": [
       {
@@ -27,14 +27,14 @@
     "text": "Risk assessment text note"
   },
   "subject": {
-    "reference": "Patient/${data.riskassessment-patient-id}"
+    "reference": "Patient/${medikation.riskassessment-patient-id}"
   },
   "encounter": {
-    "reference": "Encounter/${data.riskassessment-encounter-id}"
+    "reference": "Encounter/${medikation.riskassessment-encounter-id}"
   },
   "occurrenceDateTime": "2026-01-06T13:14:32+01:00",
   "condition": {
-    "reference": "Condition/${data.riskassessment-condition-id}"
+    "reference": "Condition/${medikation.riskassessment-condition-id}"
   },
   "reasonCode": [
     {
@@ -42,7 +42,7 @@
         {
           "code": "387713003",
           "system": "http://snomed.info/sct",
-          "version": "http://snomed.info/sct/11000274103/version/${data.snomed-ct-version}",
+          "version": "http://snomed.info/sct/11000274103/version/${medikation.snomed-ct-version}",
           "display": "Surgical procedure (procedure)"
         }
       ]
@@ -50,7 +50,7 @@
   ],
   "basis": [
     {
-      "reference": "Observation/${data.riskassessment-observation-id}"
+      "reference": "Observation/${medikation.riskassessment-observation-id}"
     }
   ],
   "prediction": [

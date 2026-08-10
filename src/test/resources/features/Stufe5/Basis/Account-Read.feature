@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementVersicherungsverhaeltnisRolle
 @Account-Read
 Feature: Read Information from a resource of type Account (@Account-Read)
 
@@ -30,13 +31,13 @@ Feature: Read Information from a resource of type Account (@Account-Read)
     And CapabilityStatement contains interaction "read" for resource "Account"
 
   Scenario: Read and Validate the Account by its ID
-    When Get FHIR resource at "http://fhirserver/Account/${data.account-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Account/${basis.account-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKAbrechnungsfall"
-    And resource has ID "${data.account-read-id}" with error message "The ID does not match the expected value"
+    And resource has ID "${basis.account-read-id}" with error message "The ID does not match the expected value"
     And TGR current response with attribute "$..status.value" matches "active"
-    And element "subject" references resource with ID "${data.account-read-patient-id}" with error message "Referenced patient does not match the expected value"
-    And FHIR current response body evaluates the FHIRPath "identifier.where(system = '${data.account-read-identifier-system}' and value='${data.account-read-identifier-value}').exists()" with error message 'The Account does not contain the expected identifier value'
-    And FHIR current response body evaluates the FHIRPath "identifier.where(system = '${data.account-read-identifier-system}' and value='${data.account-read-identifier-value}' and type.coding.where(system='http://terminology.hl7.org/CodeSystem/v2-0203' and code='AN').exists()).exists()" with error message 'The Account exists but does not have a valid type.'
+    And element "subject" references resource with ID "${basis.account-read-patient-id}" with error message "Referenced patient does not match the expected value"
+    And FHIR current response body evaluates the FHIRPath "identifier.where(system = '${basis.account-read-identifier-system}' and value='${basis.account-read-identifier-value}').exists()" with error message 'The Account does not contain the expected identifier value'
+    And FHIR current response body evaluates the FHIRPath "identifier.where(system = '${basis.account-read-identifier-system}' and value='${basis.account-read-identifier-value}' and type.coding.where(system='http://terminology.hl7.org/CodeSystem/v2-0203' and code='AN').exists()).exists()" with error message 'The Account exists but does not have a valid type.'
     And FHIR current response body evaluates the FHIRPath "coverage.priority = 1" with error message 'The Account does not include priority 1 for the insurance coverage.'
     And FHIR current response body evaluates the FHIRPath "coverage.coverage.exists()" with error message 'The Account does not contain a linked coverage insurance relationship.'
     And FHIR current response body evaluates the FHIRPath "coverage.extension.where(url = 'http://fhir.de/StructureDefinition/ExtensionAbrechnungsart').exists()" with error message 'The Account does not contain an extension for the billing type.'

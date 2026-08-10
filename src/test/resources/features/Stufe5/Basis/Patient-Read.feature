@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementStammdatenRolle
 @Patient-Read
 Feature: Read Information from a resource of type Patient (@Patient-Read)
 
@@ -34,9 +35,9 @@ Feature: Read Information from a resource of type Patient (@Patient-Read)
     And CapabilityStatement contains interaction "read" for resource "Patient"
 
   Scenario: Read and Validate Patient by their ID
-    When Get FHIR resource at "http://fhirserver/Patient/${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Patient/${basis.patient-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKPatient"
-    And resource has ID "${data.patient-read-id}" with error message "The ID does not match the expected value"
+    And resource has ID "${basis.patient-read-id}" with error message "The ID does not match the expected value"
     And TGR current response with attribute "$..gender.value" matches "male"
     And TGR current response with attribute "$..active.value" matches "true"
     And TGR current response with attribute "$..birthDate.value" matches "1968-05-12"

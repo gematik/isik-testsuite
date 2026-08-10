@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementAMTSRolle
 @RiskAssessment-Read
 Feature: Read Information from a resource of type RiskAssessment (@RiskAssessment-Read)
 
@@ -37,22 +38,22 @@ Feature: Read Information from a resource of type RiskAssessment (@RiskAssessmen
     And CapabilityStatement contains interaction "read" for resource "RiskAssessment"
 
   Scenario: Read and Validate the RiskAssessment by its ID
-    Then Get FHIR resource at "http://fhirserver/RiskAssessment/${data.riskassessment-read-id}" with content type "xml"
-    And resource has ID "${data.riskassessment-read-id}"
+    Then Get FHIR resource at "http://fhirserver/RiskAssessment/${medikation.riskassessment-read-id}" with content type "xml"
+    And resource has ID "${medikation.riskassessment-read-id}"
     #And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKAMTSBewertung"
     And TGR current response with attribute "$..status.value" matches "final"
     And FHIR current response body evaluates the FHIRPath "note.text.empty().not()" with error message 'The note element is missing or empty'
-    And element "condition" references resource with ID "Condition/${data.riskassessment-condition-id}" with error message "The referenced condition does not match the expected value"
-    And element "subject" references resource with ID "Patient/${data.riskassessment-patient-id}" with error message "The referenced patient does not match the expected value"
-    And element "encounter" references resource with ID "Encounter/${data.riskassessment-encounter-id}" with error message "The referenced encounter does not match the expected value"
-    And element "basis" references resource with ID "Observation/${data.riskassessment-observation-id}" with error message "The referenced observation does not match the expected value"
+    And element "condition" references resource with ID "Condition/${medikation.riskassessment-condition-id}" with error message "The referenced condition does not match the expected value"
+    And element "subject" references resource with ID "Patient/${medikation.riskassessment-patient-id}" with error message "The referenced patient does not match the expected value"
+    And element "encounter" references resource with ID "Encounter/${medikation.riskassessment-encounter-id}" with error message "The referenced encounter does not match the expected value"
+    And element "basis" references resource with ID "Observation/${medikation.riskassessment-observation-id}" with error message "The referenced observation does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "occurrence.ofType(dateTime).toString().contains('2026-01-06')" with error message 'The occurrence date does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "text.where(status = 'additional' and div.hasValue()).exists()" with error message 'The expected additional text has not been found'
     And FHIR current response body evaluates the FHIRPath "note.text.empty().not()" with error message 'The note element is missing or empty'
     And FHIR current response body evaluates the FHIRPath "mitigation.empty().not()" with error message 'The expected mitigation description has not been found'
     And FHIR current response body evaluates the FHIRPath "code.text.empty().not()" with error message 'The expected code description has not been found'
     # Validate the referenced resources at the end -> Tiger performs new Requests
-    And referenced "Encounter" resource with id "${data.riskassessment-encounter-id}" conforms to a valid v5 "ISiKKontaktGesundheitseinrichtung" profile
-    And referenced "Patient" resource with id "${data.riskassessment-patient-id}" conforms to a valid v5 "ISiKPatient" profile
-    And referenced "Observation" resource with id "${data.riskassessment-observation-id}" conforms to a valid v5 "ISiKKoerpergewicht" profile
-    And referenced "Condition" resource with id "${data.riskassessment-condition-id}" conforms to a valid v5 "ISiKDiagnose" profile
+    And referenced "Encounter" resource with id "${medikation.riskassessment-encounter-id}" conforms to a valid v5 "ISiKKontaktGesundheitseinrichtung" profile
+    And referenced "Patient" resource with id "${medikation.riskassessment-patient-id}" conforms to a valid v5 "ISiKPatient" profile
+    And referenced "Observation" resource with id "${medikation.riskassessment-observation-id}" conforms to a valid v5 "ISiKKoerpergewicht" profile
+    And referenced "Condition" resource with id "${medikation.riskassessment-condition-id}" conforms to a valid v5 "ISiKDiagnose" profile

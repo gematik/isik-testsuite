@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementVersicherungsverhaeltnisRolle
 @Coverage-Search-Statutory
 Feature: Testing search parameters against a resource of type "statutory" Coverage (@Coverage-Search-Statutory)
 
@@ -36,34 +37,34 @@ Feature: Testing search parameters against a resource of type "statutory" Covera
       | subscriber       | reference       |
 
   Scenario: Search for the Coverage by ID
-    When Get FHIR resource at "http://fhirserver/Coverage/?_id=${data.coverage-read-statutory-id}" with content type "xml"
-    And response bundle contains resource with ID "${data.coverage-read-statutory-id}" with error message "The requested Coverage ${data.coverage-read-statutory-id} is not contained in the response bundle"
+    When Get FHIR resource at "http://fhirserver/Coverage/?_id=${basis.coverage-read-statutory-id}" with content type "xml"
+    And response bundle contains resource with ID "${basis.coverage-read-statutory-id}" with error message "The requested Coverage ${basis.coverage-read-statutory-id} is not contained in the response bundle"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
 
   @Optional
   Scenario: Optional Search for the Coverage by Tag and ID
-    When Get FHIR resource at "http://fhirserver/Coverage/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.coverage-read-statutory-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Coverage/?_tag=${basis.tag-system}%7C${basis.tag-value}&_id=${basis.coverage-read-statutory-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.coverage-read-statutory-id}" with error message "The requested Coverage ${data.coverage-read-statutory-id} is not contained in the response bundle."
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${basis.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${basis.coverage-read-statutory-id}" with error message "The requested Coverage ${basis.coverage-read-statutory-id} is not contained in the response bundle."
 
   Scenario: Search for the Coverage by insured person's number
     When Get FHIR resource at "http://fhirserver/Coverage/?patient.identifier=http://fhir.de/sid/gkv/kvid-10%7CX485231029" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And response bundle contains resource with ID "${data.coverage-read-statutory-id}" with error message "The requested Coverage ${data.coverage-read-statutory-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${basis.coverage-read-statutory-id}" with error message "The requested Coverage ${basis.coverage-read-statutory-id} is not contained in the response bundle"
 
   Scenario: Search for the Coverage by Status and Beneficiary
-    When Get FHIR resource at "http://fhirserver/Coverage/?status=active&beneficiary=Patient/${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Coverage/?status=active&beneficiary=Patient/${basis.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(status='active')" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.coverage-read-statutory-id}" with error message "The requested Coverage ${data.coverage-read-statutory-id} is not contained in the response bundle."
+    And response bundle contains resource with ID "${basis.coverage-read-statutory-id}" with error message "The requested Coverage ${basis.coverage-read-statutory-id} is not contained in the response bundle."
 
   Scenario: Search for the Coverage by Type and Beneficiary
-    When Get FHIR resource at "http://fhirserver/Coverage/?type=GKV&beneficiary=Patient/${data.patient-read-id}" with content type "json"
+    When Get FHIR resource at "http://fhirserver/Coverage/?type=GKV&beneficiary=Patient/${basis.patient-read-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(type.coding.code='GKV')" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.coverage-read-statutory-id}" with error message "The requested Coverage ${data.coverage-read-statutory-id} is not contained in the response bundle."
+    And response bundle contains resource with ID "${basis.coverage-read-statutory-id}" with error message "The requested Coverage ${basis.coverage-read-statutory-id} is not contained in the response bundle."
 
   Scenario: Search for the Coverage by Type (Negative Test) and Beneficiary
-    When Get FHIR resource at "http://fhirserver/Coverage/?type=SEL&beneficiary=Patient/${data.patient-read-id}" with content type "json"
-    And bundle does not contain resource "Coverage" with ID "${data.coverage-read-statutory-id}" with error message "There are search results, but they do not fully match the search criteria"
+    When Get FHIR resource at "http://fhirserver/Coverage/?type=SEL&beneficiary=Patient/${basis.patient-read-id}" with content type "json"
+    And bundle does not contain resource "Coverage" with ID "${basis.coverage-read-statutory-id}" with error message "There are search results, but they do not fully match the search criteria"

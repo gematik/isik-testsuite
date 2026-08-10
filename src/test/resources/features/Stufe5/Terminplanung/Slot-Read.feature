@@ -2,6 +2,7 @@
 @Stufe5
 @Terminplanung
 @Mandatory
+@ISiKCapabilityStatementTerminRepositoryRolle
 @Slot-Read
 Feature: Read Information from a resource of type Slot (@Slot-Read)
 
@@ -26,11 +27,11 @@ Feature: Read Information from a resource of type Slot (@Slot-Read)
     And CapabilityStatement contains interaction "read" for resource "Slot"
 
   Scenario: Read a Slot by ID
-    Then Get FHIR resource at "http://fhirserver/Slot/${data.slot-read-id}" with content type "xml"
-    And resource has ID "${data.slot-read-id}"
+    Then Get FHIR resource at "http://fhirserver/Slot/${terminplanung.slot-read-id}" with content type "xml"
+    And resource has ID "${terminplanung.slot-read-id}"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKTerminblock"
     And TGR current response with attribute "$..status.value" matches "busy"
-    And element "schedule" references resource with ID "${data.schedule-read-id}" with error message "The referenced schedule is not correct"
+    And element "schedule" references resource with ID "${terminplanung.schedule-read-id}" with error message "The referenced schedule is not correct"
     # The OR expression enables configuration of both full and partial date time values with different precision, e.g. slot-read-start: 2024-01-01, 2024-01-01T13:00:00, 2024-01-01T13:00:00.000, 2024-01-01T13:00:00+01:00
-    And FHIR current response body evaluates the FHIRPath "start.toString().contains('${data.slot-read-start}') or start ~ @${data.slot-read-start}" with error message 'The slot start time does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "start.toString().contains('${terminplanung.slot-read-start}') or start ~ @${terminplanung.slot-read-start}" with error message 'The slot start time does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "end.empty().not()" with error message 'The slot end time is not provided'

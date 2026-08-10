@@ -52,8 +52,7 @@ To run the test suite you need the following components:
 
 1. This test suite, which you can get either by cloning this repository or downloading the latest release.
     - If you want to run the test suite using Maven, you need to have `Java 17` and `Maven` installed on your machine.
-      If
-      you are behind a proxy, please make sure to configure the proxy settings for Java and Maven.
+      If you are behind a proxy, please make sure to configure the proxy settings for Java and Maven.
     - If you want to run the test suite using Docker, you need to have `Docker` and `Docker Compose` installed on your
       machine. If you are behind a proxy, please make sure to configure the proxy settings accordingly.
 2. An ISiK resource server (System under Test, SUT) that is compliant with one of the ISiK Stufe 3 or Stufe 5
@@ -113,16 +112,19 @@ expressions.
 
 Currently supported tags are:
 
-| Tag                    | Description                                                                                                |
-|------------------------|------------------------------------------------------------------------------------------------------------|
+| Tag                    | Description                                                                                                  |
+|------------------------|--------------------------------------------------------------------------------------------------------------|
 | `@Stufe3`              | Runs all tests for Stufe 3 of the specification. This is the default when running the testsuite with Docker. |
-| `@Stufe5`              | Runs all tests for Stufe 5 of the specification.                                                           |
-| `@Optional`            | Runs all tests that are marked as optional in the specification. By default, these tests are not executed. |
-| `@Basis`               | Runs all the tests from the **Basis** Module                                                               |
-| `@Terminplanung`       | Runs all the tests from the **Terminplanung** Module                                                       |
-| `@Medikation`          | Runs all the tests from the **Medikation** Module                                       |
-| `@Vitalparameter`      | Runs all the tests from the **Vitalparameter** Module                                                       |
-| `@Dokumentenaustausch` | Runs all the tests from the **Dokumentenaustausch** Module                             |
+| `@Stufe5`              | Runs all tests for Stufe 5 of the specification.                                                             |
+| `@Optional`            | Runs all tests that are marked as optional in the specification. By default, these tests are not executed.   |
+| `@Basis`               | Runs all the tests from the **Basis** Module                                                                 |
+| `@Terminplanung`       | Runs all the tests from the **Terminplanung** Module                                                         |
+| `@Medikation`          | Runs all the tests from the **Medikation** Module                                                            |
+| `@Vitalparameter`      | Runs all the tests from the **Vitalparameter** Module                                                        |
+| `@Dokumentenaustausch` | Runs all the tests from the **Dokumentenaustausch** Module                                                   |
+| `@Connect`             | Runs all the tests from the **Connect** Module                                                               |
+| `@ICUMinimal`          | Runs all the tests from the **ICU** Module, with minimal support                                             |
+| `@ICUExtended`         | Runs all the tests from the **ICU** Module, with extended support                                            |
 
 ## Usage
 
@@ -153,8 +155,8 @@ If using the tiger testsuite behind a proxy provide the proxy configuration at t
 ### Using Docker
 
 The testsuite is also distributed as a [Docker Image](https://hub.docker.com/r/gematik1/isik-testsuite) and can be
-instrumented using Docker Compose. Make sure that the Docker environment has a connection to the System-Under-Test (
-configure [docker proxy settings](https://docs.docker.com/engine/cli/proxy/) if needed).
+instrumented using Docker Compose. Make sure that the Docker environment has a connection to the System-Under-Test
+(configure [docker proxy settings](https://docs.docker.com/engine/cli/proxy/) if needed).
 
 To use the image, download and adjust the following files according to your test environment:
 
@@ -181,6 +183,14 @@ environment:
   - TESTS_TO_RUN="@Stufe5 and @Terminplanung"
 ```
 
+In the Folder `testdata/` you can configure the information required by the execution of the test cases. Each test case
+comes with some preconditions and description of what should be provided by the user of this testsuite, e.g. the
+configuration of IDs of FHIR Resources for the System under Test.
+
+**IMPORTANT** For the `Connect` Module, the tests make the assumption that the System-Under-Test is up and running and
+that an Authorization Server is available. The tests do not evaluate the SMART-on-FHIR Authorization Flow, instead they
+require the Bearer Token used for sending authenticated requests to the System-Under-Test (or Resource Server).
+
 #### Running Tests
 
 Once all the configurations are done, you can start the test suite using the following command:
@@ -189,8 +199,8 @@ Once all the configurations are done, you can start the test suite using the fol
 docker compose --project-name isik-testsuite -f dc-testsuite.yml up
 ```
 
-For Docker, the Test Results will be stored in a Docker Volume, name `tiger-testsuite-report`.
-To access the results, you can copy them from the Docker Volume to your local machine using the following command:
+For Docker, the Test Results will be stored in a Docker Volume, name `tiger-testsuite-report`. To access the results,
+you can copy them from the Docker Volume to your local machine using the following command:
 
 ```sh
 docker run --rm -v tiger-testsuite-report:/report -v $(pwd):/local busybox cp /report/* /local/
@@ -214,8 +224,8 @@ After the test suite finishes the archived test results can be found in `debug-r
 ## Submitting test results as part of the ISiK certification process
 
 The artifact  `target/test-report.zip` is required to apply for
-the [ISiK conformance certificate](https://fachportal.gematik.de/informationen-fuer/isik/bestaetigungsverfahren-isik) (
-take notice of the `test-report` suffix).
+the [ISiK conformance certificate](https://fachportal.gematik.de/informationen-fuer/isik/bestaetigungsverfahren-isik)
+(take notice of the `test-report` suffix).
 Please [get an account](https://fachportal.gematik.de/gematik-onlineshop/titus?ai%5Baction%5D=detail&ai%5Bcontroller%5D=Catalog&ai%5Bd_name%5D=111&ai%5Bd_pos%5D=2)
 to the TITUS platform and upload the report into the corresponding submission form.
 

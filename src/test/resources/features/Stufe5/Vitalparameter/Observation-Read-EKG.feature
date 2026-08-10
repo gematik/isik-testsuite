@@ -2,6 +2,7 @@
 @Stufe5
 @Vitalparameter
 @Optional
+@ISiKCapabilityStatementVitalSignStandardSourceRolle
 @Observation-Read-EKG
 Feature: Read Information from a resource of type Observation for ECG data (@Observation-Read-EKG)
 
@@ -52,21 +53,21 @@ Feature: Read Information from a resource of type Observation for ECG data (@Obs
     And CapabilityStatement contains interaction "read" for resource "Observation"
 
   Scenario: Read and Validate the Observation by its ID
-    Then Get FHIR resource at "http://fhirserver/Observation/${data.observation-read-ekg-id}" with content type "xml"
-    And resource has ID "${data.observation-read-ekg-id}"
+    Then Get FHIR resource at "http://fhirserver/Observation/${vitalparameter.observation-read-ekg-id}" with content type "xml"
+    And resource has ID "${vitalparameter.observation-read-ekg-id}"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKEKG"
     And TGR current response with attribute "$..status.value" matches "final"
     And FHIR current response body evaluates the FHIRPath "category.coding.where(code = 'procedure' and system = 'http://terminology.hl7.org/CodeSystem/observation-category').exists()" with error message 'The category does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "code.coding.where(code = 'LP6244-0' and system = 'http://loinc.org' and version = '${data.loinc-version}' and display.empty().not()).exists()" with error message 'The code does not match the expected value'
-    And element "device" references resource with ID "Device/${data.observation-device-id}" with error message "The referenced device does not match the expected value"
-    And element "subject" references resource with ID "Patient/${data.observation-patient-id}" with error message "The referenced patient does not match the expected value"
-    And element "encounter" references resource with ID "Encounter/${data.observation-encounter-id}" with error message "The referenced encounter does not match the expected value"
-    And element "performer" references resource with ID "Practitioner/${data.observation-practitioner-id}" with error message "The referenced performer does not match the expected value"
+    And FHIR current response body evaluates the FHIRPath "code.coding.where(code = 'LP6244-0' and system = 'http://loinc.org' and version = '${vitalparameter.loinc-version}' and display.empty().not()).exists()" with error message 'The code does not match the expected value'
+    And element "device" references resource with ID "Device/${vitalparameter.observation-device-id}" with error message "The referenced device does not match the expected value"
+    And element "subject" references resource with ID "Patient/${vitalparameter.observation-patient-id}" with error message "The referenced patient does not match the expected value"
+    And element "encounter" references resource with ID "Encounter/${vitalparameter.observation-encounter-id}" with error message "The referenced encounter does not match the expected value"
+    And element "performer" references resource with ID "Practitioner/${vitalparameter.observation-practitioner-id}" with error message "The referenced performer does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "effective.toString().contains('2026-03-05')" with error message 'The effective date does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "component.count() >= 3" with error message 'The number of components does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "component.where(code.coding.where(code = 'LP7386-8' and system = 'http://loinc.org' and version = '${data.loinc-version}' and display.empty().not()).exists()).exists()" with error message 'The first ECG lead is missing'
-    And FHIR current response body evaluates the FHIRPath "component.where(code.coding.where(code = 'LP7387-6' and system = 'http://loinc.org' and version = '${data.loinc-version}' and display.empty().not()).exists()).exists()" with error message 'The second ECG lead is missing'
-    And FHIR current response body evaluates the FHIRPath "component.where(code.coding.where(code = 'LP7388-4' and system = 'http://loinc.org' and version = '${data.loinc-version}' and display.empty().not()).exists()).exists()" with error message 'The third ECG lead is missing'
+    And FHIR current response body evaluates the FHIRPath "component.where(code.coding.where(code = 'LP7386-8' and system = 'http://loinc.org' and version = '${vitalparameter.loinc-version}' and display.empty().not()).exists()).exists()" with error message 'The first ECG lead is missing'
+    And FHIR current response body evaluates the FHIRPath "component.where(code.coding.where(code = 'LP7387-6' and system = 'http://loinc.org' and version = '${vitalparameter.loinc-version}' and display.empty().not()).exists()).exists()" with error message 'The second ECG lead is missing'
+    And FHIR current response body evaluates the FHIRPath "component.where(code.coding.where(code = 'LP7388-4' and system = 'http://loinc.org' and version = '${vitalparameter.loinc-version}' and display.empty().not()).exists()).exists()" with error message 'The third ECG lead is missing'
     And FHIR current response body evaluates the FHIRPath "component.all(value.exists())" with error message 'At least one ECG component is missing sampled data'
     And FHIR current response body evaluates the FHIRPath "component.all(value.origin.exists())" with error message 'At least one ECG component is missing the sampled-data origin'
     And FHIR current response body evaluates the FHIRPath "component.all(value.period.exists())" with error message 'At least one ECG component is missing the sampled-data period'

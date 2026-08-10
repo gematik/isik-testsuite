@@ -1,0 +1,17 @@
+loinc-version: 2.81
+observation-encounter-id: Encounter-Read-Finished-Example
+observation-patient-id: Patient-Read-Example
+observation-practitioner-id: Practitioner-Read-Example
+observation-read-crp-id: ISiKLaboruntersuchungCRP-Example
+observation-read-gfr-id: ISiKLaboruntersuchungGFR-Example
+observation-read-hb-id: ISiKLaboruntersuchungHb-Example
+observation-read-laboruntersuchung-id: ISiKLaboruntersuchung-Example
+observation-read-pct-id: ISiKLaboruntersuchungPCT-Example
+observation-read-serumkreatinin-id: ISiKLaboruntersuchungSerumkreatinin-Example
+observation-read-serumnatrium-id: ISiKLaboruntersuchungSerumnatrium-Example
+observation-read-thrombozyten-id: ISiKLaboruntersuchungThrombozyten-Example
+observation-read-troponin-id: ISiKLaboruntersuchungTroponin-Example
+observation-read-tsh-id: ISiKLaboruntersuchungTSH-Example
+snomed-ct-version: 20251115
+tag-system: http://fhir.de/CodeSystem/common-meta-tag-de
+tag-value: external

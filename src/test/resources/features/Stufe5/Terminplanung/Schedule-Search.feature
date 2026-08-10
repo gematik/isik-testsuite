@@ -2,6 +2,7 @@
 @Stufe5
 @Terminplanung
 @Mandatory
+@ISiKCapabilityStatementTerminRepositoryRolle
 @Schedule-Search
 Feature: Testing search parameters against the Schedule resource (@Schedule-Search)
 
@@ -34,33 +35,33 @@ Feature: Testing search parameters against the Schedule resource (@Schedule-Sear
       | _tag             | token           |
 
   Scenario: Search for the Schedule by ID
-    Then Get FHIR resource at "http://fhirserver/Schedule/?_id=${data.schedule-read-id}" with content type "xml"
-    And response bundle contains resource with ID "${data.schedule-read-id}" with error message "The requested Schedule ${data.schedule-read-id} is not contained in the response bundle"
+    Then Get FHIR resource at "http://fhirserver/Schedule/?_id=${terminplanung.schedule-read-id}" with content type "xml"
+    And response bundle contains resource with ID "${terminplanung.schedule-read-id}" with error message "The requested Schedule ${terminplanung.schedule-read-id} is not contained in the response bundle"
     And Check if current response of resource "Schedule" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKKalender"
 
   @Optional
   Scenario: Optional Search for the Schedule by Tag and ID
-    When Get FHIR resource at "http://fhirserver/Schedule/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.schedule-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Schedule/?_tag=${terminplanung.tag-system}%7C${terminplanung.tag-value}&_id=${terminplanung.schedule-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.schedule-read-id}" with error message "The requested Schedule ${data.schedule-read-id} is not contained in the response bundle"
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${terminplanung.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${terminplanung.schedule-read-id}" with error message "The requested Schedule ${terminplanung.schedule-read-id} is not contained in the response bundle"
 
   Scenario: Search for the Schedule by Count
     When Get FHIR resource at "http://fhirserver/Schedule/?_count=1" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for the Schedule that belong to a Practitioner, by Active state
-    Then Get FHIR resource at "http://fhirserver/Schedule/?active=true&actor=Practitioner/${data.appointment-practitioner-id}" with content type "json"
+    Then Get FHIR resource at "http://fhirserver/Schedule/?active=true&actor=Practitioner/${terminplanung.appointment-practitioner-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.ofType(Schedule).count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Schedule).all(active = 'true')" with error message 'There are search results, but they do not fully match the search criteria.'
-    And response bundle contains resource with ID "${data.schedule-read-id}" with error message "The requested Schedule ${data.schedule-read-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${terminplanung.schedule-read-id}" with error message "The requested Schedule ${terminplanung.schedule-read-id} is not contained in the response bundle"
 
   Scenario: Search for the Schedule that belong to a Practitioner, by Service Type
-    Then Get FHIR resource at "http://fhirserver/Schedule/?service-type=${data.schedule-read-servicetype-code}&actor=Practitioner/${data.appointment-practitioner-id}" with content type "json"
+    Then Get FHIR resource at "http://fhirserver/Schedule/?service-type=${terminplanung.schedule-read-servicetype-code}&actor=Practitioner/${terminplanung.appointment-practitioner-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.ofType(Schedule).count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Schedule).all(serviceType.coding.where(code='${data.schedule-read-servicetype-code}').exists())" with error message 'There are search results, but they do not fully match the search criteria.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Schedule).all(serviceType.coding.where(code='${terminplanung.schedule-read-servicetype-code}').exists())" with error message 'There are search results, but they do not fully match the search criteria.'
 
   Scenario: Search for the Schedule that belong to a Practitioner, by Specialty
-    Then Get FHIR resource at "http://fhirserver/Schedule/?actor=Practitioner/${data.appointment-practitioner-id}&specialty=urn%3Aoid%3A1.2.276.0.76.5.114%7C142%2Chttp%3A%2F%2Fihe-d.de%2FCodeSystems%2FAerztlicheFachrichtungen%7CNEUR" with content type "json"
+    Then Get FHIR resource at "http://fhirserver/Schedule/?actor=Practitioner/${terminplanung.appointment-practitioner-id}&specialty=urn%3Aoid%3A1.2.276.0.76.5.114%7C142%2Chttp%3A%2F%2Fihe-d.de%2FCodeSystems%2FAerztlicheFachrichtungen%7CNEUR" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.ofType(Schedule).count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Schedule).all(specialty.coding.where((code = '142' and system ='urn:oid:1.2.276.0.76.5.114') or (code = 'NEUR' and system ='http://ihe-d.de/CodeSystems/AerztlicheFachrichtungen')).exists())" with error message 'There are search results, but they do not fully match the search criteria.'

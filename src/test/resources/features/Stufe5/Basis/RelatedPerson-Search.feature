@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementVersicherungsverhaeltnisRolle
 @RelatedPerson-Search
 Feature: Testing search parameters against a resource of type RelatedPerson (@RelatedPerson-Search)
 
@@ -37,49 +38,49 @@ Feature: Testing search parameters against a resource of type RelatedPerson (@Re
       | address-postalcode | string          |
 
   Scenario: Search for RelatedPerson by ID
-    When Get FHIR resource at "http://fhirserver/RelatedPerson/?_id=${data.relatedperson-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/RelatedPerson/?_id=${basis.relatedperson-read-id}" with content type "xml"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And response bundle contains resource with ID "${data.relatedperson-read-id}" with error message "The requested RelatedPerson ${data.relatedperson-read-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${basis.relatedperson-read-id}" with error message "The requested RelatedPerson ${basis.relatedperson-read-id} is not contained in the response bundle"
 
   @Optional
   Scenario: Optional Search for RelatedPerson resource by Tag and ID
-    When Get FHIR resource at "http://fhirserver/RelatedPerson/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.relatedperson-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/RelatedPerson/?_tag=${basis.tag-system}%7C${basis.tag-value}&_id=${basis.relatedperson-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${basis.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for RelatedPerson resource by Count
     When Get FHIR resource at "http://fhirserver/RelatedPerson/?_count=1" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for RelatedPerson by Patient ID
-    When Get FHIR resource at "http://fhirserver/RelatedPerson/?patient=${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/RelatedPerson/?patient=${basis.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And element "patient" in all bundle resources references resource with ID "${data.patient-read-id}"
-    And response bundle contains resource with ID "${data.relatedperson-read-id}" with error message "The requested RelatedPerson ${data.relatedperson-read-id} is not contained in the response bundle"
+    And element "patient" in all bundle resources references resource with ID "${basis.patient-read-id}"
+    And response bundle contains resource with ID "${basis.relatedperson-read-id}" with error message "The requested RelatedPerson ${basis.relatedperson-read-id} is not contained in the response bundle"
 
   @Optional
   Scenario: Optional Search for RelatedPerson by first name and Patient
-    When Get FHIR resource at "http://fhirserver/RelatedPerson/?name=Maxine&patient=${data.patient-read-id}" with content type "xml"
-    And response bundle contains resource with ID "${data.relatedperson-read-id}" with error message "The requested RelatedPerson ${data.relatedperson-read-id} is not contained in the response bundle"
+    When Get FHIR resource at "http://fhirserver/RelatedPerson/?name=Maxine&patient=${basis.patient-read-id}" with content type "xml"
+    And response bundle contains resource with ID "${basis.relatedperson-read-id}" with error message "The requested RelatedPerson ${basis.relatedperson-read-id} is not contained in the response bundle"
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.given contains 'Maxine')" with error message 'There are search results, but they do not fully match the search criteria'
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
     And Check if current response of resource "RelatedPerson" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKAngehoeriger"
 
   @Optional
   Scenario: Optional Search for RelatedPerson by address (city) and Patient
-    When Get FHIR resource at "http://fhirserver/RelatedPerson/?address-city=Berlin&patient=${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/RelatedPerson/?address-city=Berlin&patient=${basis.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city = 'Berlin').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   @Optional
   Scenario: Optional Search for RelatedPerson by address (country) and Patient
-    When Get FHIR resource at "http://fhirserver/RelatedPerson/?address-country=DE&patient=${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/RelatedPerson/?address-country=DE&patient=${basis.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(country = 'DE').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   @Optional
   Scenario: Optional Search for RelatedPerson by address (postal code) and Patient
-    When Get FHIR resource at "http://fhirserver/RelatedPerson/?address-postalcode=13187&patient=${data.patient-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/RelatedPerson/?address-postalcode=13187&patient=${basis.patient-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(postalCode.contains('13187')).exists())" with error message 'There are search results, but they do not fully match the search criteria'

@@ -1,3 +1,7 @@
+account-read-id: Account-Read-Example
+account-read-patient-id: Account-Read-Patient-Example
+account-read-identifier-system: https://test.krankenhaus.de/fhir/sid/abrechnungsnummer
+account-read-identifier-value: 0123456789
 appointment-book-by-schedule-id: Appointment-Book-By-Schedule-Parameters-Fixture
 appointment-book-by-schedule-date: "2027-03-31"
 appointment-book-by-schedule-datetime-start: "2027-03-31T10:05:00Z"
@@ -16,6 +20,7 @@ appointment-patient-id: Patient-Read-Example
 appointment-practitioner-id: Practitioner-Read-Example
 appointment-read-id: Appointment-Read-Example
 appointment-read-specialty-system:
+encounter-read-with-account-id: Encounter-Read-Finished-Example
 encounter-read-appointment-id: Encounter-Read-Planned-Example
 encounter-read-appointment-identifier-system: https://test.krankenhaus.de/fhir/sid/fallnr
 encounter-read-appointment-identifier-value: 0123456789
@@ -25,6 +30,7 @@ healthcareservice-read-name: General consultation office of the Neurology depart
 healthcareservice-read-servicetype-code: 177
 healthcareservice-read-servicetype-system: http://terminology.hl7.org/CodeSystem/service-type
 healthcareservice-search-name: General%20consultation%20office%20of%20the%20Neurology%20department
+patient-read-id: Patient-Read-Example
 schedule-read-id: Schedule-Read-Example
 schedule-read-servicetype-code: 177
 schedule-read-servicetype-system: http://terminology.hl7.org/CodeSystem/service-type

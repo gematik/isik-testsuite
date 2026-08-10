@@ -2,6 +2,7 @@
 @Stufe5
 @Vitalparameter
 @Mandatory
+@ISiKCapabilityStatementVitalSignStandardSourceRolle
 @Observation-Read-Body-Weight
 Feature: Read Information from a resource of type Observation for body weight (@Observation-Read-Body-Weight)
 
@@ -36,15 +37,15 @@ Feature: Read Information from a resource of type Observation for body weight (@
     And CapabilityStatement contains interaction "read" for resource "Observation"
 
   Scenario: Read and Validate the Observation by its ID
-    Then Get FHIR resource at "http://fhirserver/Observation/${data.observation-read-body-weight-id}" with content type "xml"
-    And resource has ID "${data.observation-read-body-weight-id}"
+    Then Get FHIR resource at "http://fhirserver/Observation/${vitalparameter.observation-read-body-weight-id}" with content type "xml"
+    And resource has ID "${vitalparameter.observation-read-body-weight-id}"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKKoerpergewicht"
     And TGR current response with attribute "$..status.value" matches "final"
     And FHIR current response body evaluates the FHIRPath "category.coding.where(code = 'vital-signs' and system = 'http://terminology.hl7.org/CodeSystem/observation-category').exists()" with error message 'The category does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "code.coding.where(code = '29463-7' and system = 'http://loinc.org' and version = '${data.loinc-version}' and display.empty().not()).exists()" with error message 'The code does not match the expected value'
-    And element "subject" references resource with ID "Patient/${data.observation-patient-id}" with error message "The referenced patient does not match the expected value"
-    And element "encounter" references resource with ID "Encounter/${data.observation-encounter-id}" with error message "The referenced encounter does not match the expected value"
-    And element "performer" references resource with ID "Practitioner/${data.observation-practitioner-id}" with error message "The referenced performer does not match the expected value"
+    And FHIR current response body evaluates the FHIRPath "code.coding.where(code = '29463-7' and system = 'http://loinc.org' and version = '${vitalparameter.loinc-version}' and display.empty().not()).exists()" with error message 'The code does not match the expected value'
+    And element "subject" references resource with ID "Patient/${vitalparameter.observation-patient-id}" with error message "The referenced patient does not match the expected value"
+    And element "encounter" references resource with ID "Encounter/${vitalparameter.observation-encounter-id}" with error message "The referenced encounter does not match the expected value"
+    And element "performer" references resource with ID "Practitioner/${vitalparameter.observation-practitioner-id}" with error message "The referenced performer does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "effective.toString().contains('2026-01-06')" with error message 'The effective date does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "value.where(value ~ 79 and code = 'kg' and unit.exists() and system = 'http://unitsofmeasure.org').exists()" with error message 'The value does not match the expected value'
 

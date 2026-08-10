@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikamentRolle
 @Medication-Update
 Feature: Update a resource of type Medication (@Medication-Update)
 
@@ -20,9 +21,9 @@ Feature: Update a resource of type Medication (@Medication-Update)
 
   Scenario: Update a Medication resource
     Given TGR set default header "Content-Type" to "application/fhir+json"
-    When TGR send PUT request to "http://fhirserver/Medication/${data.medication-update-id}" with body "!{file('src/test/resources/features/Stufe5/Medikation/fixtures/Medication-Update-Fixture.json')}"
+    When TGR send PUT request to "http://fhirserver/Medication/${medikation.medication-update-id}" with body "!{file('src/test/resources/features/Stufe5/Medikation/fixtures/Medication-Update-Fixture.json')}"
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
-    And TGR send empty GET request to "http://fhirserver/Medication/${data.medication-update-id}"
+    And TGR send empty GET request to "http://fhirserver/Medication/${medikation.medication-update-id}"
     And TGR find the last request
     And FHIR current response body evaluates the FHIRPath "amount.numerator.value ~ 40" with error message 'The amount was not updated or was updated incorrectly'

@@ -1,6 +1,7 @@
 atc-code-version: 2024
 list-read-id: List-Read-Example
 list-update-id: List-Update-Original-Example
+loinc-version: 2.81
 medicationadministration-read-extended-id: MedicationAdministration-Read-Extended-Example
 medicationadministration-read-id: MedicationAdministration-Read-Example
 medicationadministration-read-rate-id: MedicationAdministration-Read-Rate-Example-Quantity
@@ -25,6 +26,7 @@ medication-observation-breastfeeding-read-id: Breastfeeding-Read-Example
 medication-observation-expected-pregnancy-delivery-date-read-id: Expected-Pregnancy-Delivery-Date-Read-Example
 medication-observation-pregnancy-status-read-id: Pregnancy-Status-Read-Example
 medication-observation-smoking-status-read-id: Smoking-Status-Read-Example
+medication-observation-patient-read-id: Patient-Read-Extended-Example
 medication-patient-identifier: X485231029
 medication-patient-id: Patient-Read-Example
 medication-practitioner-identifier: 123456789

@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Optional
+@ISiKCapabilityStatementAufbaustrukturRolle
 @Location-Read
 Feature: Read Information from a resource of type Location (@Location-Read) (Optional)
 
@@ -37,10 +38,10 @@ Feature: Read Information from a resource of type Location (@Location-Read) (Opt
     And CapabilityStatement contains interaction "read" for resource "Location"
 
   Scenario: Read and Validate Location by its ID
-    When Get FHIR resource at "http://fhirserver/Location/${data.location-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Location/${basis.location-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKStandort"
-    And resource has ID "${data.location-read-id}" with error message "The ID does not match the expected value"
-    And FHIR current response body evaluates the FHIRPath "identifier.where(system = 'http://fhir.de/sid/dkgev/standortnummer' and value = '${data.location-read-identifier-value}').exists()" with error message 'The Organization IKNR does not match the expected value'
+    And resource has ID "${basis.location-read-id}" with error message "The ID does not match the expected value"
+    And FHIR current response body evaluates the FHIRPath "identifier.where(system = 'http://fhir.de/sid/dkgev/standortnummer' and value = '${basis.location-read-identifier-value}').exists()" with error message 'The Organization IKNR does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "type.coding.where(system = 'http://terminology.hl7.org/CodeSystem/v3-RoleCode' and code = 'LOCHFID').exists()" with error message 'The Location type code does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "name = 'Station A'" with error message 'The Location name does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "mode = 'instance'" with error message 'The Location mode does not match the expected value'
@@ -50,4 +51,4 @@ Feature: Read Information from a resource of type Location (@Location-Read) (Opt
     And FHIR current response body evaluates the FHIRPath "position.where(latitude = 52.52 and longitude = 13.405).exists()" with error message 'The Location position does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "hoursOfOperation.where(daysOfWeek.where($this = 'mon') and allDay = true).exists()" with error message 'The hours of operation for Monday do not match the expected value'
     And FHIR current response body evaluates the FHIRPath "hoursOfOperation.where(daysOfWeek.where($this = 'sat') and openingTime = @T08:00:00 and closingTime = @T13:00:00).exists()" with error message 'The Location hours of operation for Saturday do not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "managingOrganization.reference = 'Organization/${data.organization-read-id}'" with error message 'The managing Organization reference does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "managingOrganization.reference = 'Organization/${basis.organization-read-id}'" with error message 'The managing Organization reference does not match the expected value'
