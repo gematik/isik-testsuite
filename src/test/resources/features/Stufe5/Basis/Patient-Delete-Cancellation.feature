@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Optional
+@ISiKCapabilityStatementStammdatenRolle
 @Patient-Delete-Cancellation
 Feature: Delete Patient (@Patient-Delete-Cancellation) (Optional)
 
@@ -15,11 +16,11 @@ Feature: Delete Patient (@Patient-Delete-Cancellation) (Optional)
 
   Scenario: Cancellation of a patient via Delete
     Given TGR set default header "Content-Type" to "application/fhir+json"
-    When TGR send empty DELETE request to "http://fhirserver/Patient/${data.patient-delete-id}"
+    When TGR send empty DELETE request to "http://fhirserver/Patient/${basis.patient-delete-id}"
     And TGR find the last request
     # Ignore content-type header, as it may be missing for 4** responses
     Then TGR current response with attribute "$.responseCode" matches "20\d"
-    And TGR send empty GET request to "http://fhirserver/Patient/${data.patient-delete-id}"
+    And TGR send empty GET request to "http://fhirserver/Patient/${basis.patient-delete-id}"
     And TGR find the last request
     # Ignore content-type header, as it may be missing for 4** responses
     Then TGR current response with attribute "$.responseCode" matches "410|404"

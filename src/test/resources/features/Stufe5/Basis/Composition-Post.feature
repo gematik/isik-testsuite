@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementCompositionKonsumentenRolle
 @Composition-Post
 Feature: Upload of a Document Bundle with POST Operation (@Composition-Post)
 

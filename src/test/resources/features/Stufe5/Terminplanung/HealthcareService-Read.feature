@@ -2,6 +2,7 @@
 @Stufe5
 @Terminplanung
 @Mandatory
+@ISiKCapabilityStatementTerminRepositoryRolle
 @HealthcareService-Read
 Feature: Read Information from a resource of type HealthcareService (@HealthcareService-Read)
 
@@ -26,11 +27,11 @@ Feature: Read Information from a resource of type HealthcareService (@Healthcare
     And CapabilityStatement contains interaction "read" for resource "HealthcareService"
 
   Scenario: Read a HealthcareService by ID
-    Then Get FHIR resource at "http://fhirserver/HealthcareService/${data.healthcareservice-read-id}" with content type "xml"
-    And resource has ID "${data.healthcareservice-read-id}"
+    Then Get FHIR resource at "http://fhirserver/HealthcareService/${terminplanung.healthcareservice-read-id}" with content type "xml"
+    And resource has ID "${terminplanung.healthcareservice-read-id}"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedizinischeBehandlungseinheit"
     And TGR current response with attribute "$..active.value" matches "true"
-    And FHIR current response body evaluates the FHIRPath "type.where(coding.where(code = '${data.healthcareservice-read-servicetype-code}' and system = '${data.healthcareservice-read-servicetype-system}').exists()).exists()" with error message 'The type does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "type.where(coding.where(code = '${terminplanung.healthcareservice-read-servicetype-code}' and system = '${terminplanung.healthcareservice-read-servicetype-system}').exists()).exists()" with error message 'The type does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "specialty.coding.where(code = 'NEUR' and system ='http://ihe-d.de/CodeSystems/AerztlicheFachrichtungen').exists()" with error message 'The specialty does not match the expected value'
-    And TGR current response with attribute "$..name.value" matches "${data.healthcareservice-read-name}"
+    And TGR current response with attribute "$..name.value" matches "${terminplanung.healthcareservice-read-name}"
     

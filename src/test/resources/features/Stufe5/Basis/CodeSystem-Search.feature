@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Optional
+@ISiKCapabilityStatementTerminologieRolle
 @CodeSystem-Search
 Feature: Testing search parameters against a resource of type CodeSystem (@CodeSystem-Search)
 
@@ -32,15 +33,15 @@ Feature: Testing search parameters against a resource of type CodeSystem (@CodeS
       | _tag             | token           |
 
   Scenario: Search for the CodeSystem by ID
-    When Get FHIR resource at "http://fhirserver/CodeSystem/?_id=${data.codesystem-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/CodeSystem/?_id=${basis.codesystem-read-id}" with content type "xml"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
-    And response bundle contains resource with ID "${data.codesystem-read-id}" with error message "The requested CodeSystem ${data.codesystem-read-id} is not contained in the response bundle."
+    And response bundle contains resource with ID "${basis.codesystem-read-id}" with error message "The requested CodeSystem ${basis.codesystem-read-id} is not contained in the response bundle."
 
   @Optional
   Scenario: Optional Search for the CodeSystem by Tag and ID
-    When Get FHIR resource at "http://fhirserver/CodeSystem/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.codesystem-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/CodeSystem/?_tag=${basis.tag-system}%7C${basis.tag-value}&_id=${basis.codesystem-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${basis.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the CodeSystem by Count
     When Get FHIR resource at "http://fhirserver/CodeSystem/?_count=1" with content type "xml"

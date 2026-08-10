@@ -47,43 +47,43 @@ Feature: Testing search parameters against a resource of type AllergyIntolerance
       | _has             | string          |
 
   Scenario: Search for the AllergyIntolerance resource by ID
-    When Get FHIR resource at "http://fhirserver/AllergyIntolerance/?_id=${data.medication-allergyintolerance-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/AllergyIntolerance/?_id=${medikation.medication-allergyintolerance-read-id}" with content type "xml"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
-    And response bundle contains resource with ID "${data.medication-allergyintolerance-read-id}" with error message "The requested AllergyIntolerance ${data.medication-allergyintolerance-read-id} is not contained in the response bundle."
+    And response bundle contains resource with ID "${medikation.medication-allergyintolerance-read-id}" with error message "The requested AllergyIntolerance ${medikation.medication-allergyintolerance-read-id} is not contained in the response bundle."
 
   Scenario: Search for AllergyIntolerance resources that have the Type 'allergy', group by _count
     When Post FHIR search request to "http://fhirserver/AllergyIntolerance/_search" with content type "xml" and parameters:
       | type    | _count               |
-      | allergy | ${data.search-count} |
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() >= 0 and entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+      | allergy | ${medikation.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() >= 0 and entry.resource.count() <= ${medikation.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(type = 'allergy').exists()" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for AllergyIntolerance resources that have the Clinical Status 'active', group by _count
     When Post FHIR search request to "http://fhirserver/AllergyIntolerance/_search" with content type "xml" and parameters:
       | clinical-status | _count               |
-      | active          | ${data.search-count} |
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+      | active          | ${medikation.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${medikation.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(clinicalStatus.coding.where(system = 'http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical' and code = 'active').exists()).exists()" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the AllergyIntolerance resources by Patient, group by _count
-    When Get FHIR resource at "http://fhirserver/AllergyIntolerance/?_count=${data.search-count}&patient=Patient/${data.medication-allergyintolerance-read-patient-id}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
-    And element "patient" in all bundle resources references resource with ID "${data.medication-allergyintolerance-read-patient-id}" with error message 'There are search results, but they do not fully match the search criteria'
+    When Get FHIR resource at "http://fhirserver/AllergyIntolerance/?_count=${medikation.search-count}&patient=Patient/${medikation.medication-allergyintolerance-read-patient-id}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${medikation.search-count}' with error message 'No search results were found'
+    And element "patient" in all bundle resources references resource with ID "${medikation.medication-allergyintolerance-read-patient-id}" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the AllergyIntolerance resources that have the Category 'environment', group by _count
-    When Get FHIR resource at "http://fhirserver/AllergyIntolerance/?_count=${data.search-count}&category=environment" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/AllergyIntolerance/?_count=${medikation.search-count}&category=environment" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${medikation.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(category.where($this = 'environment').exists()).exists()" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the AllergyIntolerance by registered Date (registered) after 2026-01-01, group by _count
-    When Get FHIR resource at "http://fhirserver/AllergyIntolerance/?date=ge2026-01-01&_count=${data.search-count}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/AllergyIntolerance/?date=ge2026-01-01&_count=${medikation.search-count}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${medikation.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(recordedDate is dateTime and recordedDate > @2026-01-01).exists()" with error message 'There are search results, but they do not fully match the search criteria'
 
   @Optional
   Scenario: Optional Search for AllergyIntolerance resources that have the given Tag, group by _count
     When Post FHIR search request to "http://fhirserver/AllergyIntolerance/_search" with content type "xml" and parameters:
       | _tag                                  | _count               |
-      | ${data.tag-system}\|${data.tag-value} | ${data.search-count} |
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+      | ${medikation.tag-system}\|${medikation.tag-value} | ${medikation.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${medikation.search-count}' with error message 'No search results were found'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${medikation.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'

@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikationInformationRolle
 @List-Read
 Feature: Read Information from a resource of type Medication List (@List-Read)
 
@@ -30,17 +31,17 @@ Feature: Read Information from a resource of type Medication List (@List-Read)
     And CapabilityStatement contains interaction "read" for resource "List"
 
   Scenario: Read and Validate the Medication List by its ID
-    Then Get FHIR resource at "http://fhirserver/List/${data.list-read-id}" with content type "xml"
-    And resource has ID "${data.list-read-id}"
+    Then Get FHIR resource at "http://fhirserver/List/${medikation.list-read-id}" with content type "xml"
+    And resource has ID "${medikation.list-read-id}"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsListe"
     And TGR current response with attribute "$..status.value" matches "current"
     And TGR current response with attribute "$..mode.value" matches "working"
     And FHIR current response body evaluates the FHIRPath "code.coding.where(code = 'medications' and system = 'http://terminology.hl7.org/CodeSystem/list-example-use-codes').exists()" with error message 'The code does not match the expected value'
-    And element "encounter" references resource with ID "Encounter/${data.medication-encounter-id}" with error message "The referenced encounter does not match the expected value"
-    And element "subject" references resource with ID "Patient/${data.medication-patient-id}" with error message "The referenced patient does not match the expected value"
+    And element "encounter" references resource with ID "Encounter/${medikation.medication-encounter-id}" with error message "The referenced encounter does not match the expected value"
+    And element "subject" references resource with ID "Patient/${medikation.medication-patient-id}" with error message "The referenced patient does not match the expected value"
     # The requirement for minimal date is used to test date search parameter in the List-Search-date test case
     And FHIR current response body evaluates the FHIRPath "date >= @2026-01-01T00:00:00+01:00" with error message 'The list creation date is not provided'
-    And FHIR current response body evaluates the FHIRPath "entry.where(item.reference.replaceMatches('/_history/.+','').matches('MedicationStatement/${data.medicationstatement-read-id}$') and date.empty().not()).exists()" with error message 'The list entry does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "entry.where(item.reference.replaceMatches('/_history/.+','').matches('MedicationStatement/${medikation.medicationstatement-read-id}$') and date.empty().not()).exists()" with error message 'The list entry does not match the expected value'
     # Validate the referenced resources at the end -> Tiger performs new Requests
-    And referenced "Encounter" resource with id "${data.medication-encounter-id}" conforms to a valid v5 "ISiKKontaktGesundheitseinrichtung" profile
-    And referenced "Patient" resource with id "${data.medication-patient-id}" conforms to a valid v5 "ISiKPatient" profile
+    And referenced "Encounter" resource with id "${medikation.medication-encounter-id}" conforms to a valid v5 "ISiKKontaktGesundheitseinrichtung" profile
+    And referenced "Patient" resource with id "${medikation.medication-patient-id}" conforms to a valid v5 "ISiKPatient" profile

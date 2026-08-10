@@ -2,6 +2,7 @@
 @Stufe5
 @Dokumentenaustausch
 @Mandatory
+@ISiKCapabilityStatementDokumentenverwaltungRolle
 @DocumentReference-Search
 Feature: Testing search parameters against a resource of type DocumentReference (@DocumentReference-Search)
 
@@ -38,54 +39,54 @@ Feature: Testing search parameters against a resource of type DocumentReference 
       | _tag             | token           |
 
   Scenario: Search for the DocumentReference metadata by ID
-    When Get FHIR resource at "http://fhirserver/DocumentReference/?_id=${data.documentreference-read-id}" with content type "xml"
-    And response bundle contains resource with ID "${data.documentreference-read-id}" with error message "The requested DocumentReference ${data.documentreference-read-id} is not contained in the response bundle"
+    When Get FHIR resource at "http://fhirserver/DocumentReference/?_id=${dokument.documentreference-read-id}" with content type "xml"
+    And response bundle contains resource with ID "${dokument.documentreference-read-id}" with error message "The requested DocumentReference ${dokument.documentreference-read-id} is not contained in the response bundle"
 
   Scenario: Search for the DocumentReference by Count
     When Get FHIR resource at "http://fhirserver/DocumentReference/?_count=1" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for DocumentReference that belong to a Patient
-    When Get FHIR resource at "http://fhirserver/DocumentReference/?patient=Patient/${data.documentreference-read-patient-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/DocumentReference/?patient=Patient/${dokument.documentreference-read-patient-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And element "subject" in all bundle resources references resource with ID "${data.documentreference-read-patient-id}"
+    And element "subject" in all bundle resources references resource with ID "${dokument.documentreference-read-patient-id}"
 
   @Optional
   Scenario: Optional Search for the DocumentReference that belong to a Patient, by Tag
-    When Get FHIR resource at "http://fhirserver/DocumentReference/?_tag=${data.tag-system}%7C${data.tag-value}&patient=Patient/${data.documentreference-read-patient-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/DocumentReference/?_tag=${dokument.tag-system}%7C${dokument.tag-value}&patient=Patient/${dokument.documentreference-read-patient-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${dokument.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the DocumentReference that belong to a Patient, by Document Status
-    When Get FHIR resource at "http://fhirserver/DocumentReference/?status=current&patient=Patient/${data.documentreference-read-patient-id}" with content type "json"
+    When Get FHIR resource at "http://fhirserver/DocumentReference/?status=current&patient=Patient/${dokument.documentreference-read-patient-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(status = 'current')" with error message 'There are search results, but they do not fully match the search criteria.'
 
   Scenario: Search for the DocumentReference that belong to a Patient, by Document Identifier
-    When Get FHIR resource at "http://fhirserver/DocumentReference/?identifier=${data.documentreference-search-identifier-value}&patient=Patient/${data.documentreference-read-patient-id}" with content type "json"
+    When Get FHIR resource at "http://fhirserver/DocumentReference/?identifier=${dokument.documentreference-search-identifier-value}&patient=Patient/${dokument.documentreference-read-patient-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(value = '${data.documentreference-search-identifier-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(value = '${dokument.documentreference-search-identifier-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria.'
 
   Scenario: Search for DocumentReference that belong to a Patient, knowing their identifier
-    Then Get FHIR resource at "http://fhirserver/DocumentReference/?patient.identifier=${data.documentreference-search-patient-identifier-system}%7C${data.documentreference-search-patient-identifier-value}&patient=Patient/${data.documentreference-read-patient-id}" with content type "json"
+    Then Get FHIR resource at "http://fhirserver/DocumentReference/?patient.identifier=${dokument.documentreference-search-patient-identifier-system}%7C${dokument.documentreference-search-patient-identifier-value}&patient=Patient/${dokument.documentreference-read-patient-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found.'
 
   Scenario: Search for the DocumentReference that belong to a Patient, by Type
-    When Get FHIR resource at "http://fhirserver/DocumentReference/?type=${data.documentreference-search-type-code}&patient=Patient/${data.documentreference-read-patient-id}" with content type "json"
+    When Get FHIR resource at "http://fhirserver/DocumentReference/?type=${dokument.documentreference-search-type-code}&patient=Patient/${dokument.documentreference-read-patient-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(type.coding.where(code = '${data.documentreference-search-type-code}').exists())" with error message 'There are search results, but they do not fully match the search criteria.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(type.coding.where(code = '${dokument.documentreference-search-type-code}').exists())" with error message 'There are search results, but they do not fully match the search criteria.'
 
   Scenario: Search for the DocumentReference that belong to a Patient, by Category
-    When Get FHIR resource at "http://fhirserver/DocumentReference/?category=${data.documentreference-search-class-code}&patient=Patient/${data.documentreference-read-patient-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/DocumentReference/?category=${dokument.documentreference-search-class-code}&patient=Patient/${dokument.documentreference-read-patient-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(category.coding.where(code = '${data.documentreference-search-class-code}').exists())" with error message 'There are search results, but they do not fully match the search criteria.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(category.coding.where(code = '${dokument.documentreference-search-class-code}').exists())" with error message 'There are search results, but they do not fully match the search criteria.'
 
   Scenario: Search for the DocumentReference that belong to a Patient, by Encounter
-    When Get FHIR resource at "http://fhirserver/DocumentReference/?encounter=Encounter/${data.documentreference-read-encounter-id}&patient=Patient/${data.documentreference-read-patient-id}" with content type "json"
+    When Get FHIR resource at "http://fhirserver/DocumentReference/?encounter=Encounter/${dokument.documentreference-read-encounter-id}&patient=Patient/${dokument.documentreference-read-patient-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(context.encounter.where(reference.replaceMatches('/_history/.+','').matches('\\b${data.documentreference-read-encounter-id}$')).exists())" with error message 'The requested DocumentReference ${data.documentreference-read-id} is not contained in the response bundle'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(context.encounter.where(reference.replaceMatches('/_history/.+','').matches('\\b${dokument.documentreference-read-encounter-id}$')).exists())" with error message 'The requested DocumentReference ${dokument.documentreference-read-id} is not contained in the response bundle'
 
   Scenario: Search for the DocumentReference that belong to a Patient, by Creation Date
-    When Get FHIR resource at "http://fhirserver/DocumentReference/?creation=2026-01-31&patient=Patient/${data.documentreference-read-patient-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/DocumentReference/?creation=2026-01-31&patient=Patient/${dokument.documentreference-read-patient-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(content.attachment.where(creation.toString().contains('2026-01-31')).exists())" with error message 'There are search results, but they do not fully match the search criteria.'

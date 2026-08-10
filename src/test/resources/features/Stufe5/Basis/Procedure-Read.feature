@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementKlinischeRolle
 @Procedure-Read
 Feature: Read Information from a resource of type Procedure (@Procedure-Read)
 
@@ -33,15 +34,15 @@ Feature: Read Information from a resource of type Procedure (@Procedure-Read)
     And CapabilityStatement contains interaction "read" for resource "Procedure"
 
   Scenario: Read and Validate Procedure by its ID
-    When Get FHIR resource at "http://fhirserver/Procedure/${data.procedure-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Procedure/${basis.procedure-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKProzedur"
-    And resource has ID "${data.procedure-read-id}"
+    And resource has ID "${basis.procedure-read-id}"
     And TGR current response with attribute "$..status.value" matches "completed"
-    And FHIR current response body evaluates the FHIRPath 'category.coding.where(code = "387713003" and system = "http://snomed.info/sct" and version = "http://snomed.info/sct/11000274103/version/${data.snomed-ct-version}").exists()' with error message 'The Procedure resource does not contain a correct categorization'
+    And FHIR current response body evaluates the FHIRPath 'category.coding.where(code = "387713003" and system = "http://snomed.info/sct" and version = "http://snomed.info/sct/11000274103/version/${basis.snomed-ct-version}").exists()' with error message 'The Procedure resource does not contain a correct categorization'
     And FHIR current response body evaluates the FHIRPath 'code.coding.where(code = "5-470.11" and system = "http://fhir.de/CodeSystem/bfarm/ops" and version.exists()).exists()' with error message 'The Procedure resource does not contain a correct OPS coding'
-    And FHIR current response body evaluates the FHIRPath "code.coding.where(code = '6025007' and system = 'http://snomed.info/sct' and version = 'http://snomed.info/sct/11000274103/version/${data.snomed-ct-version}').exists()" with error message 'The Procedure resource does not contain a correct SNOMED-CT coding'
-    And element "subject" references resource with ID "${data.patient-read-id}" with error message "The referenced Patient does not match the expected value"
-    And element "encounter" references resource with ID "${data.encounter-read-in-progress-id}" with error message "Referenced Encounter does not match the expected value"
+    And FHIR current response body evaluates the FHIRPath "code.coding.where(code = '6025007' and system = 'http://snomed.info/sct' and version = 'http://snomed.info/sct/11000274103/version/${basis.snomed-ct-version}').exists()" with error message 'The Procedure resource does not contain a correct SNOMED-CT coding'
+    And element "subject" references resource with ID "${basis.patient-read-id}" with error message "The referenced Patient does not match the expected value"
+    And element "encounter" references resource with ID "${basis.encounter-read-in-progress-id}" with error message "Referenced Encounter does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "performed.toString().contains('2026-01-05') or ( performed.start.toString().contains('2026-01-05') and performed.end.toString().contains('2026-01-05') )" with error message "The Procedure does not contain a performed date"
     And FHIR current response body evaluates the FHIRPath 'note.where(text = "Test note").exists()' with error message 'The note does not match the expected value'
     And FHIR current response body evaluates the FHIRPath 'extension.where(url = "http://fhir.de/StructureDefinition/ProzedurDokumentationsdatum" and value.toString().contains("2026-01-05")).exists()' with error message 'The documentation date does not match the expected value'

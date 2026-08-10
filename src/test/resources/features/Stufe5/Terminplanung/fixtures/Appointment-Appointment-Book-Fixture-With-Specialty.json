@@ -1,6 +1,6 @@
 {
   "resourceType": "Appointment",
-  "id": "${data.appointment-book-with-specialty-id}",
+  "id": "${terminplanung.appointment-book-with-specialty-id}",
   "meta": {
     "tag": [
       {
@@ -13,22 +13,22 @@
     ]
   },
   "status": "proposed",
-  "start": "${data.appointment-book-datetime-start}",
-  "end": "${data.appointment-book-datetime-end}",
+  "start": "${terminplanung.appointment-book-datetime-start}",
+  "end": "${terminplanung.appointment-book-datetime-end}",
   "comment": "This is a test comment!",
   "serviceType": [
     {
       "coding": [
         {
-          "system": "${data.appointment-book-servicetype-system}",
-          "code": "${data.appointment-book-servicetype-code}"
+          "system": "${terminplanung.appointment-book-servicetype-system}",
+          "code": "${terminplanung.appointment-book-servicetype-code}"
         }
       ]
     }
   ],
   "slot": [
     {
-      "reference": "Slot/${data.appointment-book-slot-id}"
+      "reference": "Slot/${terminplanung.appointment-book-slot-id}"
     }
   ],
   "specialty": [
@@ -45,7 +45,7 @@
   "participant": [
     {
       "actor": {
-        "reference": "Patient/${data.appointment-patient-id}",
+        "reference": "Patient/${terminplanung.appointment-patient-id}",
         "display": "Test Patient"
       },
       "status": "accepted"
@@ -61,7 +61,7 @@
             {
               "code": "394848005",
               "system": "http://snomed.info/sct",
-              "version": "http://snomed.info/sct/11000274103/version/${data.snomed-ct-version}"
+              "version": "http://snomed.info/sct/11000274103/version/${terminplanung.snomed-ct-version}"
             }
           ]
         }

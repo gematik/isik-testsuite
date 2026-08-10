@@ -2,6 +2,11 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikationInformationRolle
+@ISiKCapabilityStatementMedikationVerabreichungRolle
+@ISiKCapabilityStatementMedikationVerordnungRolle
+@ISiKCapabilityStatementAMTSRolle
+@ISiKCapabilityStatementMedikamentRolle
 @MedicationTransaction-Post
 Feature: Upload of an ISiK medication transaction bundle with the POST operation (@MedicationTransaction-Post)
 
@@ -41,9 +46,9 @@ Feature: Upload of an ISiK medication transaction bundle with the POST operation
     And FHIR current response body evaluates the FHIRPath "entry.where(response.location.contains('Medication/') and resource is Medication).count() = 1" with error message 'The transaction response does not contain exactly one Medication representation'
     And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.meta.profile.where($this = 'https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsInformation').exists())" with error message 'The MedicationStatement in the transaction response does not conform to the expected ISiK profile'
     And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.status = 'active')" with error message 'The MedicationStatement in the transaction response does not have status active'
-    And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.subject.reference.replaceMatches('/_history/.+','').matches('\\bPatient/${data.medication-patient-id}$'))" with error message 'The MedicationStatement subject reference does not match the expected patient'
-    And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.context.reference.replaceMatches('/_history/.+','').matches('\\bEncounter/${data.medication-encounter-id}$'))" with error message 'The MedicationStatement context reference does not match the expected encounter'
-    And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.reasonReference.where(reference.replaceMatches('/_history/.+','').matches('\\bCondition/${data.medication-condition-id}$')).exists())" with error message 'The MedicationStatement reason reference does not match the expected condition'
+    And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.subject.reference.replaceMatches('/_history/.+','').matches('\\bPatient/${medikation.medication-patient-id}$'))" with error message 'The MedicationStatement subject reference does not match the expected patient'
+    And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.context.reference.replaceMatches('/_history/.+','').matches('\\bEncounter/${medikation.medication-encounter-id}$'))" with error message 'The MedicationStatement context reference does not match the expected encounter'
+    And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.reasonReference.where(reference.replaceMatches('/_history/.+','').matches('\\bCondition/${medikation.medication-condition-id}$')).exists())" with error message 'The MedicationStatement reason reference does not match the expected condition'
     And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.medication.reference.exists())" with error message 'The MedicationStatement in the transaction response does not reference a medication'
     And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.extension.where(url = 'https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKAcceptedRisk').exists())" with error message 'The MedicationStatement in the transaction response does not contain the accepted risk extension'
     And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.extension.where(url = 'https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKMedikationsart').exists())" with error message 'The MedicationStatement in the transaction response does not contain the medication type extension'
@@ -52,7 +57,7 @@ Feature: Upload of an ISiK medication transaction bundle with the POST operation
     And FHIR current response body evaluates the FHIRPath "entry.where(resource is MedicationStatement).all(resource.dosage.where(patientInstruction.exists() and doseAndRate.dose.where(value = 1 and system = 'http://unitsofmeasure.org' and code = '1').exists()).exists())" with error message 'The MedicationStatement dosage does not match the expected Must-Support content'
     And FHIR current response body evaluates the FHIRPath "entry.where(resource is Medication).all(resource.meta.profile.where($this = 'https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikament').exists())" with error message 'The Medication in the transaction response does not conform to the expected ISiK profile'
     And FHIR current response body evaluates the FHIRPath "entry.where(resource is Medication).all(resource.status = 'active')" with error message 'The Medication in the transaction response does not have status active'
-    And FHIR current response body evaluates the FHIRPath "entry.where(resource is Medication).all(resource.code.coding.where(system = 'http://fhir.de/CodeSystem/bfarm/atc' and version = '${data.atc-code-version}' and code = 'V03AB23' and display = 'Acetylcystein').exists())" with error message 'The Medication in the transaction response does not contain the expected ATC coding'
+    And FHIR current response body evaluates the FHIRPath "entry.where(resource is Medication).all(resource.code.coding.where(system = 'http://fhir.de/CodeSystem/bfarm/atc' and version = '${medikation.atc-code-version}' and code = 'V03AB23' and display = 'Acetylcystein').exists())" with error message 'The Medication in the transaction response does not contain the expected ATC coding'
 
   Scenario: POST an invalid medication transaction bundle without request elements
     Given TGR set default header "Content-Type" to "application/fhir+json"

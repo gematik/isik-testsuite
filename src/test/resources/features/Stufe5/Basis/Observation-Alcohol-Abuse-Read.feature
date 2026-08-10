@@ -46,14 +46,14 @@ Feature: Read information from a resource of type Observation for alcohol abuse 
     And CapabilityStatement contains interaction "read" for resource "Observation"
 
   Scenario: Read and Validate alcohol abuse Observation by its ID
-    When Get FHIR resource at "http://fhirserver/Observation/${data.observation-alcohol-abuse-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Observation/${basis.observation-alcohol-abuse-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKAlkoholAbusus"
-    And resource has ID "${data.observation-alcohol-abuse-read-id}" with error message "The ID does not match the expected value"
+    And resource has ID "${basis.observation-alcohol-abuse-read-id}" with error message "The ID does not match the expected value"
     And TGR current response with attribute "$..status.value" matches "final"
-    And FHIR current response body evaluates the FHIRPath "code.coding.where(system = 'http://snomed.info/sct' and code = '15167005' and version = 'http://snomed.info/sct/11000274103/version/${data.snomed-ct-version}' and display.empty().not()).exists()" with error message 'The SNOMED CT code for alcohol abuse does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "code.coding.where(system = 'http://loinc.org' and code = '74043-1' and version = '${data.loinc-version}' and display.empty().not()).exists()" with error message 'The LOINC code for alcohol abuse does not match the expected value'
-    And element "subject" references resource with ID "Patient/${data.patient-read-id}" with error message "The referenced patient does not match the expected value"
-    And element "performer" references resource with ID "Practitioner/${data.practitioner-read-id}" with error message "The referenced performer does not match the expected value"
-    And element "encounter" references resource with ID "Encounter/${data.encounter-read-in-progress-id}" with error message "The referenced encounter does not match the expected value"
+    And FHIR current response body evaluates the FHIRPath "code.coding.where(system = 'http://snomed.info/sct' and code = '15167005' and version = 'http://snomed.info/sct/11000274103/version/${basis.snomed-ct-version}' and display.empty().not()).exists()" with error message 'The SNOMED CT code for alcohol abuse does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "code.coding.where(system = 'http://loinc.org' and code = '74043-1' and version = '${basis.loinc-version}' and display.empty().not()).exists()" with error message 'The LOINC code for alcohol abuse does not match the expected value'
+    And element "subject" references resource with ID "Patient/${basis.patient-read-extended-id}" with error message "The referenced patient does not match the expected value"
+    And element "performer" references resource with ID "Practitioner/${basis.practitioner-read-id}" with error message "The referenced performer does not match the expected value"
+    And element "encounter" references resource with ID "Encounter/${basis.encounter-read-in-progress-id}" with error message "The referenced encounter does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "effective.toString().contains('2026-01-06')" with error message 'The effective date does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "value.coding.where(system = 'http://terminology.hl7.org/CodeSystem/v2-0532' and code = 'Y' and display = 'Yes').exists()" with error message 'The alcohol abuse value does not match the expected value'

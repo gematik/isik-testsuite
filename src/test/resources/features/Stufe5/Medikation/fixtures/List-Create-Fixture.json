@@ -17,17 +17,17 @@
   "status": "current",
   "mode": "working",
   "subject": {
-    "reference": "Patient/${data.medication-patient-id}"
+    "reference": "Patient/${medikation.medication-patient-id}"
   },
   "encounter": {
-    "reference": "Encounter/${data.medication-encounter-id}"
+    "reference": "Encounter/${medikation.medication-encounter-id}"
   },
   "date": "2026-02-03",
   "entry": [
     {
       "date": "2026-02-03",
       "item": {
-        "reference": "MedicationStatement/${data.medicationstatement-read-id}"
+        "reference": "MedicationStatement/${medikation.medicationstatement-read-id}"
       }
     }
   ]

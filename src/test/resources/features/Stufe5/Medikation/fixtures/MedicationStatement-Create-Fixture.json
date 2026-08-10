@@ -32,17 +32,17 @@
   ],
   "status": "active",
   "medicationReference": {
-    "reference": "Medication/${data.medication-read-id}"
+    "reference": "Medication/${medikation.medication-read-id}"
   },
   "subject": {
-    "reference": "Patient/${data.medication-patient-id}"
+    "reference": "Patient/${medikation.medication-patient-id}"
   },
   "context": {
-    "reference": "Encounter/${data.medication-encounter-id}"
+    "reference": "Encounter/${medikation.medication-encounter-id}"
   },
   "reasonReference": [
     {
-      "reference": "Condition/${data.medication-condition-id}"
+      "reference": "Condition/${medikation.medication-condition-id}"
     }
   ],
   "effectivePeriod": {

@@ -1,0 +1,24 @@
+### Patient Scope patient/Patient.rs
+read-patient-scope-allowed: SET-YOUR-TOKEN-HERE
+read-patient-in-context-id: Patient-Read-Example
+read-patient-not-in-context-id: patient-id-not-in-context
+
+### Wildcard Patient Scope patient/Patient.rs
+read-patient-wildcard-scope-allowed: SET-YOUR-TOKEN-HERE
+read-wildcard-patient-in-context-id: Patient-Read-Example
+read-wildcard-patient-not-in-context-id: patient-id-not-in-context
+
+### User Scope user/Patient.rs
+read-patient-scope-in-user-context-allowed: SET-YOUR-TOKEN-HERE
+read-patient-in-user-context-id: Patient-Read-Example
+
+### Wildcard User Scope user/Patient.rs
+read-patient-wildcard-scope-in-user-context-allowed: SET-YOUR-TOKEN-HERE
+read-wildcard-patient-in-user-context-id: Patient-Read-Example
+
+### System Scope system/Patient.rs
+read-patient-scope-in-system-context-allowed: SET-YOUR-TOKEN-HERE
+read-patient-in-system-context-id: Patient-Read-Example
+
+### Wildcard System Scope system/*.rs
+read-wildcard-scope-in-system-context-allowed: SET-YOUR-TOKEN-HERE

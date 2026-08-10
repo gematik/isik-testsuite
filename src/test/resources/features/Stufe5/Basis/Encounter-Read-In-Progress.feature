@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementStammdatenRolle
 @Encounter-Read-In-Progress
 Feature: Read Information from a resource of type Encounter with status "in progress" (@Encounter-Read-In-Progress)
 
@@ -37,16 +38,16 @@ Feature: Read Information from a resource of type Encounter with status "in prog
     And CapabilityStatement contains interaction "read" for resource "Encounter"
 
   Scenario: Read and Validate in-progress Encounter by its ID
-    When Get FHIR resource at "http://fhirserver/Encounter/${data.encounter-read-in-progress-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Encounter/${basis.encounter-read-in-progress-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKKontaktGesundheitseinrichtung"
-    And resource has ID "${data.encounter-read-in-progress-id}" with error message "The returned Encounter resource has not the expected ID"
+    And resource has ID "${basis.encounter-read-in-progress-id}" with error message "The returned Encounter resource has not the expected ID"
     And TGR current response with attribute "$..status.value" matches "in-progress"
-    And FHIR current response body evaluates the FHIRPath "identifier.where(system = '${data.encounter-read-in-progress-identifier-system}' and value='${data.encounter-read-in-progress-identifier-value}').exists()" with error message 'The Encounter does not contain the correct admission number'
+    And FHIR current response body evaluates the FHIRPath "identifier.where(system = '${basis.encounter-read-in-progress-identifier-system}' and value='${basis.encounter-read-in-progress-identifier-value}').exists()" with error message 'The Encounter does not contain the correct admission number'
     And FHIR current response body evaluates the FHIRPath "class.where(code = 'IMP' and system = 'http://terminology.hl7.org/CodeSystem/v3-ActCode').exists()" with error message 'The Encounter does not contain the correct class code'
     And FHIR current response body evaluates the FHIRPath "type.coding.where(code = 'normalstationaer' and system = 'http://fhir.de/CodeSystem/kontaktart-de').exists()" with error message 'The Encounter does not contain the correct type'
     And FHIR current response body evaluates the FHIRPath "serviceType.coding.where(code = '1500' and system = 'http://fhir.de/CodeSystem/dkgev/Fachabteilungsschluessel').exists()" with error message 'The Encounter does not contain the correct department code'
-    And element "subject" references resource with ID "${data.patient-read-id}" with error message "The referenced Patient does not match the expected value"
+    And element "subject" references resource with ID "${basis.patient-read-id}" with error message "The referenced Patient does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "period.start.toString().contains('2026-01-06')" with error message 'The Encounter does not contain a valid start date'
     And FHIR current response body evaluates the FHIRPath "hospitalization.admitSource.coding.where(code = 'E' and system = 'http://fhir.de/CodeSystem/dgkev/Aufnahmeanlass').exists()" with error message 'The Encounter does not contain the correct admission reason'
-    And element "diagnosis.condition" references resource with ID "Condition/${data.condition-read-active-id}" with error message "The referenced Condition does not match the expected value."
+    And element "diagnosis.condition" references resource with ID "Condition/${basis.condition-read-active-id}" with error message "The referenced Condition does not match the expected value."
     And FHIR current response body evaluates the FHIRPath "location.location.identifier.where(system = 'https://test.krankenhaus.de/fhir/sid/zimmerId' and value = 'Z001').exists()" with error message 'The location does not contain the correct code'

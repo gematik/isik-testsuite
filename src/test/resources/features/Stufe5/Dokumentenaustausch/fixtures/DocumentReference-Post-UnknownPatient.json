@@ -8,7 +8,7 @@
   },
   "masterIdentifier": {
     "system": "urn:ietf:rfc:3986",
-    "value": "${data.documentreference-post-master-identifier-value}"
+    "value": "${dokument.documentreference-post-master-identifier-value}"
   },
   "type": {
     "coding": [
@@ -69,7 +69,7 @@
   "context": {
     "encounter": [
       {
-        "reference": "Encounter/${data.documentreference-read-encounter-id}"
+        "reference": "Encounter/${dokument.documentreference-read-encounter-id}"
       }
     ],
     "facilityType": {

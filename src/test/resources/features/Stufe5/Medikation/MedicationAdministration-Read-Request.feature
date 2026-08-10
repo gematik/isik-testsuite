@@ -3,6 +3,7 @@
 #@Medikation
 @Disabled
 @Optional
+@ISiKCapabilityStatementMedikationVerabreichungRolle
 @MedicationAdministration-Read-Request
 Feature: Read Information from a resource of type MedicationAdministration (Request) (@MedicationAdministration-Read-Request)
 
@@ -15,5 +16,5 @@ Feature: Read Information from a resource of type MedicationAdministration (Requ
     """
 
   Scenario: Read and Validate the MedicationAdministration with request details by ID
-    Then Get FHIR resource at "http://fhirserver/MedicationAdministration/${data.medicationadministration-read-request-id}" with content type "xml"
-    And resource has ID "${data.medicationadministration-read-request-id}"
+    Then Get FHIR resource at "http://fhirserver/MedicationAdministration/${medikation.medicationadministration-read-request-id}" with content type "xml"
+    And resource has ID "${medikation.medicationadministration-read-request-id}"

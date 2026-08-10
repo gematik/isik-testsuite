@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikationVerordnungRolle
 @MedicationRequest-Read-Extended
 Feature: Read Information from a resource of type MedicationRequest with extended data (@MedicationRequest-Read-Extended)
 
@@ -38,14 +39,14 @@ Feature: Read Information from a resource of type MedicationRequest with extende
     """
 
   Scenario: Read and Validate the MedicationRequest with extended data by its ID
-    Then Get FHIR resource at "http://fhirserver/MedicationRequest/${data.medicationrequest-read-extended-id}" with content type "json"
-    And resource has ID "${data.medicationrequest-read-extended-id}"
+    Then Get FHIR resource at "http://fhirserver/MedicationRequest/${medikation.medicationrequest-read-extended-id}" with content type "json"
+    And resource has ID "${medikation.medicationrequest-read-extended-id}"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsVerordnung"
     And FHIR current response body evaluates the FHIRPath "status = 'completed'" with error message "The expected status does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "intent = 'order'" with error message "The expected intent does not match the expected value"
-    And FHIR current response body evaluates the FHIRPath "medication.coding.where(code = 'R01AA04' and system = 'http://fhir.de/CodeSystem/bfarm/atc' and version = '${data.atc-code-version}' and display = 'Phenylephrine').exists()" with error message 'The coded medication does not match the expected value'
-    And element "subject" references resource with ID "Patient/${data.medication-patient-id}" with error message "The referenced patient does not match the expected value"
-    And element "requester" references resource with ID "Practitioner/${data.medication-practitioner-id}" with error message "The requester does not match the expected value"
+    And FHIR current response body evaluates the FHIRPath "medication.coding.where(code = 'R01AA04' and system = 'http://fhir.de/CodeSystem/bfarm/atc' and version = '${medikation.atc-code-version}' and display = 'Phenylephrine').exists()" with error message 'The coded medication does not match the expected value'
+    And element "subject" references resource with ID "Patient/${medikation.medication-patient-id}" with error message "The referenced patient does not match the expected value"
+    And element "requester" references resource with ID "Practitioner/${medikation.medication-practitioner-id}" with error message "The requester does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "reasonReference.where(reference = 'Condition/Condition-Read-Active-Example').exists()" with error message "The expected reason reference has not been found"
     And FHIR current response body evaluates the FHIRPath "extension.where(url = 'https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKAcceptedRisk').exists()" with error message "The expected ExtensionISiKAcceptedRisk entry has not been found"
     And FHIR current response body evaluates the FHIRPath "extension.where(url = 'https://gematik.de/fhir/isik/StructureDefinition/ExtensionISiKMedikationsart').exists()" with error message "The expected ExtensionISiKMedikationsart entry has not been found"

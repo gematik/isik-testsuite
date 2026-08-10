@@ -32,39 +32,39 @@ Feature: Testing search parameters against a resource of type Patient, according
       | telecom            | token           |
 
   Scenario: Search for Patients by Name, group by _count
-    When Get FHIR resource at "http://fhirserver/Patient/?name=Graf&_count=${data.search-count}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Patient/?name=Graf&_count=${basis.search-count}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${basis.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.where(family.toString().matches('Graf|Gräfin') or given.where(value.toString().matches('Graf|Gräfin'))).exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And FHIR current response body evaluates the FHIRPath "entry.resource.where(name.prefix.toString().matches('Dr.|Prof.')).exists()" with error message 'There are search results, but they do not fully match the search criteria'
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
     And Check if current response of resource "Patient" is valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKPatient"
 
   Scenario: Search for Patients by Address, group by _count
-    When Get FHIR resource at "http://fhirserver/Patient/?address=Berlin&_count=${data.search-count}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Patient/?address=Berlin&_count=${basis.search-count}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${basis.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city = 'Berlin').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Patients by Address (city), group by _count
-    When Get FHIR resource at "http://fhirserver/Patient/?address-city=Berlin&_count=${data.search-count}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Patient/?address-city=Berlin&_count=${basis.search-count}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${basis.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city = 'Berlin').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Patients by Address (country), group by _count
-    When Get FHIR resource at "http://fhirserver/Patient/?address-country=DE&_count=${data.search-count}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Patient/?address-country=DE&_count=${basis.search-count}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${basis.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(country = 'DE').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Patients by Address (postal code), group by _count
-    When Get FHIR resource at "http://fhirserver/Patient/?address-postalcode=10117&_count=${data.search-count}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Patient/?address-postalcode=10117&_count=${basis.search-count}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${basis.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(postalCode.contains('10117')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Patients by Status, group by _count
-    When Get FHIR resource at "http://fhirserver/Patient/?active=true&_count=${data.search-count}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Patient/?active=true&_count=${basis.search-count}" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() <= ${basis.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(active=true)" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Patients by Phone Number, group by _count
-    When Get FHIR resource at "http://fhirserver/Patient/?telecom=030+1234567&_count=${data.search-count}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Patient/?telecom=030+1234567&_count=${basis.search-count}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all((telecom = '030 1234567').exists())" with error message 'There are search results, but they do not fully match the search criteria'

@@ -2,6 +2,7 @@
 @Stufe5
 @Terminplanung
 @Mandatory
+@ISiKCapabilityStatementTerminRepositoryRolle
 @Appointment-Book-By-Schedule
 Feature: Booking an appointment by schedule reference (@Appointment-Book-By-Schedule)
 
@@ -23,10 +24,10 @@ Feature: Booking an appointment by schedule reference (@Appointment-Book-By-Sche
     """
 
   Scenario: Book an appointment by schedule reference
-    Given Get FHIR resource at "http://fhirserver/Slot/?schedule=${data.appointment-book-by-schedule-schedule-id}&start=${data.appointment-book-by-schedule-date}" with content type "json"
+    Given Get FHIR resource at "http://fhirserver/Slot/?schedule=${terminplanung.appointment-book-by-schedule-schedule-id}&start=${terminplanung.appointment-book-by-schedule-date}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.ofType(Slot).count() > 0' with error message 'No slots were found for the configured schedule and booking date'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Slot).where(status = 'free' and start <= @${data.appointment-book-by-schedule-datetime-start} and end >= @${data.appointment-book-by-schedule-datetime-end}).count() >= 1" with error message 'The configured schedule does not contain a free slot covering the requested appointment window'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Slot).where(status != 'free' and start < @${data.appointment-book-by-schedule-datetime-end} and end > @${data.appointment-book-by-schedule-datetime-start}).count() = 0" with error message 'The configured appointment window overlaps with at least one non-free slot in the selected schedule. Choose a different free time window before executing the happy-path scenario.'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Slot).where(status = 'free' and start <= @${terminplanung.appointment-book-by-schedule-datetime-start} and end >= @${terminplanung.appointment-book-by-schedule-datetime-end}).count() >= 1" with error message 'The configured schedule does not contain a free slot covering the requested appointment window'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.ofType(Slot).where(status != 'free' and start < @${terminplanung.appointment-book-by-schedule-datetime-end} and end > @${terminplanung.appointment-book-by-schedule-datetime-start}).count() = 0" with error message 'The configured appointment window overlaps with at least one non-free slot in the selected schedule. Choose a different free time window before executing the happy-path scenario.'
     And TGR set default header "Content-Type" to "application/fhir+json"
     And TGR send POST request to "http://fhirserver/Appointment/$book" with body "!{file('src/test/resources/features/Stufe5/Terminplanung/fixtures/Appointment-Appointment-Book-By-Schedule-Parameters-Fixture.json')}"
     Then TGR find the last request

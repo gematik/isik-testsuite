@@ -2,6 +2,7 @@
 @Stufe5
 @Terminplanung
 @Mandatory
+@ISiKCapabilityStatementTerminRepositoryRolle
 @Appointment-Book
 Feature: Booking an appointment (@Appointment-Book)
 
@@ -23,7 +24,7 @@ Feature: Booking an appointment (@Appointment-Book)
     And CapabilityStatement contains operation "book" for resource "Appointment"
 
   Scenario: Book an appointment using a free slot
-    Given Get FHIR resource at "http://fhirserver/Slot/${data.appointment-book-slot-id}" with content type "json"
+    Given Get FHIR resource at "http://fhirserver/Slot/${terminplanung.appointment-book-slot-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath "$this is Slot" with error message 'The configured appointment-book-slot-id does not resolve to a Slot resource'
     And FHIR current response body evaluates the FHIRPath "status = 'free'" with error message "The configured slot for appointment-book-slot-id is not free. Use a fresh free slot before executing the happy-path booking scenario."
     And TGR set default header "Content-Type" to "application/fhir+json"

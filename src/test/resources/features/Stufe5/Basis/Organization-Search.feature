@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Optional
+@ISiKCapabilityStatementAufbaustrukturRolle
 @Organization-Search
 Feature: Testing search parameters against a resource of type Organization (@Organization-Search) (Optional)
 
@@ -38,37 +39,37 @@ Feature: Testing search parameters against a resource of type Organization (@Org
       | _tag             | token           |
 
   Scenario: Search for the Organization by ID
-    When Get FHIR resource at "http://fhirserver/Organization/?_id=${data.organization-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Organization/?_id=${basis.organization-read-id}" with content type "xml"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
-    And response bundle contains resource with ID "${data.organization-read-id}" with error message "The requested Organization ${data.organization-read-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${basis.organization-read-id}" with error message "The requested Organization ${basis.organization-read-id} is not contained in the response bundle"
 
   @Optional
   Scenario: Optional Search for the Organization by Tag and ID
-    When Get FHIR resource at "http://fhirserver/Organization/?_tag=${data.tag-system}%7C${data.tag-value}&_id=${data.organization-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Organization/?_tag=${basis.tag-system}%7C${basis.tag-value}&_id=${basis.organization-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.organization-read-id}" with error message "The requested Organization ${data.organization-read-id} is not contained in the response bundle."
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${basis.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And response bundle contains resource with ID "${basis.organization-read-id}" with error message "The requested Organization ${basis.organization-read-id} is not contained in the response bundle."
 
   Scenario: Search for the Organization by Count
     When Get FHIR resource at "http://fhirserver/Organization/?_count" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
 
   Scenario: Search for the Organization by Identifier
-    When Get FHIR resource at "http://fhirserver/Organization/?identifier=${data.organization-read-identifier-system}%7C${data.organization-read-identifier-value}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Organization/?identifier=${basis.organization-read-identifier-system}%7C${basis.organization-read-identifier-value}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(system='${data.organization-read-identifier-system}' and value='${data.organization-read-identifier-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(system='${basis.organization-read-identifier-system}' and value='${basis.organization-read-identifier-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the Organization by Active Status and ID
-    When Get FHIR resource at "http://fhirserver/Organization/?active=true&_id=${data.organization-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Organization/?active=true&_id=${basis.organization-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(active = true)" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.organization-read-id}" with error message "The requested Organization ${data.organization-read-id} is not contained in the response bundle."
+    And response bundle contains resource with ID "${basis.organization-read-id}" with error message "The requested Organization ${basis.organization-read-id} is not contained in the response bundle."
 
   Scenario: Search for the Organization by Type
-    When Get FHIR resource at "http://fhirserver/Organization/?type=edu&_id=${data.organization-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Organization/?type=edu&_id=${basis.organization-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(type.coding.where(system = 'http://terminology.hl7.org/CodeSystem/organization-type' and code = 'edu').exists())" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.organization-read-id}" with error message "The requested Organization ${data.organization-read-id} is not contained in the response bundle."
+    And response bundle contains resource with ID "${basis.organization-read-id}" with error message "The requested Organization ${basis.organization-read-id} is not contained in the response bundle."
 
   Scenario: Search for the Organization by Name
     When Get FHIR resource at "http://fhirserver/Organization/?name=Uniklinik%20Entenhausen" with content type "xml"
@@ -76,12 +77,12 @@ Feature: Testing search parameters against a resource of type Organization (@Org
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.contains('Uniklinik Entenhausen'))" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the Organization by Address
-    When Get FHIR resource at "http://fhirserver/Organization/?address=Berlin&_id=${data.organization-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Organization/?address=Berlin&_id=${basis.organization-read-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(city.contains('Berlin') or line.exists($this.contains('Berlin'))).exists())" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.organization-read-id}" with error message "The requested Organization ${data.organization-read-id} is not contained in the response bundle."
+    And response bundle contains resource with ID "${basis.organization-read-id}" with error message "The requested Organization ${basis.organization-read-id} is not contained in the response bundle."
 
   Scenario: Search for the Organization that is part of another Organization
-    When Get FHIR resource at "http://fhirserver/Organization/?partof=Organization/${data.organization-read-parent-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Organization/?partof=Organization/${basis.organization-read-parent-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.where($this.where(partOf.reference = 'Organization/${data.organization-read-parent-id}').as(Organization)).exists()" with error message 'There are search results, but they do not fully match the search criteria'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.where($this.where(partOf.reference = 'Organization/${basis.organization-read-parent-id}').as(Organization)).exists()" with error message 'There are search results, but they do not fully match the search criteria'

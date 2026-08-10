@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementLeistungserbringerRolle
 @Practitioner-Search
 Feature: Testing search parameters against a resource of type Practitioner (@Practitioner-Search)
 
@@ -38,8 +39,8 @@ Feature: Testing search parameters against a resource of type Practitioner (@Pra
       | gender           | token           |
 
   Scenario: Search for Practitioner resource by ID
-    When Get FHIR resource at "http://fhirserver/Practitioner/?_id=${data.practitioner-read-id}" with content type "xml"
-    And response bundle contains resource with ID "${data.practitioner-read-id}" with error message "The requested Practitioner resource ${data.practitioner-read-id} is not contained in the response bundle"
+    When Get FHIR resource at "http://fhirserver/Practitioner/?_id=${basis.practitioner-read-id}" with content type "xml"
+    And response bundle contains resource with ID "${basis.practitioner-read-id}" with error message "The requested Practitioner resource ${basis.practitioner-read-id} is not contained in the response bundle"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
 
   Scenario: Search for Practitioner resource by Count
@@ -49,59 +50,59 @@ Feature: Testing search parameters against a resource of type Practitioner (@Pra
   Scenario: Search for Practitioner resource by Identifier LANR
     When Get FHIR resource at "http://fhirserver/Practitioner/?identifier=https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR%7C123456789" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And response bundle contains resource with ID "${data.practitioner-read-id}" with error message "The requested Practitioner resource ${data.practitioner-read-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${basis.practitioner-read-id}" with error message "The requested Practitioner resource ${basis.practitioner-read-id} is not contained in the response bundle"
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(system='https://fhir.kbv.de/NamingSystem/KBV_NS_Base_ANR' and value='123456789').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Practitioner resource by Identifier Telematik-ID
     When Get FHIR resource at "http://fhirserver/Practitioner/?identifier=https%3A%2F%2Fgematik.de%2Ffhir%2Fsid%2Ftelematik-id%7C123456789" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And response bundle contains resource with ID "${data.practitioner-read-id}" with error message "The requested Practitioner resource ${data.practitioner-read-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${basis.practitioner-read-id}" with error message "The requested Practitioner resource ${basis.practitioner-read-id} is not contained in the response bundle"
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(system='https://gematik.de/fhir/sid/telematik-id' and value='123456789').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Practitioner resource by First Name (given) and ID
-    When Get FHIR resource at "http://fhirserver/Practitioner/?given=Walter&_id=${data.practitioner-read-id}" with content type "json"
+    When Get FHIR resource at "http://fhirserver/Practitioner/?given=Walter&_id=${basis.practitioner-read-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.given.where($this.startsWith('Walter')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.practitioner-read-id}" with error message "The requested Practitioner resource ${data.practitioner-read-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${basis.practitioner-read-id}" with error message "The requested Practitioner resource ${basis.practitioner-read-id} is not contained in the response bundle"
 
   Scenario: Search for Practitioner resource by Last Name (family) and ID
-    When Get FHIR resource at "http://fhirserver/Practitioner/?family=Musterarzt&_id=${data.practitioner-read-id}" with content type "json"
+    When Get FHIR resource at "http://fhirserver/Practitioner/?family=Musterarzt&_id=${basis.practitioner-read-id}" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.family.where($this.startsWith('Musterarzt')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
-    And response bundle contains resource with ID "${data.practitioner-read-id}" with error message "The requested Practitioner resource ${data.practitioner-read-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${basis.practitioner-read-id}" with error message "The requested Practitioner resource ${basis.practitioner-read-id} is not contained in the response bundle"
 
   Scenario: Search for Practitioner resource by First Name (negative test) and ID
-    When Get FHIR resource at "http://fhirserver/Practitioner/?given=Max&_id=${data.practitioner-read-id}" with content type "xml"
-    And bundle does not contain resource "Practitioner" with ID "${data.practitioner-read-id}" with error message "There are search results, but they do not fully match the search criteria"
+    When Get FHIR resource at "http://fhirserver/Practitioner/?given=Max&_id=${basis.practitioner-read-id}" with content type "xml"
+    And bundle does not contain resource "Practitioner" with ID "${basis.practitioner-read-id}" with error message "There are search results, but they do not fully match the search criteria"
 
   @Optional
   Scenario: Optional Search for Practitioners that have the given Tag, group by _count
     When Post FHIR search request to "http://fhirserver/Practitioner/_search" with content type "xml" and parameters:
       | _tag                                  | _count               |
-      | ${data.tag-system}\|${data.tag-value} | ${data.search-count} |
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'Invalid search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${data.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
+      | ${basis.tag-system}\|${basis.tag-value} | ${basis.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${basis.search-count}' with error message 'Invalid search results were found'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${basis.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   @Optional
   Scenario: Optional Search for Practitioners that have the Name "Musterarzt", group by _count
     When Post FHIR search request to "http://fhirserver/Practitioner/_search" with content type "xml" and parameters:
       | name       | _count               |
-      | Musterarzt | ${data.search-count} |
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'Invalid search results were found'
+      | Musterarzt | ${basis.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${basis.search-count}' with error message 'Invalid search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.family contains 'Musterarzt')" with error message 'There are search results, but they do not fully match the search criteria'
 
   @Optional
   Scenario: Optional Search for Practitioners that have the Address that contains "Musterweg", group by _count
     When Post FHIR search request to "http://fhirserver/Practitioner/_search" with content type "xml" and parameters:
       | address:contains | _count               |
-      | Musterweg        | ${data.search-count} |
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'Invalid search results were found'
+      | Musterweg        | ${basis.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${basis.search-count}' with error message 'Invalid search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(address.where(line.contains('Musterweg')).count()=1)" with error message 'There are search results, but they do not fully match the search criteria'
 
   @Optional
   Scenario: Optional Search for Practitioners that have the Gender "male", group by _count
     When Post FHIR search request to "http://fhirserver/Practitioner/_search" with content type "xml" and parameters:
       | gender | _count               |
-      | male   | ${data.search-count} |
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'Invalid search results were found'
+      | male   | ${basis.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${basis.search-count}' with error message 'Invalid search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(gender = 'male')" with error message 'There are search results, but they do not fully match the search criteria'

@@ -9,10 +9,10 @@
   "type": "transaction",
   "entry": [
     {
-      "fullUrl": "http://source.fhirserver.local/Medication/${data.medication-transaction-medication-id}",
+      "fullUrl": "http://source.fhirserver.local/Medication/${medikation.medication-transaction-medication-id}",
       "resource": {
         "resourceType": "Medication",
-        "id": "${data.medication-transaction-medication-id}",
+        "id": "${medikation.medication-transaction-medication-id}",
         "meta": {
           "profile": [
             "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikament"
@@ -26,7 +26,7 @@
           "coding": [
             {
               "system": "http://fhir.de/CodeSystem/bfarm/atc",
-              "version": "${data.atc-code-version}",
+              "version": "${medikation.atc-code-version}",
               "code": "V03AB23",
               "display": "Acetylcystein"
             }
@@ -36,10 +36,10 @@
       }
     },
     {
-      "fullUrl": "http://source.fhirserver.local/MedicationStatement/${data.medication-transaction-medicationstatement-id}",
+      "fullUrl": "http://source.fhirserver.local/MedicationStatement/${medikation.medication-transaction-medicationstatement-id}",
       "resource": {
         "resourceType": "MedicationStatement",
-        "id": "${data.medication-transaction-medicationstatement-id}",
+        "id": "${medikation.medication-transaction-medicationstatement-id}",
         "meta": {
           "profile": [
             "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsInformation"
@@ -47,13 +47,13 @@
         },
         "status": "active",
         "medicationReference": {
-          "reference": "Medication/${data.medication-transaction-medication-id}"
+          "reference": "Medication/${medikation.medication-transaction-medication-id}"
         },
         "subject": {
-          "reference": "Patient/${data.medication-patient-id}"
+          "reference": "Patient/${medikation.medication-patient-id}"
         },
         "context": {
-          "reference": "Encounter/${data.medication-encounter-id}"
+          "reference": "Encounter/${medikation.medication-encounter-id}"
         },
         "effectivePeriod": {
           "start": "2026-03-02"

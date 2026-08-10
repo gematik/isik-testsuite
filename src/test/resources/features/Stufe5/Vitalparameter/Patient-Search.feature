@@ -39,28 +39,28 @@ Feature: Testing search parameters against a resource of type Patient, according
       | _tag             | token           |
 
   Scenario: Search for Patient by ID
-    When Get FHIR resource at "http://fhirserver/Patient/?_id=${data.observation-patient-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Patient/?_id=${vitalparameter.observation-patient-id}" with content type "xml"
     And FHIR current response body is a valid CORE resource and conforms to profile "https://hl7.org/fhir/StructureDefinition/Bundle"
-    And response bundle contains resource with ID "${data.observation-patient-id}" with error message "The requested Patient ${data.observation-patient-id} is not contained in the response bundle"
+    And response bundle contains resource with ID "${vitalparameter.observation-patient-id}" with error message "The requested Patient ${vitalparameter.observation-patient-id} is not contained in the response bundle"
 
   Scenario: Search for Patient by identifier
     When Get FHIR resource at "http://fhirserver/Patient/?identifier=http://fhir.de/sid/gkv/kvid-10%7CX485231029" with content type "json"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where($this.system = 'http://fhir.de/sid/gkv/kvid-10' and $this.value = 'X485231029').exists())" with error message 'The requested Patient ${data.observation-patient-id} is not contained in the response bundle'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where($this.system = 'http://fhir.de/sid/gkv/kvid-10' and $this.value = 'X485231029').exists())" with error message 'The requested Patient ${vitalparameter.observation-patient-id} is not contained in the response bundle'
 
   Scenario: Search for Patients that have a Family Name containing "Mustermann" and Birthdate >= 1955-06-20, group by _count
     When Post FHIR search request to "http://fhirserver/Patient/_search" with content type "json" and parameters:
-      | family:contains | birthdate    | _count               |
-      | Mustermann      | ge1955-06-20 | ${data.search-count} |
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+      | family:contains | birthdate    | _count                         |
+      | Mustermann      | ge1955-06-20 | ${vitalparameter.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${vitalparameter.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.family.where($this.contains('Mustermann')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(birthDate >= @1955-06-20)" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Patients that have a Family Name containing "Mustermann" and Gender male, group by _count
     When Post FHIR search request to "http://fhirserver/Patient/_search" with content type "json" and parameters:
-      | family:contains | gender | _count               |
-      | Mustermann      | male   | ${data.search-count} |
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${data.search-count}' with error message 'No search results were found'
+      | family:contains | gender | _count                         |
+      | Mustermann      | male   | ${vitalparameter.search-count} |
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= ${vitalparameter.search-count}' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(name.family.where($this.contains('Mustermann')).exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(gender = 'male')" with error message 'There are search results, but they do not fully match the search criteria'
 
@@ -79,7 +79,7 @@ Feature: Testing search parameters against a resource of type Patient, according
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(birthDate >= @1955-06-20)" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for Patient with an empty search parameter to be ignored
-    When Get FHIR resource at "http://fhirserver/Patient/?_id=${data.observation-patient-id}&family=" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Patient/?_id=${vitalparameter.observation-patient-id}&family=" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     # id might be missing, if the SearchSet includes an OperationOutcome, cf. https://www.hl7.org/fhir/R4/http.html#search
-    And FHIR current response body evaluates the FHIRPath "entry.resource.where(id.exists() and id.replaceMatches('/_history/.+','').matches('\\b${data.observation-patient-id}$')).count() = 1" with error message 'The requested Patient ${data.observation-patient-id} is not contained in the response bundle'
+    And FHIR current response body evaluates the FHIRPath "entry.resource.where(id.exists() and id.replaceMatches('/_history/.+','').matches('\\b${vitalparameter.observation-patient-id}$')).count() = 1" with error message 'The requested Patient ${vitalparameter.observation-patient-id} is not contained in the response bundle'

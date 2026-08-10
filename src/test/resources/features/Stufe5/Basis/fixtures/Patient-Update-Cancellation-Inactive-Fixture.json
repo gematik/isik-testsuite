@@ -1,6 +1,6 @@
 {
   "resourceType": "Patient",
-  "id": "${data.patient-update-cancellation-id}",
+  "id": "${basis.patient-update-cancellation-id}",
   "meta": {
     "profile": [
       "https://gematik.de/fhir/isik/StructureDefinition/ISiKPatient"
@@ -16,8 +16,8 @@
           }
         ]
       },
-      "system": "${data.patient-update-cancellation-identifier-system}",
-      "value": "${data.patient-update-cancellation-identifier-value}"
+      "system": "${basis.patient-update-cancellation-identifier-system}",
+      "value": "${basis.patient-update-cancellation-identifier-value}"
     }
   ],
   "name": [

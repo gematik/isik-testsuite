@@ -2,6 +2,7 @@
 @Stufe5
 @Basis
 @Mandatory
+@ISiKCapabilityStatementVersicherungsverhaeltnisRolle
 @RelatedPerson-Read
 Feature: Read Information from a resource of type RelatedPerson (@RelatedPerson-Read)
 
@@ -29,12 +30,12 @@ Feature: Read Information from a resource of type RelatedPerson (@RelatedPerson-
     And CapabilityStatement contains interaction "read" for resource "RelatedPerson"
 
   Scenario: Read and Validate RelatedPerson resource by its ID
-    When Get FHIR resource at "http://fhirserver/RelatedPerson/${data.relatedperson-read-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/RelatedPerson/${basis.relatedperson-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKAngehoeriger"
-    And resource has ID "${data.relatedperson-read-id}" with error message "The ID does not match the expected value"
+    And resource has ID "${basis.relatedperson-read-id}" with error message "The ID does not match the expected value"
     And TGR current response with attribute "$..name.given.value" matches "Maxine"
     And TGR current response with attribute "$..name.family.value" matches "Mustermann"
     And FHIR current response body evaluates the FHIRPath "address.where(type = 'both' and city = 'Berlin' and postalCode = '13187' and country = 'DE' and line = 'Unter den Linden 3' and line.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-streetName' and value = 'Unter den Linden').exists() and line.extension.where(url = 'http://hl7.org/fhir/StructureDefinition/iso21090-ADXP-houseNumber' and value = '3').exists()).exists()" with error message 'The address does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "relationship.coding.where(system = 'http://terminology.hl7.org/CodeSystem/v3-RoleCode' and code = 'DAUC').exists()" with error message 'The patient-related person relationship does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "telecom.where(system = 'phone' and value = '030 1234567').exists()" with error message 'The phone number does not match the expected value'
-    And element "patient" references resource with ID "${data.patient-read-id}" with error message "${data.patient-read-id} is not registered as patient"
+    And element "patient" references resource with ID "${basis.patient-read-id}" with error message "${basis.patient-read-id} is not registered as patient"

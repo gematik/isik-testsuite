@@ -2,6 +2,7 @@
 @Stufe5
 @Medikation
 @Mandatory
+@ISiKCapabilityStatementMedikationVerabreichungRolle
 @MedicationAdministration-Read
 Feature: Read Information from a resource of type MedicationAdministration (@MedicationAdministration-Read)
 
@@ -45,22 +46,22 @@ Feature: Read Information from a resource of type MedicationAdministration (@Med
     And CapabilityStatement contains interaction "read" for resource "MedicationAdministration"
 
   Scenario: Read and Validate the MedicationAdministration by its ID
-    Then Get FHIR resource at "http://fhirserver/MedicationAdministration/${data.medicationadministration-read-id}" with content type "xml"
-    And resource has ID "${data.medicationadministration-read-id}"
+    Then Get FHIR resource at "http://fhirserver/MedicationAdministration/${medikation.medicationadministration-read-id}" with content type "xml"
+    And resource has ID "${medikation.medicationadministration-read-id}"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsVerabreichung"
     And TGR current response with attribute "$..status.value" matches "completed"
     And TGR current response with attribute "$..note.text.value" matches "Test note"
-    And element "medication" references resource with ID "Medication/${data.medication-read-id}" with error message "The referenced medication does not match the expected value"
-    And element "subject" references resource with ID "Patient/${data.medication-patient-id}" with error message "The referenced patient does not match the expected value"
-    And element "context" references resource with ID "Encounter/${data.medication-encounter-id}" with error message "The referenced encounter does not match the expected value"
-    And TGR current response with attribute "$..reasonReference.reference.value" matches "Condition/${data.medication-condition-id}"
-    And FHIR current response body evaluates the FHIRPath "context.identifier.value = '${data.medication-encounter-identifier-value}'" with error message 'The associated encounter identifier does not match the expected value'
+    And element "medication" references resource with ID "Medication/${medikation.medication-read-id}" with error message "The referenced medication does not match the expected value"
+    And element "subject" references resource with ID "Patient/${medikation.medication-patient-id}" with error message "The referenced patient does not match the expected value"
+    And element "context" references resource with ID "Encounter/${medikation.medication-encounter-id}" with error message "The referenced encounter does not match the expected value"
+    And TGR current response with attribute "$..reasonReference.reference.value" matches "Condition/${medikation.medication-condition-id}"
+    And FHIR current response body evaluates the FHIRPath "context.identifier.value = '${medikation.medication-encounter-identifier-value}'" with error message 'The associated encounter identifier does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "effective.toString().contains('2026-02-03')" with error message 'The effective date/time does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "performer.where(actor.reference.replaceMatches('/_history/.+','').matches('Practitioner/${data.medication-practitioner-id}$')).exists()" with error message 'The performer does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "dosage.where(text.empty().not() and site.coding.where(code = '738956005' and system = 'http://snomed.info/sct' and display = 'Oral' and version = 'http://snomed.info/sct/11000274103/version/${data.snomed-ct-version}').exists() and dose.where(code = '1' and system = 'http://unitsofmeasure.org' and unit.hasValue() and value ~ 1).exists() and route.coding.where(code = '26643006' and system = 'http://snomed.info/sct' and version = 'http://snomed.info/sct/11000274103/version/${data.snomed-ct-version}' and display = 'Oral route').exists()).exists()" with error message 'The dosage does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "performer.where(actor.reference.replaceMatches('/_history/.+','').matches('Practitioner/${medikation.medication-practitioner-id}$')).exists()" with error message 'The performer does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "dosage.where(text.empty().not() and site.coding.where(code = '738956005' and system = 'http://snomed.info/sct' and display = 'Oral' and version = 'http://snomed.info/sct/11000274103/version/${medikation.snomed-ct-version}').exists() and dose.where(code = '1' and system = 'http://unitsofmeasure.org' and unit.hasValue() and value ~ 1).exists() and route.coding.where(code = '26643006' and system = 'http://snomed.info/sct' and version = 'http://snomed.info/sct/11000274103/version/${medikation.snomed-ct-version}' and display = 'Oral route').exists()).exists()" with error message 'The dosage does not match the expected value'
     # Validate the referenced resources at the end -> Tiger performs new Requests
-    And referenced "Encounter" resource with id "${data.medication-encounter-id}" conforms to a valid v5 "ISiKKontaktGesundheitseinrichtung" profile
-    And referenced "Patient" resource with id "${data.medication-patient-id}" conforms to a valid v5 "ISiKPatient" profile
-    And referenced "Practitioner" resource with id "${data.medication-practitioner-id}" conforms to a valid v5 "ISiKPersonImGesundheitsberuf" profile
-    And referenced "Medication" resource with id "${data.medication-read-id}" conforms to a valid v5 "ISiKMedikament" profile
-    And referenced "Condition" resource with id "${data.medication-condition-id}" conforms to a valid v5 "ISiKDiagnose" profile
+    And referenced "Encounter" resource with id "${medikation.medication-encounter-id}" conforms to a valid v5 "ISiKKontaktGesundheitseinrichtung" profile
+    And referenced "Patient" resource with id "${medikation.medication-patient-id}" conforms to a valid v5 "ISiKPatient" profile
+    And referenced "Practitioner" resource with id "${medikation.medication-practitioner-id}" conforms to a valid v5 "ISiKPersonImGesundheitsberuf" profile
+    And referenced "Medication" resource with id "${medikation.medication-read-id}" conforms to a valid v5 "ISiKMedikament" profile
+    And referenced "Condition" resource with id "${medikation.medication-condition-id}" conforms to a valid v5 "ISiKDiagnose" profile
