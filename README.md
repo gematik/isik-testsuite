@@ -27,18 +27,11 @@
 
 ## About The Project
 
-This is a test suite for conformance tests of the ISiK specification modules, for both Stufe 3 and 5:
+This is a test suite for conformance tests of the ISiK specification modules, for Stufe 5:
 
-- Stufe 3
-    - [Basis](https://simplifier.net/guide/isik-basis-v3?version=current)
-    - [Medikation](https://simplifier.net/guide/isik-medikation-v3?version=current)
-    - [Terminplanung](https://simplifier.net/guide/isik-terminplanung-v3?version=current)
-    - [Dokumentenaustausch](https://simplifier.net/guide/isik-dokumentenaustausch-v3?version=current)
-    - [Vitalparameter und Körpermaße](https://simplifier.net/guide/isik-vitalparamater-v3?version=current)
 - [Stufe 5](https://simplifier.net/isik-stufe-5/~guides)
 
-As default, Tests will be executed for the Stufe 5 of the specification. To run tests for Stufe 3 instead, you need to
-explicitly select the tag `@Stufe3`.
+As default, Tests will be executed for the Stufe 5 of the specification.
 
 ### Release Notes
 
@@ -55,8 +48,7 @@ To run the test suite you need the following components:
       If you are behind a proxy, please make sure to configure the proxy settings for Java and Maven.
     - If you want to run the test suite using Docker, you need to have `Docker` and `Docker Compose` installed on your
       machine. If you are behind a proxy, please make sure to configure the proxy settings accordingly.
-2. An ISiK resource server (System under Test, SUT) that is compliant with one of the ISiK Stufe 3 or Stufe 5
-   specification modules.
+2. An ISiK resource server (System under Test, SUT) that is compliant with one of the ISiK Stufe specification modules.
 
 Operating system requirements:
 cf. [Tiger Framework OS requirements](https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_requirements)
@@ -66,7 +58,8 @@ cf. [Tiger Framework OS requirements](https://gematik.github.io/app-Tiger/Tiger-
 #### Test environment
 
 Configure the endpoint of the SUT using the configuration element `servers.fhirserver.source` in the
-`tiger-isik-stufe3.yaml` or `tiger-isik-stufe5.yaml`  configuration file. Example:
+`tiger-isik-stufe5.yaml`
+configuration file. Example:
 
 ```yaml
 servers:
@@ -77,9 +70,8 @@ servers:
       - http://localhost:9032
 ```
 
-See examples for different configuration options in
-the [tiger.yaml for ISIK Stufe 3](tiger-isik-stufe3.yaml), [tiger.yaml for ISIK Stufe 5](tiger-isik-stufe5.yaml) or
-check the official [Tiger documentation](https://gematik.github.io/app-Tiger/Tiger-User-Manual.html)
+See examples for different configuration options in the [tiger.yaml for ISIK Stufe 5](tiger-isik-stufe5.yaml) or check
+the official [Tiger documentation](https://gematik.github.io/app-Tiger/Tiger-User-Manual.html)
 
 #### Test resources
 
@@ -102,9 +94,8 @@ patient-read-id: Patient-Read-Example
 
 #### Test Selection
 
-By default, all the mandatory tests for ISiK Level 3 are executed when running the testsuite. In Maven, this is achieved
-by activating the `stufe3` profile, which is also the default when running the testsuite with Docker. To run all
-mandatory tests for ISiK Level 5, you can activate the `stufe5` profile.
+By default, all the mandatory tests for ISiK Level 5 are executed when running the testsuite. In Maven, this is achieved
+by activating the `stufe5` profile, which is also the default when running the testsuite with Docker.
 
 If you want to alternative tests to run, please refer to
 the [Cucumber documentation](https://cucumber.io/docs/cucumber/api/#tag-expressions) for more information about tag
@@ -112,19 +103,18 @@ expressions.
 
 Currently supported tags are:
 
-| Tag                    | Description                                                                                                  |
-|------------------------|--------------------------------------------------------------------------------------------------------------|
-| `@Stufe3`              | Runs all tests for Stufe 3 of the specification. This is the default when running the testsuite with Docker. |
-| `@Stufe5`              | Runs all tests for Stufe 5 of the specification.                                                             |
-| `@Optional`            | Runs all tests that are marked as optional in the specification. By default, these tests are not executed.   |
-| `@Basis`               | Runs all the tests from the **Basis** Module                                                                 |
-| `@Terminplanung`       | Runs all the tests from the **Terminplanung** Module                                                         |
-| `@Medikation`          | Runs all the tests from the **Medikation** Module                                                            |
-| `@Vitalparameter`      | Runs all the tests from the **Vitalparameter** Module                                                        |
-| `@Dokumentenaustausch` | Runs all the tests from the **Dokumentenaustausch** Module                                                   |
-| `@Connect`             | Runs all the tests from the **Connect** Module                                                               |
-| `@ICUMinimal`          | Runs all the tests from the **ICU** Module, with minimal support                                             |
-| `@ICUExtended`         | Runs all the tests from the **ICU** Module, with extended support                                            |
+| Tag                    | Description                                                                                                |
+|------------------------|------------------------------------------------------------------------------------------------------------|
+| `@Stufe5`              | Runs all tests for Stufe 5 of the specification.                                                           |
+| `@Optional`            | Runs all tests that are marked as optional in the specification. By default, these tests are not executed. |
+| `@Basis`               | Runs all the tests from the **Basis** Module                                                               |
+| `@Terminplanung`       | Runs all the tests from the **Terminplanung** Module                                                       |
+| `@Medikation`          | Runs all the tests from the **Medikation** Module                                                          |
+| `@Vitalparameter`      | Runs all the tests from the **Vitalparameter** Module                                                      |
+| `@Dokumentenaustausch` | Runs all the tests from the **Dokumentenaustausch** Module                                                 |
+| `@Connect`             | Runs all the tests from the **Connect** Module                                                             |
+| `@ICUMinimal`          | Runs all the tests from the **ICU** Module, with minimal support                                           |
+| `@ICUExtended`         | Runs all the tests from the **ICU** Module, with extended support                                          |
 
 ## Usage
 
@@ -141,8 +131,6 @@ mvn clean verify
 mvn clean verify -Pstufe5
 # Run only the Terminplanung tests for Stufe 5
 mvn clean verify -Pstufe5 -DTESTS_TO_RUN="@Stufe5 and @Terminplanung"
-# Run only the optional tests for Stufe 3
-mvn clean verify -Pstufe3 -DTESTS_TO_RUN="@Stufe3 and @Optional"
 ```
 
 #### Proxy settings
@@ -150,7 +138,7 @@ mvn clean verify -Pstufe3 -DTESTS_TO_RUN="@Stufe3 and @Optional"
 If using the tiger testsuite behind a proxy provide the proxy configuration at the following places:
 
 1. Maven configuration ([official documentation](https://maven.apache.org/guides/mini/guide-proxies.html).
-2. `tiger-isik-stufe3.yaml` or `tiger-isik-stufe5.yaml` (`forwardToProxy` configuration block)
+2. `tiger-isik-stufe5.yaml` (`forwardToProxy` configuration block)
 
 ### Using Docker
 
@@ -169,10 +157,10 @@ To use the image, download and adjust the following files according to your test
 The Test Suite runs environment variables to control which tests are executed. You can configure these in the
 `dc-testsuite.yml` file or pass them directly:
 
-| Variable        | Description                                      | Default                       |
-|-----------------|--------------------------------------------------|-------------------------------|
-| `MAVEN_PROFILE` | Maven profile to activate (`stufe3` or `stufe5`) | `stufe3`                      |
-| `TESTS_TO_RUN`  | Cucumber tags to filter test cases               | `@Stufe3 and (not @Optional)` |
+| Variable        | Description                          | Default                       |
+|-----------------|--------------------------------------|-------------------------------|
+| `MAVEN_PROFILE` | Maven profile to activate (`stufe5`) | `stufe5`                      |
+| `TESTS_TO_RUN`  | Cucumber tags to filter test cases   | `@Stufe5 and (not @Optional)` |
 
 Example:
 
@@ -209,10 +197,10 @@ docker run --rm -v tiger-testsuite-report:/report -v $(pwd):/local busybox cp /r
 ## Inspecting test results
 
 Right after starting a test suite a browser window will open, which provides an overview of the testing progress. If
-using Tiger in Docker, please navigate to http://localhost:9010 manually.
+using Tiger in Docker, please navigate to http://localhost:9011 manually.
 See [Tiger Workflow UI](https://gematik.github.io/app-Tiger/Tiger-User-Manual.html#_tiger_user_interfaces) for further
 information about the user interface. To run the test suite without the GUI, e.g. within a CI/CD pipeline, set the
-configuration element `lib.activateWorkflowUi` to `false` in the `tiger-isik-stufe3.yaml` or `tiger-isik-stufe5.yaml`
+configuration element `lib.activateWorkflowUi` to `false` in the `tiger-isik-stufe5.yaml`
 configuration file.
 
 After the test suite finishes the archived test results can be found in `debug-report.zip` file (take notice of the
