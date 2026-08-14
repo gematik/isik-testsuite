@@ -2,6 +2,12 @@
 
 # Release Notes
 
+## Release 3.0.1
+
+### fixed
+
+- ID used for the Test `DocumentReference-Post` (Module `Dokumentenaustausch`)
+
 ## Release 3.0.0
 
 > [!IMPORTANT]
