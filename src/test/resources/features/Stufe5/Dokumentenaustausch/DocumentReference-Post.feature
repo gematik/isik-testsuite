@@ -17,8 +17,8 @@ Feature: Upload of a DocumentReference with POST Operation (Dokumentenbereitstel
 
       The following values from the configuration file must be used in the resource to be created:
        - The masterIdentifier value to be used (variable name: 'documentreference-post-master-identifier-value')
-       - The reference to a valid Encounter resource ID (variable name: 'documentreference-read-encounter-id')
-       - The reference to a valid Patient resource ID to be used (variable name: 'documentreference-read-patient-id')
+       - The reference to a valid Encounter resource ID (variable name: 'documentreference-post-encounter-id')
+       - The reference to a valid Patient resource ID to be used (variable name: 'documentreference-post-patient-id')
       """
 
   Scenario: Read and Validation of the CapabilityStatement
@@ -39,8 +39,8 @@ Feature: Upload of a DocumentReference with POST Operation (Dokumentenbereitstel
     And FHIR current response body evaluates the FHIRPath "content.attachment.title = 'Molekularpathologiebefund vom 12.02.26'" with error message 'The document title does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "type.coding.where(system = 'http://dvmd.de/fhir/CodeSystem/kdl' and code = 'PT130102' and display = 'Molekularpathologiebefund').exists()" with error message 'The document type (KDL) code does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "type.coding.where(system = 'http://ihe-d.de/CodeSystems/IHEXDStypeCode' and code = 'PATH' and display = 'Pathologiebefundberichte').exists()" with error message 'The document type (XDS) code does not match the expected value'
-    And element "subject" references resource with ID "${dokument.documentreference-read-patient-id}" with error message "The patient reference does not match the expected value"
-    And element "context.encounter" references resource with ID "${dokument.documentreference-read-encounter-id}" with error message "The patient reference does not match the expected value"
+    And element "subject" references resource with ID "${dokument.documentreference-post-patient-id}" with error message "The patient reference does not match the expected value"
+    And element "context.encounter" references resource with ID "${dokument.documentreference-post-encounter-id}" with error message "The patient reference does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "author.display.contains('Harold Hippocrates')" with error message 'The document author does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "securityLabel.coding.where(code = 'N' and system = 'http://terminology.hl7.org/CodeSystem/v3-Confidentiality').exists()" with error message 'The confidentiality does not match the expected value'
     # The originally POSTed resource contained a creation datetime with another time zone. We use date equality function, which takes care of time conversion issues depending on the time zone.

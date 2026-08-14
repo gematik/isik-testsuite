@@ -33,7 +33,7 @@
   "status": "current",
   "docStatus": "preliminary",
   "subject": {
-    "reference": "Patient/${dokument.documentreference-read-patient-id}"
+    "reference": "Patient/${dokument.documentreference-post-patient-id}"
   },
   "securityLabel": [
     {
@@ -69,7 +69,7 @@
   "context": {
     "encounter": [
       {
-        "reference": "Encounter/${dokument.documentreference-read-encounter-id}"
+        "reference": "Encounter/${dokument.documentreference-post-encounter-id}"
       }
     ],
     "facilityType": {
