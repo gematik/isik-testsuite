@@ -2,6 +2,13 @@
 
 # Release Notes
 
+## Release 3.0.2
+
+### changed
+
+- Added evaluation of `content.attachment.title` in the Test `DocumentReference-Read`
+- Updated Tiger Framework to 4.4.1
+
 ## Release 3.0.1
 
 ### fixed
