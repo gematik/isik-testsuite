@@ -6,7 +6,7 @@
 
     <groupId>de.gematik</groupId>
     <artifactId>tiger-integration-isik</artifactId>
-    <version>3.0.2-SNAPSHOT</version>
+    <version>3.0.3-SNAPSHOT</version>
 
     <properties>
         <java.version>17</java.version>
@@ -18,13 +18,13 @@
         <features.folder>Stufe5</features.folder>
 
         <!-- Libraries and Plugins Versions -->
-        <tiger.version>4.3.2</tiger.version>
-        <tiger.fhir.version>1.2.17</tiger.fhir.version>
-        <tiger-testsuite-validator.version>1.1.9</tiger-testsuite-validator.version>
+        <tiger.version>4.4.1</tiger.version>
+        <tiger.fhir.version>1.2.18</tiger.fhir.version>
+        <tiger-testsuite-validator.version>1.2.0</tiger-testsuite-validator.version>
         <spotless-maven-plugin.version>3.9.0</spotless-maven-plugin.version>
         <spotless.google-java-format.version>1.32.0</spotless.google-java-format.version>
         <lombok.version>1.18.46</lombok.version>
-        <logback.version>1.6.1</logback.version>
+        <logback.version>1.6.3</logback.version>
         <maven-assembly-plugin.version>3.8.0</maven-assembly-plugin.version>
         <maven-failsafe-plugin.version>3.5.6</maven-failsafe-plugin.version>
         <license-maven-plugin.version>2.7.1</license-maven-plugin.version>
@@ -289,6 +289,13 @@
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
+        </dependency>
+        <!-- Runtime dependency for Tiger -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-web-server</artifactId>
+            <version>4.1.0</version>
+            <scope>runtime</scope>
         </dependency>
     </dependencies>
 
