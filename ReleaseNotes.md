@@ -2,6 +2,12 @@
 
 # Release Notes
 
+## Release 3.0.3
+
+### fixed
+
+- Corrected validation of IDs with `_count` in the Test `Account-Search` (in Module `Basis`)
+
 ## Release 3.0.2
 
 ### changed

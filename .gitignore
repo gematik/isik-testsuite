@@ -1,7 +1,7 @@
 /.idea/
 /target/
 /tiger-integration-isik.iml
-
+sbom*.json
 .jenkins
 tiger-ci.yaml
 tiger-ci-stufe3.yaml
