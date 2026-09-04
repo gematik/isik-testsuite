@@ -6,7 +6,7 @@
 
     <groupId>de.gematik</groupId>
     <artifactId>tiger-integration-isik</artifactId>
-    <version>3.0.3-SNAPSHOT</version>
+    <version>3.0.4-SNAPSHOT</version>
 
     <properties>
         <java.version>17</java.version>
@@ -18,10 +18,10 @@
         <features.folder>Stufe5</features.folder>
 
         <!-- Libraries and Plugins Versions -->
-        <tiger.version>4.4.1</tiger.version>
-        <tiger.fhir.version>1.2.18</tiger.fhir.version>
+        <tiger.version>4.4.2</tiger.version>
+        <tiger.fhir.version>1.3.0</tiger.fhir.version>
         <tiger-testsuite-validator.version>1.2.0</tiger-testsuite-validator.version>
-        <spotless-maven-plugin.version>3.9.0</spotless-maven-plugin.version>
+        <spotless-maven-plugin.version>3.10.1</spotless-maven-plugin.version>
         <spotless.google-java-format.version>1.32.0</spotless.google-java-format.version>
         <lombok.version>1.18.46</lombok.version>
         <logback.version>1.6.3</logback.version>
@@ -294,7 +294,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-web-server</artifactId>
-            <version>4.1.0</version>
+            <version>4.1.1</version>
             <scope>runtime</scope>
         </dependency>
     </dependencies>

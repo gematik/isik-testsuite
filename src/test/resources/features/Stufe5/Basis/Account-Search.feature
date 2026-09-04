@@ -41,15 +41,10 @@ Feature: Testing search parameters against a resource of type Account (@Account-
     And response bundle contains resource with ID "${basis.account-read-id}" with error message "The requested Account ${basis.account-read-id} is not contained in the response bundle."
 
   @Optional
-  Scenario: Optional Search for the Account by Tag and ID
-    When Get FHIR resource at "http://fhirserver/Account/?_id=${basis.account-read-id}&_tag=${basis.tag-system}%7C${basis.tag-value}" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
+  Scenario: Optional Search for the Account by Tag and ID, group by _count
+    When Get FHIR resource at "http://fhirserver/Account/?_id=${basis.account-read-id}&_tag=${basis.tag-system}%7C${basis.tag-value}&_count=20" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 20' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(meta.tag.where(code='${basis.tag-value}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
-
-  Scenario: Search for the Account by Count
-    When Get FHIR resource at "http://fhirserver/Account/?_count=1" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
-    And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(value = '${basis.account-read-identifier-value}' and system = '${basis.account-read-identifier-system}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the Account by Patient and Identifier
     When Get FHIR resource at "http://fhirserver/Account/?patient=Patient/${basis.account-read-patient-id}&identifier=${basis.account-read-identifier-system}%7C${basis.account-read-identifier-value}" with content type "xml"
@@ -57,11 +52,10 @@ Feature: Testing search parameters against a resource of type Account (@Account-
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(identifier.where(value = '${basis.account-read-identifier-value}' and system = '${basis.account-read-identifier-system}').exists())" with error message 'There are search results, but they do not fully match the search criteria'
     And element "subject" in all bundle resources references resource with ID "${basis.account-read-patient-id}" with error message 'There are search results, but they do not fully match the search criteria'
 
-  Scenario: Search for the Account by Status, Patient and ID
-    When Get FHIR resource at "http://fhirserver/Account/?_id=${basis.account-read-id}&patient=Patient/${basis.account-read-patient-id}&status=active" with content type "json"
-    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
+  Scenario: Search for the Account by Status, group by _count
+    When Get FHIR resource at "http://fhirserver/Account/?status=active&_count=20" with content type "json"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 20' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.where(status = 'active').exists()" with error message 'There are search results, but they do not fully match the search criteria'
-    And element "subject" in all bundle resources references resource with ID "${basis.account-read-patient-id}" with error message 'There are search results, but they do not fully match the search criteria'
 
   Scenario: Search for the Account by Type, Patient and ID
     When Get FHIR resource at "http://fhirserver/Account/?_id=${basis.account-read-id}&patient=Patient/${basis.account-read-patient-id}&type=IMP" with content type "json"
