@@ -2,6 +2,22 @@
 
 # Release Notes
 
+## Unreleased
+
+### fixed
+
+- Corrected unauthorized Condition search assertions for `patient/Patient.rs` and `patient/*.rs`
+  to accept either `403 Forbidden` or `200 OK` with an empty search Bundle, while rejecting
+  returned resources and positive result totals.
+- Corrected patient-scope search assertions to compare the bundled Patient's logical ID with the
+  configured ID as a FHIRPath string, including IDs expanded to absolute/versioned URLs by HAPI,
+  for both `patient/Patient.rs` and `patient/*.rs` scopes.
+
+### added
+
+- Added a report-collecting test runner that preserves each execution outside `target` and generates
+  native Tiger/Serenity reports for the latest scenario results and all historical attempts.
+
 ## Release 3.0.3
 
 ### fixed

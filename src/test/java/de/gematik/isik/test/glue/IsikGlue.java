@@ -24,7 +24,10 @@
  */
 package de.gematik.isik.test.glue;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import ca.uhn.fhir.context.FhirContext;
+import ca.uhn.fhir.parser.DataFormatException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.gematik.refv.commons.validation.ValidationModule;
@@ -45,6 +48,8 @@ import io.cucumber.java.en.When;
 import io.restassured.http.Method;
 import java.net.URI;
 import net.serenitybdd.annotations.Steps;
+import org.hl7.fhir.instance.model.api.IBaseResource;
+import org.hl7.fhir.r4.model.Bundle;
 import org.hl7.fhir.r4.model.DomainResource;
 import org.hl7.fhir.r4.model.Reference;
 import org.jspecify.annotations.NonNull;
@@ -83,6 +88,41 @@ public class IsikGlue {
   public void configureInitialState(String initialState) {
     String resolvedInitialState = TigerGlobalConfiguration.resolvePlaceholders(initialState);
     log.debug(resolvedInitialState);
+  }
+
+  @Then("FHIR search response is forbidden or contains no resources")
+  public void searchResponseIsForbiddenOrContainsNoResources() {
+    var response = rBelValidatorGlue.getRbelMessageRetriever();
+    String status = response.findElementInCurrentResponse("$.responseCode").getRawStringContent();
+    assertForbiddenOrEmptySearch(
+        status,
+        "200".equals(status)
+            ? response.findElementInCurrentResponse("$.body").getRawStringContent()
+            : "");
+  }
+
+  static void assertForbiddenOrEmptySearch(String status, String body) {
+    assertThat(status)
+        .as("An unauthorized search must be refused or return an empty search Bundle")
+        .isIn("200", "403");
+    if ("403".equals(status)) {
+      return;
+    }
+    final IBaseResource resource;
+    try {
+      resource = FhirContext.forR4Cached().newJsonParser().parseResource(body);
+    } catch (DataFormatException e) {
+      throw new AssertionError("Expected a FHIR JSON search Bundle for HTTP 200", e);
+    }
+    assertThat(resource).as("HTTP 200 must contain a search Bundle").isInstanceOf(Bundle.class);
+    var bundle = (Bundle) resource;
+    assertThat(bundle.getType()).as("Bundle type").isEqualTo(Bundle.BundleType.SEARCHSET);
+    assertThat(bundle.getEntry())
+        .as("The search must not disclose resources, including included resources")
+        .noneMatch(Bundle.BundleEntryComponent::hasResource);
+    if (bundle.hasTotal()) {
+      assertThat(bundle.getTotal()).as("The search must not disclose a positive total").isZero();
+    }
   }
 
   @When("Get FHIR resource at {string} with content type {string}")

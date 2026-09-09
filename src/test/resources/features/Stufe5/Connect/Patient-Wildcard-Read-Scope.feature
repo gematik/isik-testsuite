@@ -27,15 +27,17 @@ Feature: Test the Access to Patient-related Resources with the Patient Scope (@P
     Then TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
     Then FHIR current response body evaluates the FHIRPath "Bundle.entry.where(resource is Patient).count() = 1" with error message "Expected only a single Patient resource in the bundle"
-    Then FHIR current response body evaluates the FHIRPath "Bundle.entry.where(id = ${connect.read-wildcard-patient-in-context-id}).exists()" with error message "Expected the specific Patient resource to exist in the bundle"
+    # HAPI may expand resource IDs to absolute, versioned URLs when parsing Bundle.entry.fullUrl.
+    Then FHIR current response body evaluates the FHIRPath "Bundle.entry.resource.ofType(Patient).where(id.replaceMatches('/_history/.*', '').replaceMatches('^.*/', '') = '${connect.read-wildcard-patient-in-context-id}').exists()" with error message "Expected the specific Patient resource to exist in the bundle"
 
   Scenario: Access to Condition resources of patients not in context is forbidden
+    # The scope permits Condition searches, but results must stay within the patient context.
+    # SMART permits filtered search results or refusal based on underlying permissions.
     When TGR send empty GET request to "http://fhirserver/Condition?subject=Patient/${connect.read-wildcard-patient-not-in-context-id}" with headers:
       | Accept        | application/fhir+json                        |
       | Authorization | Bearer ${connect.read-patient-wildcard-scope-allowed} |
     Then TGR find the last request
-    Then TGR current response with attribute "$.responseCode" matches "200"
-    Then FHIR current response body evaluates the FHIRPath "Bundle.entry.where(resource is Condition).count() = 0" with error message "Search for Condition resources leaks other resources"
+    Then FHIR search response is forbidden or contains no resources
 
   Scenario: Access to Encounter resources related to a Patient is allowed
     When TGR send empty GET request to "http://fhirserver/Encounter?_count=10" with headers:
