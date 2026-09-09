@@ -353,7 +353,10 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${maven-failsafe-plugin.version}</version>
                 <configuration>
-                    <skipTests>true</skipTests>
+                    <excludes>
+                        <!-- Generated Cucumber drivers run with Failsafe and its integration-test configuration. -->
+                        <exclude>**/TestDriver*IT.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
