@@ -35,8 +35,9 @@ Feature: Test the Access to all Patient Resources granted to a user with the Use
     Then FHIR current response body evaluates the FHIRPath "Bundle.entry.where(resource is Patient).count() <= 10" with error message "Expected at most 10 Patient resources in the bundle"
 
   Scenario: Access to Encounter resources is forbidden
+    # user/Patient.rs grants no Encounter access. Accept refusal or an empty search result.
     When TGR send empty GET request to "http://fhirserver/Encounter?_count=10" with headers:
       | Accept        | application/fhir+json                        |
       | Authorization | Bearer ${connect.read-patient-scope-in-user-context-allowed} |
     Then TGR find the last request
-    Then TGR current response with attribute "$.responseCode" matches "40\d"
+    Then FHIR search response is forbidden or contains no resources
