@@ -6,7 +6,8 @@
 
 ### fixed
 
-- Corrected unauthorized Condition search assertions for `patient/Patient.rs` and `patient/*.rs`
+- Corrected unauthorized Condition searches with `patient/Patient.rs` and `patient/*.rs`,
+  and Encounter searches with `user/Patient.rs`,
   to accept either `403 Forbidden` or `200 OK` with an empty search Bundle, while rejecting
   returned resources and positive result totals.
 - Corrected patient-scope search assertions to compare the bundled Patient's logical ID with the
