@@ -3,7 +3,7 @@
 #We recommend to use a base image of the same version as the tiger version you are using in your project.
 # This ensures that the tiger dependencies are already loaded into the local maven repository.
 # https://hub.docker.com/r/gematik1/tiger-testsuite-baseimage/tags
-FROM gematik1/tiger-testsuite-baseimage:4.1.7
+FROM gematik1/tiger-testsuite-baseimage:4.4.2
 
 # Git Args
 ARG COMMIT_HASH
@@ -32,7 +32,7 @@ USER tiger-testsuite
 # -chown is needed because the COPY command will otherwise copy the file as root
 COPY --chown=tiger-testsuite . /app
 
-RUN mvn clean dependency:go-offline verify -DskipTests -ntp
+RUN mvn clean dependency:go-offline verify -DskipTests -DskipITs -ntp
 
 # The base image executes as an entry point the command mvn clean verify in the /app folder. And afterwards
 # it copies an existing *report.zip from /app/target/*report.zip to /app/report/
