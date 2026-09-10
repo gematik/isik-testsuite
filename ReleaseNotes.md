@@ -2,22 +2,25 @@
 
 # Release Notes
 
-## Unreleased
+## Release 3.0.4
+
+### changed
+
+- Updated Tiger Framework to 4.4.2
 
 ### fixed
 
-- Corrected unauthorized Condition searches with `patient/Patient.rs` and `patient/*.rs`,
-  and Encounter searches with `user/Patient.rs`,
+- Corrected `Connect` Module  unauthorized Condition search assertions for `patient/Patient.rs` and `patient/*.rs`
   to accept either `403 Forbidden` or `200 OK` with an empty search Bundle, while rejecting
-  returned resources and positive result totals.
-- Corrected patient-scope search assertions to compare the bundled Patient's logical ID with the
+  returned resources and positive result totals. (PR #20)
+- Corrected `Connect` Module patient-scope search assertions to compare the bundled Patient's logical ID with the
   configured ID as a FHIRPath string, including IDs expanded to absolute/versioned URLs by HAPI,
-  for both `patient/Patient.rs` and `patient/*.rs` scopes.
+  for both `patient/Patient.rs` and `patient/*.rs` scopes. (PR #20)
 
 ### added
 
 - Added a report-collecting test runner that preserves each execution outside `target` and generates
-  native Tiger/Serenity reports for the latest scenario results and all historical attempts.
+  native Tiger/Serenity reports for the latest scenario results and all historical attempts. (PR #20) 
 
 ## Release 3.0.3
 
