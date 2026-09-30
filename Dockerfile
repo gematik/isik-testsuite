@@ -3,7 +3,7 @@
 #We recommend to use a base image of the same version as the tiger version you are using in your project.
 # This ensures that the tiger dependencies are already loaded into the local maven repository.
 # https://hub.docker.com/r/gematik1/tiger-testsuite-baseimage/tags
-FROM gematik1/tiger-testsuite-baseimage:4.4.2
+FROM gematik1/tiger-testsuite-baseimage:4.4.3
 
 # Git Args
 ARG COMMIT_HASH
