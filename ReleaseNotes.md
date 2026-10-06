@@ -2,6 +2,12 @@
 
 # Release Notes
 
+## Release 3.0.7
+
+### fixed
+
+- Missing runtime dependency for Serenity Reports (`jackson-annotations`)
+
 ## Release 3.0.6
 
 ### changed
