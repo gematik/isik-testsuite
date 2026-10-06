@@ -6,7 +6,7 @@
 
     <groupId>de.gematik</groupId>
     <artifactId>tiger-integration-isik</artifactId>
-    <version>3.0.7-SNAPSHOT</version>
+    <version>3.0.8-SNAPSHOT</version>
 
     <properties>
         <java.version>17</java.version>
@@ -33,6 +33,8 @@
         <junit.version>6.1.3</junit.version>
         <exec-maven-plugin.version>3.6.4</exec-maven-plugin.version>
         <commons-lang3.version>3.21.0</commons-lang3.version>
+        <jackson.version>2.22.3</jackson.version>
+        <spring-boot-web.version>4.1.1</spring-boot-web.version>
     </properties>
 
     <profiles>
@@ -294,8 +296,13 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-web-server</artifactId>
-            <version>4.1.1</version>
+            <version>${spring-boot-web.version}</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.22</version>
         </dependency>
     </dependencies>
 
@@ -305,6 +312,13 @@
                 <groupId>org.junit</groupId>
                 <artifactId>junit-bom</artifactId>
                 <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
