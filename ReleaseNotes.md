@@ -2,6 +2,12 @@
 
 # Release Notes
 
+## Release 3.0.8
+
+### fixed
+
+- Entrypoint in the Docker Image, due to changes in the upstream one.
+
 ## Release 3.0.7
 
 ### fixed
