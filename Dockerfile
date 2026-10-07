@@ -19,13 +19,6 @@ LABEL de.gematik.vendor="gematik GmbH" \
       de.gematik.commit-sha=$COMMIT_HASH \
       de.gematik.version=$VERSION
 
-USER root
-
-# Uupgrade packages
-RUN apk update && \
-    apk upgrade && \
-    rm -rf /var/cache/apk/*
-
 USER tiger-testsuite
 
 # Optional: if you need a different dependency script, overwrite the one inside the base image
@@ -39,4 +32,4 @@ RUN mvn clean dependency:go-offline verify -DskipTests -DskipITs -ntp
 # Currently your project needs to ensure the zip files is created
 # You can define your own ENTRYPOINT which will override the one from the base image
 # Command to be executed.
-ENTRYPOINT ["bash", "-c", "rm -rf $REPORT_DIR/* ; mvn clean verify -ntp -P${MAVEN_PROFILE} -DTESTS_TO_RUN=\"${TESTS_TO_RUN}\" || true ; mv -v $APP_HOME/target/*report.zip $REPORT_DIR/"]
+ENTRYPOINT ["sh", "-c", "rm -rf $REPORT_DIR/* ; mvn clean verify -ntp -P${MAVEN_PROFILE} -DTESTS_TO_RUN=\"${TESTS_TO_RUN}\" || true ; mv -v $APP_HOME/target/*report.zip $REPORT_DIR/"]
