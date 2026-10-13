@@ -2,6 +2,12 @@
 
 # Release Notes
 
+## Release 3.0.9
+
+### changed
+
+- Updated Tiger Framework to 4.4.5
+
 ## Release 3.0.8
 
 ### fixed
