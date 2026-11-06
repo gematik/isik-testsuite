@@ -2,6 +2,15 @@
 
 # Release Notes
 
+## Unreleased
+
+### added
+
+- Added an optional synthetic Stufe 5 reference dataset with 130 resources, per-resource
+  provenance and the source license notice. Setup documentation covers version requirements,
+  transaction loading, server-assigned ID mapping, Connect prerequisites and known
+  terminology assertion conflicts. The existing test assertions and YAML defaults are unchanged.
+
 ## Release 3.0.9
 
 ### changed

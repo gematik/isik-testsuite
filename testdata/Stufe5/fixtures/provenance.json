@@ -1,0 +1,847 @@
+{
+  "suiteCommit": "3c8e44c730c139230452c00ba582cec021fa5d61",
+  "source": "https://github.com/intersystems-dach/IRIS-ISiK-Test-Suite",
+  "sourceCommit": "bef08a9e1b6fda60ce3a5687f09cddd0a97cee8f",
+  "sourceSuiteVersion": "2.7.0",
+  "resources": {
+    "Account/Account-Read-Example": {
+      "source": "common/Account-Account-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Account-Read.feature"
+      ]
+    },
+    "Binary/Binary-Read-Example": {
+      "source": "common/Binary-Binary-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Binary-Read.feature"
+      ]
+    },
+    "Coverage/Coverage-Read-Private-Example": {
+      "source": "common/Coverage-Coverage-Read-Private-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Coverage-Read-Private.feature"
+      ]
+    },
+    "Coverage/Coverage-Read-Statutory-Example": {
+      "source": "common/Coverage-Coverage-Read-Statutory-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Coverage-Read-Statutory.feature"
+      ]
+    },
+    "Device/Device-Read-Example": {
+      "source": "common/Device-Device-Read-Example.json",
+      "features": [],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Device/Example": {
+      "source": "common/Device-Example.json",
+      "features": [],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "List/List-Update-Original-Example": {
+      "source": "common/List-List-Update-Original-Example.json",
+      "features": []
+    },
+    "Location/Location-Bed-Placement-Read-Example": {
+      "source": "common/Location-Location-Bed-Placement-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Location-Bed-Placement-Read.feature"
+      ]
+    },
+    "Location/Location-Example": {
+      "source": "common/Location-Location-Example.json",
+      "features": []
+    },
+    "Location/Location-Read-Example": {
+      "source": "common/Location-Location-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Location-Read.feature"
+      ]
+    },
+    "Location/Location-Room-Read-Example": {
+      "source": "common/Location-Location-Room-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Location-Room-Read.feature"
+      ]
+    },
+    "Medication/Medication-Read-Referenced-Ingredient-Example": {
+      "source": "common/Medication-Medication-Read-Referenced-Ingredient-Example.json",
+      "features": [],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Medication/Medication-Update-Original-Example": {
+      "source": "common/Medication-Medication-Update-Original-Example.json",
+      "features": [],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "MedicationAdministration/MedicationAdministration-Update-Original-Example": {
+      "source": "common/MedicationAdministration-MedicationAdministration-Update-Original-Example.json",
+      "features": []
+    },
+    "MedicationRequest/MedicationRequest-Update-Original-Example": {
+      "source": "common/MedicationRequest-MedicationRequest-Update-Original-Example.json",
+      "features": [],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "MedicationStatement/MedicationStatement-Update-Original-Example": {
+      "source": "common/MedicationStatement-MedicationStatement-Update-Original-Example.json",
+      "features": [],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Organization/Organization-Read-Example": {
+      "source": "common/Organization-Organization-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Organization-Read.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Organization/Organization-Read-Parent-Example": {
+      "source": "common/Organization-Organization-Read-Parent-Example.json",
+      "features": []
+    },
+    "Patient/Account-Read-Patient-Example": {
+      "source": "common/Patient-Account-Read-Patient-Example.json",
+      "features": []
+    },
+    "Patient/Patient-Delete-Example": {
+      "source": "common/Patient-Patient-Delete-Example.json",
+      "features": []
+    },
+    "Patient/Patient-Read-Example": {
+      "source": "common/Patient-Patient-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Patient-Read.feature",
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Patient-Read.feature"
+      ]
+    },
+    "Patient/Patient-Update-Cancellation-Active-Example": {
+      "source": "common/Patient-Patient-Update-Cancellation-Active-Example.json",
+      "features": []
+    },
+    "Practitioner/Practitioner-Read-Example": {
+      "source": "common/Practitioner-Practitioner-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Practitioner-Read.feature",
+        "src/test/resources/features/Stufe5/Medikation/Practitioner-Read.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Schedule/Schedule-Read-Example": {
+      "source": "common/Schedule-Schedule-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Terminplanung/Schedule-Read.feature"
+      ]
+    },
+    "Slot/Slot-Free-Example": {
+      "source": "common/Slot-Slot-Free-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Terminplanung/Appointment-Book.feature"
+      ]
+    },
+    "Slot/Slot-Read-Example": {
+      "source": "common/Slot-Slot-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Terminplanung/Slot-Read.feature"
+      ]
+    },
+    "ValueSet/ValueSet-Read-Example": {
+      "source": "common/ValueSet-ValueSet-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/ValueSet-Read.feature",
+        "src/test/resources/features/Stufe5/Terminplanung/ValueSet-Read.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "AllergyIntolerance/AllergyIntolerance-Read-Example": {
+      "source": "Stufe5/AllergyIntolerance-AllergyIntolerance-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/AllergyIntolerance-Read.feature",
+        "src/test/resources/features/Stufe5/Medikation/AllergyIntolerance-Read.feature"
+      ]
+    },
+    "Appointment/Appointment-Read-Example": {
+      "source": "Stufe5/Appointment-Appointment-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Terminplanung/Appointment-Read.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Binary/Binary-PDF-Example": {
+      "source": "Stufe5/Binary-Binary-PDF-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Dokumentenaustausch/DocumentReference-Read.feature"
+      ]
+    },
+    "CodeSystem/CodeSystem-Read-Example": {
+      "source": "Stufe5/CodeSystem-CodeSystem-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/CodeSystem-Read.feature"
+      ]
+    },
+    "Condition/Condition-Read-Active-Example": {
+      "source": "Stufe5/Condition-Condition-Read-Active-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Condition-Read-Active.feature"
+      ]
+    },
+    "Condition/Condition-Read-Resolved-Example": {
+      "source": "Stufe5/Condition-Condition-Read-Resolved-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Condition-Read-Resolved.feature",
+        "src/test/resources/features/Stufe5/Basis/Condition-Read-Resolved.feature"
+      ]
+    },
+    "DocumentReference/DocumentReference-Read-Example": {
+      "source": "Stufe5/DocumentReference-DocumentReference-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Dokumentenaustausch/DocumentReference-Read.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained.",
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Encounter/Encounter-Basic-Role-Example": {
+      "source": "Stufe5/Encounter-Encounter-Basic-Role-Example.json",
+      "features": []
+    },
+    "Encounter/Encounter-Read-Finished-Example": {
+      "source": "Stufe5/Encounter-Encounter-Read-Finished-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Encounter-Read-Finished.feature",
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Encounter-Read-Finished.feature"
+      ]
+    },
+    "Encounter/Encounter-Read-In-Progress-Example": {
+      "source": "Stufe5/Encounter-Encounter-Read-In-Progress-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Encounter-Read-In-Progress.feature",
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Encounter-Read-In-Progress.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Encounter/Encounter-Read-Planned-Example": {
+      "source": "Stufe5/Encounter-Encounter-Read-Planned-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Encounter-Read-Planned.feature",
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Encounter-Read-Planned.feature",
+        "src/test/resources/features/Stufe5/Terminplanung/Encounter-Appointment-Read.feature"
+      ]
+    },
+    "HealthcareService/HealthcareService-Read-Example": {
+      "source": "Stufe5/HealthcareService-HealthcareService-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Terminplanung/HealthcareService-Read.feature"
+      ]
+    },
+    "List/List-Read-Example": {
+      "source": "Stufe5/List-List-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/List-Read.feature"
+      ]
+    },
+    "Medication/Medication-Read-Example": {
+      "source": "Stufe5/Medication-Medication-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/Medication-Read.feature"
+      ]
+    },
+    "Medication/Medication-Read-Extended-Example": {
+      "source": "Stufe5/Medication-Medication-Read-Extended-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/Medication-Read-Extended.feature"
+      ]
+    },
+    "MedicationAdministration/MedicationAdministration-Read-Example": {
+      "source": "Stufe5/MedicationAdministration-MedicationAdministration-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/MedicationAdministration-Read.feature"
+      ]
+    },
+    "MedicationAdministration/MedicationAdministration-Read-Extended-Example": {
+      "source": "Stufe5/MedicationAdministration-MedicationAdministration-Read-Extended-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/MedicationAdministration-Read-Extended.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "MedicationAdministration/MedicationAdministration-Read-Rate-Example-Quantity": {
+      "source": "Stufe5/MedicationAdministration-MedicationAdministration-Read-Rate-Example-Quantity.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/MedicationAdministration-Read-Rate.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained.",
+      "knownSuiteConflict": "Suite 3.0.9 asserts 255560000 (Intravenous), outside the required SctRouteOfAdministration ValueSet. Uses validated 47625008 (Intravenous route); official assertions remain unchanged and are expected to fail."
+    },
+    "MedicationRequest/MedicationRequest-Read-Example": {
+      "source": "Stufe5/MedicationRequest-MedicationRequest-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/MedicationRequest-Read.feature"
+      ]
+    },
+    "MedicationRequest/MedicationRequest-Read-Extended-Example": {
+      "source": "Stufe5/MedicationRequest-MedicationRequest-Read-Extended-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/MedicationRequest-Read-Extended.feature"
+      ]
+    },
+    "MedicationStatement/MedicationStatement-Read-Example": {
+      "source": "Stufe5/MedicationStatement-MedicationStatement-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/MedicationStatement-Read.feature"
+      ]
+    },
+    "MedicationStatement/MedicationStatement-Read-Extended-Example": {
+      "source": "Stufe5/MedicationStatement-MedicationStatement-Read-Extended-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/MedicationStatement-Read-Extended.feature"
+      ]
+    },
+    "MedicationStatement/MedicationStatement-Read-Rate-Example": {
+      "source": "Stufe5/MedicationStatement-MedicationStatement-Read-Rate-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/MedicationStatement-Read-Rate.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained.",
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained.",
+      "knownSuiteConflict": "Suite 3.0.9 asserts 255560000 (Intravenous), outside the required SctRouteOfAdministration ValueSet. Uses validated 47625008 (Intravenous route); official assertions remain unchanged and are expected to fail."
+    },
+    "Observation/Alcohol-Abuse-Read-Example": {
+      "source": "Stufe5/Observation-Alcohol-Abuse-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Observation-Alcohol-Abuse-Read.feature",
+        "src/test/resources/features/Stufe5/Medikation/Observation-Alcohol-Abuse-Read.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/Arterial-Blood-Pressure-Read-Example": {
+      "source": "Stufe5/Observation-Arterial-Blood-Pressure-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Arterial-Blood-Pressure.feature",
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Arterial-Blood-Pressure.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Arterial-Blood-Pressure.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Arterial-Blood-Pressure.feature"
+      ]
+    },
+    "Observation/Arterial-Oxygen-Saturation-DataAbsentReason-Example": {
+      "source": "Stufe5/Observation-Arterial-Oxygen-Saturation-DataAbsentReason-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Arterial-Oxygen-Saturation.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Arterial-Oxygen-Saturation.feature"
+      ]
+    },
+    "Observation/Arterial-Oxygen-Saturation-Read-Example": {
+      "source": "Stufe5/Observation-Arterial-Oxygen-Saturation-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Arterial-Oxygen-Saturation.feature",
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Arterial-Oxygen-Saturation.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Arterial-Oxygen-Saturation.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Arterial-Oxygen-Saturation.feature"
+      ]
+    },
+    "Observation/Body-Height-Read-Example": {
+      "source": "Stufe5/Observation-Body-Height-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Body-Height.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Body-Height.feature"
+      ]
+    },
+    "Observation/Body-Temperature-Read-Example": {
+      "source": "Stufe5/Observation-Body-Temperature-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Body-Temperature.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Body-Temperature.feature"
+      ]
+    },
+    "Observation/Body-Weight-Read-Example": {
+      "source": "Stufe5/Observation-Body-Weight-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Body-Weight.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Body-Weight.feature"
+      ]
+    },
+    "Observation/Breastfeeding-Read-Example": {
+      "source": "Stufe5/Observation-Breastfeeding-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Observation-Breastfeeding-Read.feature",
+        "src/test/resources/features/Stufe5/Medikation/Observation-Breastfeeding-Read.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/EKG-Read-Example": {
+      "source": "Stufe5/Observation-EKG-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-EKG.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-EKG.feature"
+      ]
+    },
+    "Observation/Expected-Pregnancy-Delivery-Date-Read-Example": {
+      "source": "Stufe5/Observation-Expected-Pregnancy-Delivery-Date-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Observation-Expected-Pregnancy-Delivery-Date-Read.feature",
+        "src/test/resources/features/Stufe5/Medikation/Observation-Expected-Pregnancy-Delivery-Date-Read.feature"
+      ]
+    },
+    "Observation/GCS-Read-Example": {
+      "source": "Stufe5/Observation-GCS-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-GCS.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-GCS.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/Head-Circumference-Read-Example": {
+      "source": "Stufe5/Observation-Head-Circumference-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Head-Circumference.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Head-Circumference.feature"
+      ]
+    },
+    "Observation/Heart-Rate-Read-Example": {
+      "source": "Stufe5/Observation-Heart-Rate-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Heart-Rate.feature",
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Heart-Rate.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Heart-Rate.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Heart-Rate.feature"
+      ]
+    },
+    "Observation/Pregnancy-Status-Read-Example": {
+      "source": "Stufe5/Observation-Pregnancy-Status-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Observation-Pregnancy-Status-Read.feature",
+        "src/test/resources/features/Stufe5/Medikation/Observation-Pregnancy-Status-Read.feature"
+      ]
+    },
+    "Observation/Respiratory-Rate-Read-Example": {
+      "source": "Stufe5/Observation-Respiratory-Rate-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Respiratory-Rate.feature",
+        "src/test/resources/features/Stufe5/Vitalparameter/Observation-Read-Respiratory-Rate.feature"
+      ]
+    },
+    "Observation/Smoking-Status-Read-Example": {
+      "source": "Stufe5/Observation-Smoking-Status-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Observation-Smoking-Status-Read.feature",
+        "src/test/resources/features/Stufe5/Medikation/Observation-Smoking-Status-Read.feature"
+      ]
+    },
+    "Patient/Patient-Read-Extended-Example": {
+      "source": "Stufe5/Patient-Patient-Read-Extended-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Patient-Read-Extended.feature"
+      ]
+    },
+    "Procedure/Procedure-Read-Example": {
+      "source": "Stufe5/Procedure-Procedure-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/Procedure-Read.feature"
+      ]
+    },
+    "RelatedPerson/RelatedPerson-Read-Example": {
+      "source": "Stufe5/RelatedPerson-RelatedPerson-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Basis/RelatedPerson-Read.feature"
+      ]
+    },
+    "RiskAssessment/RiskAssessment-Read-Example": {
+      "source": "Stufe5/RiskAssessment-RiskAssessment-Read-Example.json",
+      "features": [
+        "src/test/resources/features/Stufe5/Medikation/RiskAssessment-Read.feature"
+      ]
+    },
+    "RiskAssessment/RiskAssessment-Update-Original-Example": {
+      "source": "Stufe5/RiskAssessment-RiskAssessment-Update-Original-Example.json",
+      "features": []
+    },
+    "Schedule/Schedule-Read-Example-Book": {
+      "source": "Stufe5/Schedule-Schedule-Read-Example-Book.json",
+      "features": []
+    },
+    "Appointment/Appointment-Replaced-Example": {
+      "source": "extra/Stufe5/Appointment-Appointment-Replaced-Example.json",
+      "features": []
+    },
+    "DocumentReference/DocumentReference-Replaced-Example": {
+      "source": "extra/Stufe5/DocumentReference-DocumentReference-Replaced-Example.json",
+      "features": [],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Slot/Slot-Book-By-Schedule-Free-Example": {
+      "source": "extra/Stufe5/Slot-Slot-Book-By-Schedule-Free-Example.json",
+      "features": []
+    },
+    "Observation/ICUext-Body-Temperature-Airway-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-Temperature-Airways.feature"
+      ]
+    },
+    "Observation/ICUext-Body-Temperature-Blood-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-Temperature-Blood.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/ICUext-Body-Temperature-Cervical-Spine-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-Temperature-CervicalSpine.feature"
+      ]
+    },
+    "Observation/ICUext-Body-Temperature-Chest-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-Temperature-Chest.feature"
+      ]
+    },
+    "Observation/ICUext-Body-Temperature-Esophagus-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-Temperature-Esophagus.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/ICUext-Body-Temperature-Lumbar-Spine-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-Temperature-LumbarSpine.feature"
+      ]
+    },
+    "Observation/ICUext-Body-Temperature-Myocardium-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-Temperature-Myocardium.feature"
+      ]
+    },
+    "Observation/ICUext-Body-Temperature-Nasopharynx-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-Temperature-Nasopharynx.feature"
+      ]
+    },
+    "Observation/ICUext-Body-Temperature-Thoracic-Spine-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-Temperature-ThoracicSpine.feature"
+      ]
+    },
+    "Observation/ICUext-Cardiac-Output-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-CardiacOutput.feature"
+      ]
+    },
+    "Observation/ICUext-Central-Venous-Blood-Pressure-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-CentralVenousPressure.feature"
+      ]
+    },
+    "Observation/ICUext-Intracranial-Pressure-ICP": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-IntracranialPressure.feature"
+      ]
+    },
+    "Observation/ICUext-Left-Atrial-Pressure-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-LeftAtrialPressure.feature"
+      ]
+    },
+    "Observation/ICUext-Left-Ventricular-Cardiac-Index-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-LeftVentricularCardiacIndex.feature"
+      ]
+    },
+    "Observation/ICUext-Left-Ventricular-Cardiac-Index-By-Indicator-Dilution-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-LeftVentricularCardiacIndexThermodilution.feature"
+      ]
+    },
+    "Observation/ICUext-Left-Ventricular-Cardiac-Output-By-Indicator-Dilution-17": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-LeftVentricularCardiacOutputThermodilution.feature"
+      ]
+    },
+    "Observation/ICUext-Left-Ventricular-Pressure-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-LeftVentricularPressure.feature"
+      ]
+    },
+    "Observation/ICUext-Left-Ventricular-Stroke-Volume-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-LeftVentricularStrokeVolume.feature"
+      ]
+    },
+    "Observation/ICUext-Left-Ventricular-Stroke-Volume-By-Indicator-Dilution": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-LeftVentricularStrokeVolumeByThermodilution.feature"
+      ]
+    },
+    "Observation/ICUext-Left-Ventricular-Stroke-Volume-Index-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-LeftVentricularStrokeVolumeIndex.feature"
+      ]
+    },
+    "Observation/ICUext-Left-Ventricular-Stroke-Volume-Index-Example": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-LeftVentricularStrokeVolumeIndexByThermodilution.feature"
+      ]
+    },
+    "Observation/ICUext-O2-Saturation-In-Blood-Postductal-By-Pulse-Oximetry-67": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-O2SaturationPostductal.feature"
+      ]
+    },
+    "Observation/ICUext-O2-Saturation-In-Blood-Preductal-By-Pulse-Oximetry-6": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-O2SaturationPreductal.feature"
+      ]
+    },
+    "Observation/ICUext-Pulmonary-Arterial-Blood-Pressure-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-PulmonaryArterialPressure.feature"
+      ]
+    },
+    "Observation/ICUext-Pulmonary-Arterial-Wedge-Pressure-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-PulmonaryArterialWedgePressure.feature"
+      ]
+    },
+    "Observation/ICUext-Pulmonary-Vascular-Resistance-Index-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-PulmonaryVascularResistanceIndex.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/ICUext-Right-Atrial-Pressure-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-RightAtrialPressure.feature"
+      ]
+    },
+    "Observation/ICUext-Right-Ventricular-Pressure-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-RightVentricularPressure.feature"
+      ]
+    },
+    "Observation/ICUext-Systemic-Vascular-Resistance-Index-617": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignExtended/Observation-Read-Ext-SystemicVascularResistanceIndex.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/ISiKLaboruntersuchungCRP-Example": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/Labor/Observation-Read-CRP.feature"
+      ]
+    },
+    "Observation/ISiKLaboruntersuchungGFR-Example": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/Labor/Observation-Read-GFR.feature"
+      ]
+    },
+    "Observation/ISiKLaboruntersuchungHb-Example": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/Labor/Observation-Read-Hb.feature"
+      ]
+    },
+    "Observation/ISiKLaboruntersuchungPCT-Example": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/Labor/Observation-Read-PCT.feature"
+      ]
+    },
+    "Observation/ISiKLaboruntersuchungSerumkreatinin-Example": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/Labor/Observation-Read-Serumkreatinin.feature"
+      ]
+    },
+    "Observation/ISiKLaboruntersuchungTSH-Example": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/Labor/Observation-Read-TSH.feature"
+      ]
+    },
+    "Observation/ISiKLaboruntersuchungThrombozyten-Example": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/Labor/Observation-Read-Thrombozyten.feature"
+      ]
+    },
+    "Observation/ISiKLaboruntersuchungTroponin-Example": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/Labor/Observation-Read-Troponin.feature"
+      ]
+    },
+    "Observation/Observation-ICU-Body-Height-Percentile": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Body-Height-Percentile-Age-dependent.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Observation/Observation-ICU-Pulse": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Pulse.feature"
+      ]
+    },
+    "Observation/Observation-ICU-SpO2-Pulse-Oximetry": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-SpO2-Pulse-oximetry.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Observation/Observation-ICU-Temperature-Axillary": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Armpit.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/Observation-ICU-Temperature-Bladder": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Bladder.feature"
+      ]
+    },
+    "Observation/Observation-ICU-Temperature-Core": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Core.feature"
+      ],
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/Observation-ICU-Temperature-Forehead": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Forehead.feature"
+      ]
+    },
+    "Observation/Observation-ICU-Temperature-Groin": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Groin.feature"
+      ]
+    },
+    "Observation/Observation-ICU-Temperature-Joint": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Joint.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Observation/Observation-ICU-Temperature-Nasal": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Nasal.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Observation/Observation-ICU-Temperature-Oral": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Orale.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained.",
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/Observation-ICU-Temperature-Rectal": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Rectal.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained.",
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/Observation-ICU-Temperature-Tympanic": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Eardrum.feature"
+      ]
+    },
+    "Observation/Observation-ICU-Temperature-Vaginal": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Temperature-Vaginal.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained.",
+      "terminologyRepairs": "Coding displays corrected from exact-version terminology service validation responses; codes and suite assertions retained."
+    },
+    "Observation/observation-read-body-weight-percentile-age-dependent-id": {
+      "source": "pinned suite preconditions and ISiK profile example",
+      "features": [
+        "src/test/resources/features/Stufe5/ICU/VitalSignMinimal/Observation-Read-Body-Weight-Percentile-Age-dependent.feature"
+      ],
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Patient/ICUext-PatientinMusterfrau-617": {
+      "source": "synthetic copy for ICU reference context"
+    },
+    "Practitioner/ICUextPractitionerWalterIntensiv834": {
+      "source": "synthetic copy for ICU reference context",
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    },
+    "Encounter/ICUext-Department-Case-617": {
+      "source": "synthetic copy for ICU reference context",
+      "validationRepairs": "Corrected duplicate tags, required fields and profile slices against the pinned ISiK 5.1.3 snapshots and suite 3.0.9 preconditions; clinical test assertions retained."
+    }
+  },
+  "unresolvedReferences": [],
+  "validation": "Static configured-read inventory and reference closure verified. All 130 resources loaded and read back with server profile validation enabled in the linked integration run. This does not establish that all suite assertions pass; known conflicts are documented per resource and in README.md.",
+  "packageVersions": {
+    "hl7.fhir.uv.extensions.r4": "5.2.0",
+    "hl7.terminology.r4": "7.1.0",
+    "de.basisprofil.r4": "1.5.4",
+    "de.ihe-d.terminology": "3.0.1",
+    "dvmd.kdl.r4": "2025.0.1",
+    "de.gematik.terminology": "1.0.7",
+    "de.gematik.ti": "1.1.1",
+    "de.fhir.medication": "1.0.4",
+    "hl7.fhir.uv.subscriptions-backport.r4": "1.1.0",
+    "hl7.fhir.uv.sdc": "4.0.0-ballot",
+    "de.gematik.isik": "5.1.3"
+  },
+  "terminologyVersions": {
+    "http://loinc.org": "2.81",
+    "http://snomed.info/sct": "http://snomed.info/sct/11000274103/version/20251115",
+    "http://fhir.de/CodeSystem/bfarm/atc": "2024",
+    "http://fhir.de/CodeSystem/bfarm/icd-10-gm": "2026.0.0",
+    "http://fhir.de/CodeSystem/bfarm/ops": "2021",
+    "http://hl7.org/fhir/days-of-week": "4.0.1"
+  },
+  "transactionPreparation": "Replace every entry.fullUrl base https://example.org/fhir with the target FHIR server base before submission. Resource payloads and PUT request URLs are unchanged from the validated dataset.",
+  "validationEvidence": {
+    "url": "https://github.com/trifork/thp-conformance/actions/runs/42060404244",
+    "date": "2026-11-05",
+    "resources": 130,
+    "readBackVerified": true,
+    "configuredReadResources": 116,
+    "selectedModule": "connect",
+    "scope": "Fixture loading and read-back; Connect scenario outcomes are separate from fixture validation."
+  }
+}

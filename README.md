@@ -92,6 +92,13 @@ patient-read-id: Patient-Read-Example
 ...
 ```
 
+An optional [synthetic Stufe 5 reference dataset](testdata/Stufe5/fixtures/README.md)
+provides 130 resources covering the configured clinical read targets and their
+references. Its documentation includes package versions, loading instructions,
+mapping for server-assigned IDs, provenance and known assertion conflicts. Connect
+users and tokens require separate setup. Loading the dataset does not establish that
+every test scenario passes.
+
 #### Test Selection
 
 By default, all the mandatory tests for ISiK Level 5 are executed when running the testsuite. In Maven, this is achieved
