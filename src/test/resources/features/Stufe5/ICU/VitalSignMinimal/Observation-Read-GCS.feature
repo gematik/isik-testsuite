@@ -31,7 +31,7 @@ Feature: Read Information from a resource of type Observation for the Glasgow Co
       * Effective date/time: 2026-02-18
       * Total score: 15 with UCUM code 1
       * Components:
-        - Oriented (LOINC 9270-0): LA6558-6
+        - Oriented (LOINC 9270-0): LA6561-0
         - Obeys commands (LOINC 9268-4): LA6567-7
         - Eyes open spontaneously (LOINC 9267-6): LA6556-0
     """
@@ -53,7 +53,7 @@ Feature: Read Information from a resource of type Observation for the Glasgow Co
     And FHIR current response body evaluates the FHIRPath "effective.toString().contains('2026-02-18')" with error message 'The effective date does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "value.where(value ~ 15 and code = '1' and unit.exists() and system = 'http://unitsofmeasure.org').exists()" with error message 'The total score does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "component.count() >= 3" with error message 'The number of components does not match the expected value'
-    And FHIR current response body evaluates the FHIRPath "component.where(code.coding.where(system = 'http://loinc.org' and code = '9270-0' and version = '${icuminimal.loinc-version}' and display.empty().not()).exists() and value.coding.where(system = 'http://loinc.org' and code = 'LA6558-6').exists()).exists()" with error message 'The verbal response component does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "component.where(code.coding.where(system = 'http://loinc.org' and code = '9270-0' and version = '${icuminimal.loinc-version}' and display.empty().not()).exists() and value.coding.where(system = 'http://loinc.org' and code = 'LA6561-0').exists()).exists()" with error message 'The verbal response component does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "component.where(code.coding.where(system = 'http://loinc.org' and code = '9268-4' and version = '${icuminimal.loinc-version}' and display.empty().not()).exists() and value.coding.where(system = 'http://loinc.org' and code = 'LA6567-7').exists()).exists()" with error message 'The motor response component does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "component.where(code.coding.where(system = 'http://loinc.org' and code = '9267-6' and version = '${icuminimal.loinc-version}' and display.empty().not()).exists() and value.coding.where(system = 'http://loinc.org' and code = 'LA6556-0').exists()).exists()" with error message 'The eye-opening component does not match the expected value'
 

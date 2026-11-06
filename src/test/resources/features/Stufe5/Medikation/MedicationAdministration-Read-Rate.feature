@@ -28,8 +28,8 @@ Feature: Read Information from a resource of type MedicationAdministration (Rate
           * System: http://snomed.info/sct
           * Version: 20251115 (can be configured with the property 'snomed-ct-version')
         - Route:
-          * Code: 255560000
-          * Display: Intravenous
+          * Code: 47625008
+          * Display: Intravenous route
           * System: http://snomed.info/sct
           * Version: 20251115 (can be configured with the property 'snomed-ct-version')
     """
@@ -40,6 +40,6 @@ Feature: Read Information from a resource of type MedicationAdministration (Rate
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsVerabreichung"
     And FHIR current response body evaluates the FHIRPath "dosage.text.empty().not()" with error message 'The dosage text is not specified'
     And FHIR current response body evaluates the FHIRPath "dosage.site.coding.where(code = '6073002' and system = 'http://snomed.info/sct' and version = 'http://snomed.info/sct/11000274103/version/${medikation.snomed-ct-version}' and display.empty().not()).exists()" with error message "The dosage site does not match the expected value"
-    And FHIR current response body evaluates the FHIRPath "dosage.route.coding.where(code = '255560000' and system = 'http://snomed.info/sct' and version = 'http://snomed.info/sct/11000274103/version/${medikation.snomed-ct-version}' and display.empty().not()).exists()" with error message "The dosage route does not match the expected value"
+    And FHIR current response body evaluates the FHIRPath "dosage.route.coding.where(code = '47625008' and system = 'http://snomed.info/sct' and version = 'http://snomed.info/sct/11000274103/version/${medikation.snomed-ct-version}' and display.empty().not()).exists()" with error message "The dosage route does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "dosage.dose.code = 'mL' and dosage.dose.system = 'http://unitsofmeasure.org' and dosage.dose.unit.hasValue() and dosage.dose.value ~ 1000" with error message "The total dose does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "(dosage.rate.is(Quantity) and (dosage.rate.code = 'mL/h' and dosage.rate.system = 'http://unitsofmeasure.org' and dosage.rate.unit.hasValue() and dosage.rate.value ~ 50 ) ) or ( dosage.rate.is(Ratio) and ( dosage.rate.numerator.value ~ 50 and dosage.rate.numerator.unit.hasValue() and dosage.rate.numerator.code = 'mL' and dosage.rate.numerator.system = 'http://unitsofmeasure.org' and dosage.rate.denominator.value ~ 1 and dosage.rate.denominator.unit.hasValue() and dosage.rate.denominator.code = 'h' and dosage.rate.denominator.system = 'http://unitsofmeasure.org') )" with error message "The administration rate does not match the expected value"
