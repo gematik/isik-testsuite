@@ -18,6 +18,8 @@ passes. Known conflicts with the suite's assertions are listed below.
   base `https://example.org/fhir`; replace that base before submitting the transaction.
 - [provenance.json](provenance.json) records the source of each resource, relevant
   feature files, adaptations, package versions and validation evidence.
+- [config-mapping.json](config-mapping.json) maps 206 clinical YAML fields to fixture
+  resources and identifies the two document attachment links for the preparation tool.
 - [LICENSE](LICENSE) preserves the MIT notice for the reused InterSystems DACH corpus.
 
 The starting corpus comes from the
@@ -58,6 +60,12 @@ by the resources; access to a terminology server does not by itself establish th
 it hosts those editions. The dataset does not configure a terminology service.
 
 ## Load using the configured example IDs
+
+The optional [fixture preparation tool](../../../tools/fixture-loader/README.md)
+automates preparation, import, read-back and configuration generation. It runs with
+Python or Docker and defaults to an offline dry run. Use `--id-mode preserve` for
+the existing example IDs, or `--id-mode server-assigned` to generate configurations
+using IDs returned by the server. The manual procedure below retains the example IDs.
 
 Use an empty, disposable test environment. The transaction creates or updates the
 specified IDs, including resources later changed by update and delete scenarios.
@@ -146,7 +154,9 @@ the IDs configured in the module YAML files. For a server that assigns IDs:
 Changing `PUT` to `POST` alone is insufficient: the references and YAML values must
 also be mapped. Discovery through unique business identifiers is another option for
 resources that have suitable identifiers. Fail on ambiguous or missing matches.
-No automated ID-remapping tool is included in this dataset contribution.
+The [fixture preparation tool](../../../tools/fixture-loader/README.md) implements
+the transaction and mapping procedure above, including document attachment links.
+It writes new module YAML files without modifying the source configuration.
 
 ## Connect and test isolation
 
