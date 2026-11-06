@@ -1,0 +1,858 @@
+{
+  "schemaVersion": 1,
+  "suiteCommit": "3c8e44c730c139230452c00ba582cec021fa5d61",
+  "configuration": {
+    "basis.yaml": {
+      "account-read-id": {
+        "resource": "Account/Account-Read-Example",
+        "format": "id"
+      },
+      "account-read-patient-id": {
+        "resource": "Patient/Account-Read-Patient-Example",
+        "format": "id"
+      },
+      "allergyintolerance-read-id": {
+        "resource": "AllergyIntolerance/AllergyIntolerance-Read-Example",
+        "format": "id"
+      },
+      "allergyintolerance-read-note-author-id": {
+        "resource": "Practitioner/Practitioner-Read-Example",
+        "format": "id"
+      },
+      "allergyintolerance-read-patient-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "binary-read-id": {
+        "resource": "Binary/Binary-Read-Example",
+        "format": "id"
+      },
+      "codesystem-read-id": {
+        "resource": "CodeSystem/CodeSystem-Read-Example",
+        "format": "id"
+      },
+      "condition-read-active-id": {
+        "resource": "Condition/Condition-Read-Active-Example",
+        "format": "id"
+      },
+      "condition-read-resolved-id": {
+        "resource": "Condition/Condition-Read-Resolved-Example",
+        "format": "id"
+      },
+      "coverage-read-private-id": {
+        "resource": "Coverage/Coverage-Read-Private-Example",
+        "format": "id"
+      },
+      "coverage-read-statutory-id": {
+        "resource": "Coverage/Coverage-Read-Statutory-Example",
+        "format": "id"
+      },
+      "encounter-read-finished-appointment-read-id": {
+        "resource": "Appointment/Appointment-Read-Example",
+        "format": "id"
+      },
+      "encounter-read-finished-id": {
+        "resource": "Encounter/Encounter-Read-Finished-Example",
+        "format": "id"
+      },
+      "encounter-read-in-progress-id": {
+        "resource": "Encounter/Encounter-Read-In-Progress-Example",
+        "format": "id"
+      },
+      "encounter-read-in-progress-location": {
+        "resource": "Location/Location-Read-Example",
+        "format": "id"
+      },
+      "encounter-read-in-progress-service-provider": {
+        "resource": "Organization/Organization-Read-Example",
+        "format": "reference"
+      },
+      "encounter-read-planned-id": {
+        "resource": "Encounter/Encounter-Read-Planned-Example",
+        "format": "id"
+      },
+      "location-bed-placement-read-id": {
+        "resource": "Location/Location-Bed-Placement-Read-Example",
+        "format": "id"
+      },
+      "location-read-id": {
+        "resource": "Location/Location-Read-Example",
+        "format": "id"
+      },
+      "location-room-read-id": {
+        "resource": "Location/Location-Room-Read-Example",
+        "format": "id"
+      },
+      "observation-alcohol-abuse-read-id": {
+        "resource": "Observation/Alcohol-Abuse-Read-Example",
+        "format": "id"
+      },
+      "observation-breastfeeding-read-id": {
+        "resource": "Observation/Breastfeeding-Read-Example",
+        "format": "id"
+      },
+      "observation-expected-pregnancy-delivery-date-read-id": {
+        "resource": "Observation/Expected-Pregnancy-Delivery-Date-Read-Example",
+        "format": "id"
+      },
+      "observation-pregnancy-status-read-id": {
+        "resource": "Observation/Pregnancy-Status-Read-Example",
+        "format": "id"
+      },
+      "observation-smoking-status-read-id": {
+        "resource": "Observation/Smoking-Status-Read-Example",
+        "format": "id"
+      },
+      "organization-read-id": {
+        "resource": "Organization/Organization-Read-Example",
+        "format": "id"
+      },
+      "organization-read-parent-id": {
+        "resource": "Organization/Organization-Read-Parent-Example",
+        "format": "id"
+      },
+      "patient-delete-id": {
+        "resource": "Patient/Patient-Delete-Example",
+        "format": "id"
+      },
+      "patient-read-extended-id": {
+        "resource": "Patient/Patient-Read-Extended-Example",
+        "format": "id"
+      },
+      "patient-read-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "patient-update-cancellation-id": {
+        "resource": "Patient/Patient-Update-Cancellation-Active-Example",
+        "format": "id"
+      },
+      "practitioner-read-id": {
+        "resource": "Practitioner/Practitioner-Read-Example",
+        "format": "id"
+      },
+      "procedure-read-id": {
+        "resource": "Procedure/Procedure-Read-Example",
+        "format": "id"
+      },
+      "relatedperson-read-id": {
+        "resource": "RelatedPerson/RelatedPerson-Read-Example",
+        "format": "id"
+      },
+      "valueset-read-id": {
+        "resource": "ValueSet/ValueSet-Read-Example",
+        "format": "id"
+      }
+    },
+    "dokumentenaustausch.yaml": {
+      "documentreference-post-encounter-id": {
+        "resource": "Encounter/Encounter-Read-Finished-Example",
+        "format": "id"
+      },
+      "documentreference-post-patient-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "documentreference-read-binary-id": {
+        "resource": "Binary/Binary-PDF-Example",
+        "format": "id"
+      },
+      "documentreference-read-encounter-id": {
+        "resource": "Encounter/Encounter-Read-Finished-Example",
+        "format": "id"
+      },
+      "documentreference-read-id": {
+        "resource": "DocumentReference/DocumentReference-Read-Example",
+        "format": "id"
+      },
+      "documentreference-read-patient-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      }
+    },
+    "icu-extended.yaml": {
+      "observation-encounter-id": {
+        "resource": "Encounter/ICUext-Department-Case-617",
+        "format": "id"
+      },
+      "observation-patient-id": {
+        "resource": "Patient/ICUext-PatientinMusterfrau-617",
+        "format": "id"
+      },
+      "observation-practitioner-id": {
+        "resource": "Practitioner/ICUextPractitionerWalterIntensiv834",
+        "format": "id"
+      },
+      "observation-read-ext-cardiac-output-id": {
+        "resource": "Observation/ICUext-Cardiac-Output-617",
+        "format": "id"
+      },
+      "observation-read-ext-central-venous-pressure-id": {
+        "resource": "Observation/ICUext-Central-Venous-Blood-Pressure-617",
+        "format": "id"
+      },
+      "observation-read-ext-intracranial-pressure-id": {
+        "resource": "Observation/ICUext-Intracranial-Pressure-ICP",
+        "format": "id"
+      },
+      "observation-read-ext-left-atrial-pressure-id": {
+        "resource": "Observation/ICUext-Left-Atrial-Pressure-617",
+        "format": "id"
+      },
+      "observation-read-ext-left-ventricular-cardiac-index-id": {
+        "resource": "Observation/ICUext-Left-Ventricular-Cardiac-Index-617",
+        "format": "id"
+      },
+      "observation-read-ext-left-ventricular-pressure-id": {
+        "resource": "Observation/ICUext-Left-Ventricular-Pressure-617",
+        "format": "id"
+      },
+      "observation-read-ext-left-ventricular-stroke-volume-id": {
+        "resource": "Observation/ICUext-Left-Ventricular-Stroke-Volume-617",
+        "format": "id"
+      },
+      "observation-read-ext-left-ventricular-stroke-volume-index-id": {
+        "resource": "Observation/ICUext-Left-Ventricular-Stroke-Volume-Index-617",
+        "format": "id"
+      },
+      "observation-read-ext-lv-cardiac-index-thermodilution-id": {
+        "resource": "Observation/ICUext-Left-Ventricular-Cardiac-Index-By-Indicator-Dilution-617",
+        "format": "id"
+      },
+      "observation-read-ext-lv-cardiac-output-thermodilution-id": {
+        "resource": "Observation/ICUext-Left-Ventricular-Cardiac-Output-By-Indicator-Dilution-17",
+        "format": "id"
+      },
+      "observation-read-ext-lv-stroke-volume-index-thermodilution-id": {
+        "resource": "Observation/ICUext-Left-Ventricular-Stroke-Volume-Index-Example",
+        "format": "id"
+      },
+      "observation-read-ext-lv-stroke-volume-thermodilution-id": {
+        "resource": "Observation/ICUext-Left-Ventricular-Stroke-Volume-By-Indicator-Dilution",
+        "format": "id"
+      },
+      "observation-read-ext-o2-saturation-postductal-id": {
+        "resource": "Observation/ICUext-O2-Saturation-In-Blood-Postductal-By-Pulse-Oximetry-67",
+        "format": "id"
+      },
+      "observation-read-ext-o2-saturation-preductal-id": {
+        "resource": "Observation/ICUext-O2-Saturation-In-Blood-Preductal-By-Pulse-Oximetry-6",
+        "format": "id"
+      },
+      "observation-read-ext-pulmonary-arterial-pressure-id": {
+        "resource": "Observation/ICUext-Pulmonary-Arterial-Blood-Pressure-617",
+        "format": "id"
+      },
+      "observation-read-ext-pulmonary-arterial-wedge-pressure-id": {
+        "resource": "Observation/ICUext-Pulmonary-Arterial-Wedge-Pressure-617",
+        "format": "id"
+      },
+      "observation-read-ext-pulmonary-vascular-resistance-index-id": {
+        "resource": "Observation/ICUext-Pulmonary-Vascular-Resistance-Index-617",
+        "format": "id"
+      },
+      "observation-read-ext-right-atrial-pressure-id": {
+        "resource": "Observation/ICUext-Right-Atrial-Pressure-617",
+        "format": "id"
+      },
+      "observation-read-ext-right-ventricular-pressure-id": {
+        "resource": "Observation/ICUext-Right-Ventricular-Pressure-617",
+        "format": "id"
+      },
+      "observation-read-ext-systemic-vascular-resistance-index-id": {
+        "resource": "Observation/ICUext-Systemic-Vascular-Resistance-Index-617",
+        "format": "id"
+      },
+      "observation-read-ext-temperature-airways-id": {
+        "resource": "Observation/ICUext-Body-Temperature-Airway-617",
+        "format": "id"
+      },
+      "observation-read-ext-temperature-blood-id": {
+        "resource": "Observation/ICUext-Body-Temperature-Blood-617",
+        "format": "id"
+      },
+      "observation-read-ext-temperature-cervical-spine-id": {
+        "resource": "Observation/ICUext-Body-Temperature-Cervical-Spine-617",
+        "format": "id"
+      },
+      "observation-read-ext-temperature-chest-id": {
+        "resource": "Observation/ICUext-Body-Temperature-Chest-617",
+        "format": "id"
+      },
+      "observation-read-ext-temperature-esophagus-id": {
+        "resource": "Observation/ICUext-Body-Temperature-Esophagus-617",
+        "format": "id"
+      },
+      "observation-read-ext-temperature-lumbar-spine-id": {
+        "resource": "Observation/ICUext-Body-Temperature-Lumbar-Spine-617",
+        "format": "id"
+      },
+      "observation-read-ext-temperature-myocardium-id": {
+        "resource": "Observation/ICUext-Body-Temperature-Myocardium-617",
+        "format": "id"
+      },
+      "observation-read-ext-temperature-nasopharynx-id": {
+        "resource": "Observation/ICUext-Body-Temperature-Nasopharynx-617",
+        "format": "id"
+      },
+      "observation-read-ext-temperature-thoracic-spine-id": {
+        "resource": "Observation/ICUext-Body-Temperature-Thoracic-Spine-617",
+        "format": "id"
+      }
+    },
+    "icu-minimal.yaml": {
+      "account-read-id": {
+        "resource": "Account/Account-Read-Example",
+        "format": "id"
+      },
+      "account-read-patient-id": {
+        "resource": "Patient/Account-Read-Patient-Example",
+        "format": "id"
+      },
+      "condition-read-active-id": {
+        "resource": "Condition/Condition-Read-Active-Example",
+        "format": "id"
+      },
+      "encounter-read-finished-id": {
+        "resource": "Encounter/Encounter-Read-Finished-Example",
+        "format": "id"
+      },
+      "encounter-read-in-progress-id": {
+        "resource": "Encounter/Encounter-Read-In-Progress-Example",
+        "format": "id"
+      },
+      "encounter-read-in-progress-location": {
+        "resource": "Location/Location-Read-Example",
+        "format": "id"
+      },
+      "encounter-read-in-progress-service-provider": {
+        "resource": "Organization/Organization-Read-Example",
+        "format": "reference"
+      },
+      "encounter-read-planned-id": {
+        "resource": "Encounter/Encounter-Read-Planned-Example",
+        "format": "id"
+      },
+      "observation-device-id": {
+        "resource": "Device/Device-Read-Example",
+        "format": "id"
+      },
+      "observation-encounter-id": {
+        "resource": "Encounter/Encounter-Read-In-Progress-Example",
+        "format": "id"
+      },
+      "observation-patient-id": {
+        "resource": "Patient/Patient-Read-Extended-Example",
+        "format": "id"
+      },
+      "observation-practitioner-id": {
+        "resource": "Practitioner/Practitioner-Read-Example",
+        "format": "id"
+      },
+      "observation-read-arterial-blood-pressure-id": {
+        "resource": "Observation/Arterial-Blood-Pressure-Read-Example",
+        "format": "id"
+      },
+      "observation-read-arterial-oxygen-saturation-absent-id": {
+        "resource": "Observation/Arterial-Oxygen-Saturation-DataAbsentReason-Example",
+        "format": "id"
+      },
+      "observation-read-arterial-oxygen-saturation-id": {
+        "resource": "Observation/Arterial-Oxygen-Saturation-Read-Example",
+        "format": "id"
+      },
+      "observation-read-body-height-id": {
+        "resource": "Observation/Body-Height-Read-Example",
+        "format": "id"
+      },
+      "observation-read-body-height-percentile-age-dependent-id": {
+        "resource": "Observation/Observation-ICU-Body-Height-Percentile",
+        "format": "id"
+      },
+      "observation-read-body-temperature-id": {
+        "resource": "Observation/Body-Temperature-Read-Example",
+        "format": "id"
+      },
+      "observation-read-body-weight-id": {
+        "resource": "Observation/Body-Weight-Read-Example",
+        "format": "id"
+      },
+      "observation-read-body-weight-percentile-age-dependent-id": {
+        "resource": "Observation/observation-read-body-weight-percentile-age-dependent-id",
+        "format": "id"
+      },
+      "observation-read-ekg-id": {
+        "resource": "Observation/EKG-Read-Example",
+        "format": "id"
+      },
+      "observation-read-gcs-id": {
+        "resource": "Observation/GCS-Read-Example",
+        "format": "id"
+      },
+      "observation-read-head-circumference-id": {
+        "resource": "Observation/Head-Circumference-Read-Example",
+        "format": "id"
+      },
+      "observation-read-heart-rate-id": {
+        "resource": "Observation/Heart-Rate-Read-Example",
+        "format": "id"
+      },
+      "observation-read-pulse-id": {
+        "resource": "Observation/Observation-ICU-Pulse",
+        "format": "id"
+      },
+      "observation-read-respiratory-rate-id": {
+        "resource": "Observation/Respiratory-Rate-Read-Example",
+        "format": "id"
+      },
+      "observation-read-spo2-pulse-oximetry-id": {
+        "resource": "Observation/Observation-ICU-SpO2-Pulse-Oximetry",
+        "format": "id"
+      },
+      "observation-read-temperature-achsel-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Axillary",
+        "format": "id"
+      },
+      "observation-read-temperature-gelenk-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Joint",
+        "format": "id"
+      },
+      "observation-read-temperature-harnblase-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Bladder",
+        "format": "id"
+      },
+      "observation-read-temperature-kern-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Core",
+        "format": "id"
+      },
+      "observation-read-temperature-leiste-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Groin",
+        "format": "id"
+      },
+      "observation-read-temperature-nasal-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Nasal",
+        "format": "id"
+      },
+      "observation-read-temperature-oral-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Oral",
+        "format": "id"
+      },
+      "observation-read-temperature-rektal-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Rectal",
+        "format": "id"
+      },
+      "observation-read-temperature-stirn-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Forehead",
+        "format": "id"
+      },
+      "observation-read-temperature-trommelfell-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Tympanic",
+        "format": "id"
+      },
+      "observation-read-temperature-vaginal-id": {
+        "resource": "Observation/Observation-ICU-Temperature-Vaginal",
+        "format": "id"
+      },
+      "patient-delete-id": {
+        "resource": "Patient/Patient-Delete-Example",
+        "format": "id"
+      },
+      "patient-read-extended-id": {
+        "resource": "Patient/Patient-Read-Extended-Example",
+        "format": "id"
+      },
+      "patient-read-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "patient-update-cancellation-id": {
+        "resource": "Patient/Patient-Update-Cancellation-Active-Example",
+        "format": "id"
+      }
+    },
+    "labor.yaml": {
+      "observation-encounter-id": {
+        "resource": "Encounter/Encounter-Read-Finished-Example",
+        "format": "id"
+      },
+      "observation-patient-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "observation-practitioner-id": {
+        "resource": "Practitioner/Practitioner-Read-Example",
+        "format": "id"
+      },
+      "observation-read-crp-id": {
+        "resource": "Observation/ISiKLaboruntersuchungCRP-Example",
+        "format": "id"
+      },
+      "observation-read-gfr-id": {
+        "resource": "Observation/ISiKLaboruntersuchungGFR-Example",
+        "format": "id"
+      },
+      "observation-read-hb-id": {
+        "resource": "Observation/ISiKLaboruntersuchungHb-Example",
+        "format": "id"
+      },
+      "observation-read-pct-id": {
+        "resource": "Observation/ISiKLaboruntersuchungPCT-Example",
+        "format": "id"
+      },
+      "observation-read-serumkreatinin-id": {
+        "resource": "Observation/ISiKLaboruntersuchungSerumkreatinin-Example",
+        "format": "id"
+      },
+      "observation-read-thrombozyten-id": {
+        "resource": "Observation/ISiKLaboruntersuchungThrombozyten-Example",
+        "format": "id"
+      },
+      "observation-read-troponin-id": {
+        "resource": "Observation/ISiKLaboruntersuchungTroponin-Example",
+        "format": "id"
+      },
+      "observation-read-tsh-id": {
+        "resource": "Observation/ISiKLaboruntersuchungTSH-Example",
+        "format": "id"
+      }
+    },
+    "medikation.yaml": {
+      "list-read-id": {
+        "resource": "List/List-Read-Example",
+        "format": "id"
+      },
+      "list-update-id": {
+        "resource": "List/List-Update-Original-Example",
+        "format": "id"
+      },
+      "medicationadministration-read-extended-id": {
+        "resource": "MedicationAdministration/MedicationAdministration-Read-Extended-Example",
+        "format": "id"
+      },
+      "medicationadministration-read-id": {
+        "resource": "MedicationAdministration/MedicationAdministration-Read-Example",
+        "format": "id"
+      },
+      "medicationadministration-read-rate-id": {
+        "resource": "MedicationAdministration/MedicationAdministration-Read-Rate-Example-Quantity",
+        "format": "id"
+      },
+      "medicationadministration-update-id": {
+        "resource": "MedicationAdministration/MedicationAdministration-Update-Original-Example",
+        "format": "id"
+      },
+      "medication-allergyintolerance-read-id": {
+        "resource": "AllergyIntolerance/AllergyIntolerance-Read-Example",
+        "format": "id"
+      },
+      "medication-allergyintolerance-read-note-author-id": {
+        "resource": "Practitioner/Practitioner-Read-Example",
+        "format": "id"
+      },
+      "medication-allergyintolerance-read-patient-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "medication-condition-id": {
+        "resource": "Condition/Condition-Read-Active-Example",
+        "format": "id"
+      },
+      "medication-condition-active-id": {
+        "resource": "Condition/Condition-Read-Active-Example",
+        "format": "id"
+      },
+      "medication-condition-resolved-id": {
+        "resource": "Condition/Condition-Read-Resolved-Example",
+        "format": "id"
+      },
+      "medication-encounter-basic-role-id": {
+        "resource": "Encounter/Encounter-Basic-Role-Example",
+        "format": "id"
+      },
+      "medication-encounter-id": {
+        "resource": "Encounter/Encounter-Read-In-Progress-Example",
+        "format": "id"
+      },
+      "medication-encounter-location": {
+        "resource": "Location/Location-Read-Example",
+        "format": "id"
+      },
+      "medication-encounter-service-provider": {
+        "resource": "Organization/Organization-Read-Example",
+        "format": "reference"
+      },
+      "medication-observation-alcohol-abuse-read-id": {
+        "resource": "Observation/Alcohol-Abuse-Read-Example",
+        "format": "id"
+      },
+      "medication-observation-breastfeeding-read-id": {
+        "resource": "Observation/Breastfeeding-Read-Example",
+        "format": "id"
+      },
+      "medication-observation-expected-pregnancy-delivery-date-read-id": {
+        "resource": "Observation/Expected-Pregnancy-Delivery-Date-Read-Example",
+        "format": "id"
+      },
+      "medication-observation-pregnancy-status-read-id": {
+        "resource": "Observation/Pregnancy-Status-Read-Example",
+        "format": "id"
+      },
+      "medication-observation-smoking-status-read-id": {
+        "resource": "Observation/Smoking-Status-Read-Example",
+        "format": "id"
+      },
+      "medication-observation-patient-read-id": {
+        "resource": "Patient/Patient-Read-Extended-Example",
+        "format": "id"
+      },
+      "medication-patient-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "medication-practitioner-id": {
+        "resource": "Practitioner/Practitioner-Read-Example",
+        "format": "id"
+      },
+      "medication-procedure-id": {
+        "resource": "Procedure/Procedure-Read-Example",
+        "format": "id"
+      },
+      "medication-read-extended-id": {
+        "resource": "Medication/Medication-Read-Extended-Example",
+        "format": "id"
+      },
+      "medication-read-id": {
+        "resource": "Medication/Medication-Read-Example",
+        "format": "id"
+      },
+      "medication-read-referenced-ingredient": {
+        "resource": "Medication/Medication-Read-Referenced-Ingredient-Example",
+        "format": "id"
+      },
+      "medicationrequest-medication-id": {
+        "resource": "Medication/Medication-Read-Example",
+        "format": "id"
+      },
+      "medicationrequest-read-extended-id": {
+        "resource": "MedicationRequest/MedicationRequest-Read-Extended-Example",
+        "format": "id"
+      },
+      "medicationrequest-read-id": {
+        "resource": "MedicationRequest/MedicationRequest-Read-Example",
+        "format": "id"
+      },
+      "medicationrequest-update-id": {
+        "resource": "MedicationRequest/MedicationRequest-Update-Original-Example",
+        "format": "id"
+      },
+      "medicationstatement-read-extended-id": {
+        "resource": "MedicationStatement/MedicationStatement-Read-Extended-Example",
+        "format": "id"
+      },
+      "medicationstatement-read-id": {
+        "resource": "MedicationStatement/MedicationStatement-Read-Example",
+        "format": "id"
+      },
+      "medicationstatement-read-rate-id": {
+        "resource": "MedicationStatement/MedicationStatement-Read-Rate-Example",
+        "format": "id"
+      },
+      "medicationstatement-update-id": {
+        "resource": "MedicationStatement/MedicationStatement-Update-Original-Example",
+        "format": "id"
+      },
+      "medication-update-id": {
+        "resource": "Medication/Medication-Update-Original-Example",
+        "format": "id"
+      },
+      "riskassessment-condition-id": {
+        "resource": "Condition/Condition-Read-Active-Example",
+        "format": "id"
+      },
+      "riskassessment-encounter-id": {
+        "resource": "Encounter/Encounter-Read-In-Progress-Example",
+        "format": "id"
+      },
+      "riskassessment-observation-id": {
+        "resource": "Observation/Body-Weight-Read-Example",
+        "format": "id"
+      },
+      "riskassessment-patient-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "riskassessment-read-id": {
+        "resource": "RiskAssessment/RiskAssessment-Read-Example",
+        "format": "id"
+      },
+      "riskassessment-update-id": {
+        "resource": "RiskAssessment/RiskAssessment-Update-Original-Example",
+        "format": "id"
+      }
+    },
+    "terminplanung.yaml": {
+      "account-read-id": {
+        "resource": "Account/Account-Read-Example",
+        "format": "id"
+      },
+      "account-read-patient-id": {
+        "resource": "Patient/Account-Read-Patient-Example",
+        "format": "id"
+      },
+      "appointment-book-by-schedule-schedule-id": {
+        "resource": "Schedule/Schedule-Read-Example-Book",
+        "format": "id"
+      },
+      "appointment-book-busy-slot-id": {
+        "resource": "Slot/Slot-Read-Example",
+        "format": "id"
+      },
+      "appointment-book-slot-id": {
+        "resource": "Slot/Slot-Free-Example",
+        "format": "id"
+      },
+      "appointment-patient-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "appointment-practitioner-id": {
+        "resource": "Practitioner/Practitioner-Read-Example",
+        "format": "id"
+      },
+      "appointment-read-id": {
+        "resource": "Appointment/Appointment-Read-Example",
+        "format": "id"
+      },
+      "encounter-read-with-account-id": {
+        "resource": "Encounter/Encounter-Read-Finished-Example",
+        "format": "id"
+      },
+      "encounter-read-appointment-id": {
+        "resource": "Encounter/Encounter-Read-Planned-Example",
+        "format": "id"
+      },
+      "healthcareservice-read-id": {
+        "resource": "HealthcareService/HealthcareService-Read-Example",
+        "format": "id"
+      },
+      "patient-read-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "schedule-read-id": {
+        "resource": "Schedule/Schedule-Read-Example",
+        "format": "id"
+      },
+      "slot-read-id": {
+        "resource": "Slot/Slot-Read-Example",
+        "format": "id"
+      },
+      "terminplanung-encounter-id": {
+        "resource": "Encounter/Encounter-Basic-Role-Example",
+        "format": "id"
+      },
+      "valueset-read-id": {
+        "resource": "ValueSet/ValueSet-Read-Example",
+        "format": "id"
+      }
+    },
+    "vitalparameter.yaml": {
+      "device-id": {
+        "resource": "Device/Example",
+        "format": "id"
+      },
+      "account-read-id": {
+        "resource": "Account/Account-Read-Example",
+        "format": "id"
+      },
+      "account-read-patient-id": {
+        "resource": "Patient/Account-Read-Patient-Example",
+        "format": "id"
+      },
+      "encounter-patient-id": {
+        "resource": "Patient/Patient-Read-Example",
+        "format": "id"
+      },
+      "encounter-read-finished-id": {
+        "resource": "Encounter/Encounter-Read-Finished-Example",
+        "format": "id"
+      },
+      "observation-device-id": {
+        "resource": "Device/Device-Read-Example",
+        "format": "id"
+      },
+      "observation-encounter-id": {
+        "resource": "Encounter/Encounter-Read-In-Progress-Example",
+        "format": "id"
+      },
+      "observation-patient-id": {
+        "resource": "Patient/Patient-Read-Extended-Example",
+        "format": "id"
+      },
+      "observation-practitioner-id": {
+        "resource": "Practitioner/Practitioner-Read-Example",
+        "format": "id"
+      },
+      "observation-read-arterial-blood-pressure-id": {
+        "resource": "Observation/Arterial-Blood-Pressure-Read-Example",
+        "format": "id"
+      },
+      "observation-read-arterial-oxygen-saturation-id": {
+        "resource": "Observation/Arterial-Oxygen-Saturation-Read-Example",
+        "format": "id"
+      },
+      "observation-read-arterial-oxygen-saturation-absent-id": {
+        "resource": "Observation/Arterial-Oxygen-Saturation-DataAbsentReason-Example",
+        "format": "id"
+      },
+      "observation-read-body-height-id": {
+        "resource": "Observation/Body-Height-Read-Example",
+        "format": "id"
+      },
+      "observation-read-body-temperature-id": {
+        "resource": "Observation/Body-Temperature-Read-Example",
+        "format": "id"
+      },
+      "observation-read-body-weight-id": {
+        "resource": "Observation/Body-Weight-Read-Example",
+        "format": "id"
+      },
+      "observation-read-ekg-id": {
+        "resource": "Observation/EKG-Read-Example",
+        "format": "id"
+      },
+      "observation-read-gcs-id": {
+        "resource": "Observation/GCS-Read-Example",
+        "format": "id"
+      },
+      "observation-read-head-circumference-id": {
+        "resource": "Observation/Head-Circumference-Read-Example",
+        "format": "id"
+      },
+      "observation-read-heart-rate-id": {
+        "resource": "Observation/Heart-Rate-Read-Example",
+        "format": "id"
+      },
+      "observation-read-respiratory-rate-id": {
+        "resource": "Observation/Respiratory-Rate-Read-Example",
+        "format": "id"
+      },
+      "vitalparameter-encounter-id": {
+        "resource": "Encounter/Encounter-Basic-Role-Example",
+        "format": "id"
+      }
+    }
+  },
+  "resourceLinks": [
+    {
+      "resource": "DocumentReference/DocumentReference-Read-Example",
+      "path": "/content/0/attachment/url",
+      "target": "Binary/Binary-PDF-Example"
+    },
+    {
+      "resource": "DocumentReference/DocumentReference-Replaced-Example",
+      "path": "/content/0/attachment/url",
+      "target": "Binary/Binary-PDF-Example"
+    }
+  ]
+}

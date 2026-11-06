@@ -2,6 +2,18 @@
 
 # Release Notes
 
+## Unreleased
+
+### added
+
+- Added a draft Python fixture preparation CLI and Docker wrapper, with offline dry
+  runs, server-assigned or preserved IDs, explicit clinical YAML mappings, read-back
+  verification and a manifest for resuming imports without automatically resubmitting.
+- Added an optional synthetic Stufe 5 reference dataset with 130 resources, per-resource
+  provenance and the source license notice. Setup documentation covers version requirements,
+  transaction loading, server-assigned ID mapping, Connect prerequisites and known
+  terminology assertion conflicts. The existing test assertions and YAML defaults are unchanged.
+
 ## Release 3.0.9
 
 ### changed

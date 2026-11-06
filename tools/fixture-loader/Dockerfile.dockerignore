@@ -1,0 +1,16 @@
+**
+!LICENSE
+!tools/
+!tools/fixture-loader/
+!tools/fixture-loader/Dockerfile
+!tools/fixture-loader/prepare_isik_data.py
+!testdata/
+!testdata/Stufe5/
+!testdata/Stufe5/*.yaml
+!testdata/Stufe5/fixtures/
+!testdata/Stufe5/fixtures/bundle.json
+!testdata/Stufe5/fixtures/config-mapping.json
+!testdata/Stufe5/fixtures/provenance.json
+!testdata/Stufe5/fixtures/LICENSE
+!testdata/Stufe5/fixtures/README.md
+testdata/Stufe5/connect.yaml
