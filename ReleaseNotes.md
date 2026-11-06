@@ -2,6 +2,17 @@
 
 # Release Notes
 
+## Unreleased
+
+### fixed
+
+- Corrected the Stufe 5 MedicationAdministration and MedicationStatement rate-test
+  preconditions and assertions to use SNOMED CT `47625008` (Intravenous route),
+  consistent with the required route ValueSet.
+- Corrected the Stufe 5 GCS preconditions and assertions in Vitalparameter and
+  ICU/VitalSignMinimal to use LOINC answer `LA6561-0` (Oriented), consistent with
+  the specified total score of 15.
+
 ## Release 3.0.9
 
 ### changed
