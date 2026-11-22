@@ -1,6 +1,6 @@
 {
   "resourceType": "MedicationAdministration",
-  "id": "MedicationAdministration-Update-Original-Example",
+  "id": "${medikation.medicationadministration-update-id}",
   "meta": {
     "profile": [
       "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikationsVerabreichung"

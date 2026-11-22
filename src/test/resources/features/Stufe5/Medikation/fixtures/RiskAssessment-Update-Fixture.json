@@ -58,6 +58,7 @@
       "outcome": {
         "text": "Kidney failure"
       },
+      "probabilityDecimal": 80,
       "qualitativeRisk": {
         "coding": [
           {

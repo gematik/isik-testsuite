@@ -1,6 +1,6 @@
 {
   "resourceType": "Medication",
-  "id": "Medication-Update-Original-Example",
+  "id": "${medikation.medication-update-id}",
   "meta": {
     "profile": [
       "https://gematik.de/fhir/isik/StructureDefinition/ISiKMedikament"
