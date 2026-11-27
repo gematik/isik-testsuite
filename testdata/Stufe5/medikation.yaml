@@ -42,6 +42,7 @@ medicationrequest-update-id: MedicationRequest-Update-Original-Example
 medicationstatement-read-extended-id: MedicationStatement-Read-Extended-Example
 medicationstatement-read-id: MedicationStatement-Read-Example
 medicationstatement-read-rate-id: MedicationStatement-Read-Rate-Example
+medicationstatement-read-rate-quantity-id: MedicationStatement-Read-Rate-Example-Quantity
 medicationstatement-read-request-id: MedicationStatement-Read-Request-Example
 medicationstatement-update-id: MedicationStatement-Update-Original-Example
 medication-transaction-medication-id: Medication-Transaction-Example

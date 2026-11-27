@@ -51,8 +51,8 @@ Feature: Testing search parameters against a resource of type Organization (@Org
     And response bundle contains resource with ID "${basis.organization-read-id}" with error message "The requested Organization ${basis.organization-read-id} is not contained in the response bundle."
 
   Scenario: Search for the Organization by Count
-    When Get FHIR resource at "http://fhirserver/Organization/?_count" with content type "xml"
-    And FHIR current response body evaluates the FHIRPath 'total > 0 and entry.resource.count() > 0' with error message 'No search results were found'
+    When Get FHIR resource at "http://fhirserver/Organization/?_count=1" with content type "xml"
+    And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0 and entry.resource.count() <= 1' with error message 'The _count parameter was not applied as expected'
 
   Scenario: Search for the Organization by Identifier
     When Get FHIR resource at "http://fhirserver/Organization/?identifier=${basis.organization-read-identifier-system}%7C${basis.organization-read-identifier-value}" with content type "xml"

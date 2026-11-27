@@ -23,10 +23,15 @@ Feature: Update Patient (@Patient-Update-Cancellation) (Optional)
       """
 
   Scenario: Cancellation of a patient via Update
-    Given TGR set default header "Content-Type" to "application/fhir+json"
+    Given Get FHIR resource at "http://fhirserver/Patient/${icuminimal.patient-update-cancellation-id}" with content type "json"
+    And TGR current response with attribute "$.header.[~'etag']" matches ".+"
+    And TGR store current response node text value at "$.header.[~'etag']" in variable "icuminimal.patient-update-cancellation-etag"
+    And TGR set default header "If-Match" to "${icuminimal.patient-update-cancellation-etag}"
+    And TGR set default header "Content-Type" to "application/fhir+json"
     When TGR send PUT request to "http://fhirserver/Patient/${icuminimal.patient-update-cancellation-id}" with body "!{file('src/test/resources/features/Stufe5/Basis/fixtures/Patient-Update-Cancellation-Inactive-Fixture.json')}"
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
+    And TGR clear default header "If-Match"
     And TGR send empty GET request to "http://fhirserver/Patient/${icuminimal.patient-update-cancellation-id}"
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"

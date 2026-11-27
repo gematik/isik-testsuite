@@ -26,7 +26,7 @@ Feature: Read information from a resource of type Observation for pregnancy stat
           * Version: 2.81 (can be configured with the property 'loinc-version')
       * Patient: Patient from the Patient-Read-Extended test case
       * Performer: Practitioner from the Practitioner-Read test case
-      * Encounter: Encounter from the Encounter-Read-In-Progress test case
+      * Encounter: an Encounter belonging to the Patient-Read-Extended test case, identified by the configuration variable 'encounter-read-in-progress-extended-patient-id'
       * Effective date/time: 2026-01-06
       * Value:
         - Coding:
@@ -50,7 +50,7 @@ Feature: Read information from a resource of type Observation for pregnancy stat
     And FHIR current response body evaluates the FHIRPath "code.coding.where(system = 'http://loinc.org' and code = '82810-3' and version = '${basis.loinc-version}' and display.empty().not()).exists()" with error message 'The LOINC code for pregnancy status does not match the expected value'
     And element "subject" references resource with ID "Patient/${basis.patient-read-extended-id}" with error message "The referenced patient does not match the expected value"
     And element "performer" references resource with ID "Practitioner/${basis.practitioner-read-id}" with error message "The referenced performer does not match the expected value"
-    And element "encounter" references resource with ID "Encounter/${basis.encounter-read-in-progress-id}" with error message "The referenced encounter does not match the expected value"
+    And element "encounter" references resource with ID "Encounter/${basis.encounter-read-in-progress-extended-patient-id}" with error message "The referenced encounter does not match the expected value"
     And element "hasMember" references resource with ID "Observation/${basis.observation-expected-pregnancy-delivery-date-read-id}" with error message "The referenced expected delivery date observation does not match the expected value"
     And FHIR current response body evaluates the FHIRPath "effective.toString().contains('2026-01-06')" with error message 'The effective date does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "value.coding.where(system = 'http://loinc.org' and code = 'LA15173-0' and version = '${basis.loinc-version}' and display.empty().not()).exists()" with error message 'The pregnancy status value does not match the expected value'

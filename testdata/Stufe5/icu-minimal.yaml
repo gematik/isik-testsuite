@@ -28,6 +28,7 @@ observation-read-body-height-id: Body-Height-Read-Example
 observation-read-body-height-percentile-age-dependent-id: Observation-ICU-Body-Height-Percentile
 observation-read-body-temperature-id: Body-Temperature-Read-Example
 observation-read-body-weight-id: Body-Weight-Read-Example
+observation-read-body-weight-ideal-id: Observation-ICU-Ideal-Body-Weight
 observation-read-body-weight-percentile-age-dependent-id: observation-read-body-weight-percentile-age-dependent-id
 observation-read-ekg-id: EKG-Read-Example
 observation-read-gcs-id: GCS-Read-Example

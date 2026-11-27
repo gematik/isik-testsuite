@@ -41,30 +41,30 @@
             </excludes>
         </fileSet>
         <fileSet>
-            <directory>${project.build.directory}/site/serenity</directory>
-            <outputDirectory>serenity</outputDirectory>
+            <directory>${project.build.directory}/sanitized-reports/debug-report</directory>
+            <outputDirectory>/</outputDirectory>
             <includes>
-                <include>*.*</include>
-                <include>downloadable/*</include>
+                <include>serenity/*.*</include>
+                <include>serenity/downloadable/*</include>
             </includes>
             <excludes>
-                <exclude>downloadable/*CapabilityStatement*</exclude>
+                <exclude>serenity/downloadable/*CapabilityStatement*</exclude>
             </excludes>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}</directory>
-            <outputDirectory>config</outputDirectory>
+            <directory>${project.build.directory}/sanitized-reports/debug-report</directory>
+            <outputDirectory>/</outputDirectory>
             <includes>
-                <include>tiger.yaml</include>
-                <include>target/test-classes/testdata/*.yaml</include>
+                <include>config/tiger.yaml</include>
+                <include>config/target/test-classes/testdata/*.yaml</include>
             </includes>
         </fileSet>
         <fileSet>
-            <directory>${project.basedir}</directory>
-            <outputDirectory>logs</outputDirectory>
+            <directory>${project.build.directory}/sanitized-reports/debug-report</directory>
+            <outputDirectory>/</outputDirectory>
             <includes>
-                <include>target/failsafe-reports/*.txt</include>
-                <include>target/serverLogs/**.*</include>
+                <include>logs/target/failsafe-reports/*.txt</include>
+                <include>logs/target/serverLogs/**.*</include>
             </includes>
         </fileSet>
     </fileSets>
