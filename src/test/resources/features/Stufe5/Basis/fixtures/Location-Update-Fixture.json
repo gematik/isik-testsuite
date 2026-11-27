@@ -1,0 +1,76 @@
+{
+  "resourceType": "Location",
+  "id": "${basis.location-update-id}",
+  "meta": {
+    "tag": [
+      {
+        "code": "external",
+        "system": "http://fhir.de/CodeSystem/common-meta-tag-de"
+      }
+    ],
+    "profile": [
+      "https://gematik.de/fhir/isik/StructureDefinition/ISiKStandort"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://fhir.de/sid/dkgev/standortnummer",
+      "value": "123457"
+    }
+  ],
+  "mode": "instance",
+  "name": "Station B Updated",
+  "type": [
+    {
+      "coding": [
+        {
+          "code": "LOCHFID",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
+        }
+      ]
+    }
+  ],
+  "address": {
+    "line": [
+      "Krankenhausstraße 123"
+    ],
+    "city": "Musterstadt",
+    "postalCode": "10827",
+    "country": "DE"
+  },
+  "physicalType": {
+    "coding": [
+      {
+        "code": "wa",
+        "system": "http://terminology.hl7.org/CodeSystem/location-physical-type",
+        "display": "Ward"
+      }
+    ]
+  },
+  "position": {
+    "latitude": 52.52,
+    "longitude": 13.405
+  },
+  "managingOrganization": {
+    "reference": "Organization/Organization-Read-Example"
+  },
+  "hoursOfOperation": [
+    {
+      "daysOfWeek": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri"
+      ],
+      "allDay": true
+    },
+    {
+      "daysOfWeek": [
+        "sat"
+      ],
+      "openingTime": "08:00:00",
+      "closingTime": "13:00:00"
+    }
+  ]
+}

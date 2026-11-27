@@ -74,7 +74,7 @@ Feature: Testing search parameters against Observation resources for status-rela
     And FHIR current response body evaluates the FHIRPath 'entry.resource.all(encounter.reference.replaceMatches("/_history/.+","").matches("\\b${basis.encounter-read-in-progress-id}$"))' with error message 'There are search results, but they do not fully match the encounter search criteria'
 
   Scenario Outline: Search for Observation resources by Code and Encounter
-    When Get FHIR resource at "http://fhirserver/Observation/?code=http://loinc.org%7C<loincCode>&encounter=Encounter/${basis.encounter-read-in-progress-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Observation/?code=http://loinc.org%7C<loincCode>&encounter=Encounter/${basis.encounter-read-in-progress-extended-patient-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(code.coding.where(code = '<loincCode>' and system = 'http://loinc.org').exists())" with error message 'There are search results, but they do not fully match the code search criteria'
     And response bundle contains resource with ID "<observationId>" with error message "The requested Observation <observationId> is not contained in the response bundle"
@@ -98,7 +98,7 @@ Feature: Testing search parameters against Observation resources for status-rela
     And FHIR current response body evaluates the FHIRPath "entry.resource.all(effective.toString().contains('2026-01-06'))" with error message 'There are search results, but they do not fully match the date search criteria'
 
   Scenario: Search for Observation resources by Encounter and Patient
-    When Get FHIR resource at "http://fhirserver/Observation/?encounter=Encounter/${basis.encounter-read-in-progress-id}&patient=Patient/${basis.patient-read-extended-id}" with content type "xml"
+    When Get FHIR resource at "http://fhirserver/Observation/?encounter=Encounter/${basis.encounter-read-in-progress-extended-patient-id}&patient=Patient/${basis.patient-read-extended-id}" with content type "xml"
     And FHIR current response body evaluates the FHIRPath 'entry.resource.count() > 0' with error message 'No search results were found'
     And element "subject" in all bundle resources references resource with ID "Patient/${basis.patient-read-extended-id}"
 

@@ -41,7 +41,7 @@ Feature: Read Information from a resource of type Location (@Location-Read) (Opt
     When Get FHIR resource at "http://fhirserver/Location/${basis.location-read-id}" with content type "xml"
     And FHIR current response body is a valid isik5 resource and conforms to profile "https://gematik.de/fhir/isik/StructureDefinition/ISiKStandort"
     And resource has ID "${basis.location-read-id}" with error message "The ID does not match the expected value"
-    And FHIR current response body evaluates the FHIRPath "identifier.where(system = 'http://fhir.de/sid/dkgev/standortnummer' and value = '${basis.location-read-identifier-value}').exists()" with error message 'The Organization IKNR does not match the expected value'
+    And FHIR current response body evaluates the FHIRPath "identifier.where(system = 'http://fhir.de/sid/dkgev/standortnummer' and value = '${basis.location-read-identifier-value}').exists()" with error message 'The Location DKG Standortnummer does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "type.coding.where(system = 'http://terminology.hl7.org/CodeSystem/v3-RoleCode' and code = 'LOCHFID').exists()" with error message 'The Location type code does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "name = 'Station A'" with error message 'The Location name does not match the expected value'
     And FHIR current response body evaluates the FHIRPath "mode = 'instance'" with error message 'The Location mode does not match the expected value'

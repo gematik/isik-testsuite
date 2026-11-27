@@ -1,7 +1,7 @@
 # language: en
 @Stufe5
 @Medikation
-@Mandatory
+@Optional
 @ISiKCapabilityStatementAMTSRolle
 @RiskAssessment-Search
 Feature: Testing search parameters against a resource of type RiskAssessment (@RiskAssessment-Search)

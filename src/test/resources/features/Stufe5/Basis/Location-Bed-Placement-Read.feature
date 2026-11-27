@@ -13,7 +13,7 @@ Feature: Read Information from a resource of type Location that identifies the p
     """
       - The Organization-Read and Location-Room-Read test cases must have been executed successfully beforehand.
       - The test dataset must have been entered in the system under test according to the specifications (manually).
-      - The ID of the corresponding FHIR resource for this test dataset must be stored in the configuration variable 'location-room-read-id'.
+      - The ID of the corresponding FHIR resource for this test dataset must be stored in the configuration variable 'location-bed-placement-read-id'.
 
       Create a Location resource with these fields:
 

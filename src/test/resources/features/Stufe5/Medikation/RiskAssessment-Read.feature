@@ -1,7 +1,7 @@
 # language: en
 @Stufe5
 @Medikation
-@Mandatory
+@Optional
 @ISiKCapabilityStatementAMTSRolle
 @RiskAssessment-Read
 Feature: Read Information from a resource of type RiskAssessment (@RiskAssessment-Read)

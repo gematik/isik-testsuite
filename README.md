@@ -44,7 +44,7 @@ See [ReleaseNotes.md](./ReleaseNotes.md) for all information regarding the (newe
 To run the test suite you need the following components:
 
 1. This test suite, which you can get either by cloning this repository or downloading the latest release.
-    - If you want to run the test suite using Maven, you need to have `Java 17` and `Maven` installed on your machine.
+    - If you want to run the test suite using Maven, you need to have `Java 21` and `Maven` installed on your machine.
       If you are behind a proxy, please make sure to configure the proxy settings for Java and Maven.
     - If you want to run the test suite using Docker, you need to have `Docker` and `Docker Compose` installed on your
       machine. If you are behind a proxy, please make sure to configure the proxy settings accordingly.
@@ -205,6 +205,9 @@ configuration file.
 
 After the test suite finishes the archived test results can be found in `debug-report.zip` file (take notice of the
 `debug-report` suffix) or `target/site/serenity/index.html` in case of a Maven run.
+
+Sensitive values such as authorization headers, bearer tokens, and configured credentials are redacted from files
+included in `debug-report.zip` and `test-report.zip`. The original reports and configuration files are left unchanged.
 
 > **Warning**
 > Each test run deletes the reports of the previous run. Backup the created reports if you need them in the future.

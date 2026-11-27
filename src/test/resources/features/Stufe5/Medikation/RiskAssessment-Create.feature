@@ -1,7 +1,7 @@
 # language: en
 @Stufe5
 @Medikation
-@Mandatory
+@Optional
 @ISiKCapabilityStatementAMTSRolle
 @RiskAssessment-Create
 Feature: Create a resource of type RiskAssessment (@RiskAssessment-Create)

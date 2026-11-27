@@ -2,16 +2,35 @@
 
 # Release Notes
 
-## Unreleased
+## Release 3.1.0
+
+### added
+
+- Test Scenario for Location Update
+- Added an ICU VitalSignMinimal read test for ideal body weight (ANFISK-586)
+- Added a MedicationStatement read test for a `rateQuantity` rate (ANFPSE-3991)
+
+### changed
+
+- Updated Tiger Framework to 4.5.0
+- Updated Project to run with Java 21 (Required by Tiger)
+- Removal of `context.event` in DocumentReference-Read, since it's not Must-Support
+- Added `http://fhir.de/CodeSystem/ifa/pzn` to the list of ignored CodeSystem in the validation plugin
+- `RiskAssessment` Test Scenarios are now optional
 
 ### fixed
 
-- Corrected the Stufe 5 MedicationAdministration and MedicationStatement rate-test
+- Corrected `ValueSet-Read.feature` to accept also `fhirVersion` in Header (ANFISK-566)
   preconditions and assertions to use SNOMED CT `47625008` (Intravenous route),
-  consistent with the required route ValueSet.
+  consistent with the required route ValueSet. (https://github.com/gematik/isik-testsuite/pull/35)
 - Corrected the Stufe 5 GCS preconditions and assertions in Vitalparameter and
   ICU/VitalSignMinimal to use LOINC answer `LA6561-0` (Oriented), consistent with
-  the specified total score of 15.
+  the specified total score of 15. (https://github.com/gematik/isik-testsuite/pull/35)
+- Fix `Medikation` Test Fixtures, including custom ids (https://github.com/gematik/isik-testsuite/pull/39)
+- TestSuite report archives expose sensitive authorization data (ANFISK-561)
+- Organization Count scenario does not test page size and requires optional Bundle total (ANFISK-580)
+- All PUT update resources - missing If-Match in TIGER update tests (ANFISK-584)
+- Bed-space setup instructions name the wrong configuration variable (ANFISK-577)
 
 ## Release 3.0.9
 

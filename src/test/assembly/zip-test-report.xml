@@ -33,17 +33,11 @@
     </formats>
     <fileSets>
         <fileSet>
-            <directory>${project.build.directory}/site/serenity</directory>
+            <directory>${project.build.directory}/sanitized-reports/test-report</directory>
             <outputDirectory>/</outputDirectory>
             <includes>
                 <include>unresolvedReports/*.json</include>
                 <include>serenity-summary.html</include>
-            </includes>
-        </fileSet>
-        <fileSet>
-            <directory>${project.basedir}</directory>
-            <outputDirectory>/</outputDirectory>
-            <includes>
                 <include>pom.xml</include>
             </includes>
         </fileSet>

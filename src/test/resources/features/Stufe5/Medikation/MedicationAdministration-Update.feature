@@ -20,10 +20,15 @@ Feature: Update a resource of type MedicationAdministration (@MedicationAdminist
     And CapabilityStatement contains interaction "update" for resource "MedicationAdministration"
 
   Scenario: Update a MedicationAdministration resource
-    Given TGR set default header "Content-Type" to "application/fhir+json"
+    Given Get FHIR resource at "http://fhirserver/MedicationAdministration/${medikation.medicationadministration-update-id}" with content type "json"
+    And TGR current response with attribute "$.header.[~'etag']" matches ".+"
+    And TGR store current response node text value at "$.header.[~'etag']" in variable "medikation.medicationadministration-update-etag"
+    And TGR set default header "If-Match" to "${medikation.medicationadministration-update-etag}"
+    And TGR set default header "Content-Type" to "application/fhir+json"
     When TGR send PUT request to "http://fhirserver/MedicationAdministration/${medikation.medicationadministration-update-id}" with body "!{file('src/test/resources/features/Stufe5/Medikation/fixtures/MedicationAdministration-Update-Fixture.json')}"
     And TGR find the last request
     Then TGR current response with attribute "$.responseCode" matches "200"
+    And TGR clear default header "If-Match"
     And TGR send empty GET request to "http://fhirserver/MedicationAdministration/${medikation.medicationadministration-update-id}"
     And TGR find the last request
     And TGR current response with attribute "$.body.note.0.text.content" matches "Updated note"
